@@ -1,0 +1,225 @@
+.main {
+  display: block !important;
+  position: relative;
+  z-index: 2;
+}
+
+.homepage-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.banner-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.banner-content {
+  height: 1019px;
+  width: 1519px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.tp-mask-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.tp-caption,
+.tp-mask-wrap {
+  text-align: center;
+  margin-bottom: 200px;
+  position: absolute;
+  z-index: 100;
+}
+.about-content {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+.right-content {
+  width: 42%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-content .welcome-text {
+  display: inline;
+  font-size: 13.33px;
+  line-height: 23.994px;
+  text-transform: uppercase;
+  align-self: flex-start;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.right-content .heading-text {
+  display: inline;
+  font-size: 24px;
+  letter-spacing: 0.2px;
+  line-height: 36px;
+  text-align: left;
+  text-transform: uppercase;
+  align-self: flex-start;
+  margin-bottom: 30px;
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+.right-content .description {
+  font-family: Arial;
+  font-size: 13.33px;
+  line-height: 23.994px;
+  padding: 0px 0px 6.665px;
+  margin: 0;
+  color: var(--white-color);
+}
+.left-content {
+  flex: 1;
+  align-self: center;
+  position: relative;
+}
+
+.left-content .carousel-img {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 22%;
+  height: 90%;
+  gap: 5px;
+}
+.about-img {
+  background-image: url("https://saigonhotel.com.vn/wp-content/uploads/2019/09/sgh-welcom-2.jpg");
+  width: 100%;
+  height: 450px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.offer-heading,
+.slider-heading {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 50px;
+}
+#myCarousel {
+  height: 1019px;
+  width: 1519px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -100px;
+}
+
+.uk-slider-items .slider-item {
+  width: 340px;
+  height: 500px;
+}
+
+.uk-panel {
+  position: relative;
+  height: 100%;
+}
+
+.uk-panel img {
+  height: 100%;
+  opacity: 0.8;
+  box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.5);
+}
+
+.uk-panel_content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: red;
+  justify-content: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), var(--red));
+  border-radius: 30px;
+  opacity: 0;
+  width: 100%;
+}
+
+.uk-panel:hover .uk-panel_content {
+  opacity: 1;
+  transition: 0.5s ease;
+}
+
+.uk-panel h1 {
+  position: absolute;
+  /* top: 0; */
+  bottom: 50px;
+  left: 30px;
+  right: 0;
+  color: var(--white-color);
+  font-size: 20.8px;
+  line-height: 31.2px;
+  margin: 0px 0px 18px;
+  text-transform: uppercase;
+}
+.offer-heading {
+  margin-top: 50px;
+}
+.offer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.offer-item {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  background-color: var(--white-color);
+  padding: 15px;
+}
+
+.offer-item img {
+}
+
+.offer-item h4 {
+  margin: 10px 0;
+  font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  color: var(--primary-color);
+  height: 52px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.offer-item a {
+  text-align: center;
+  border: none;
+  color: var(--primary-color);
+  background: transparent;
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 20px;
+  text-transform: uppercase;
+}
+
+.offer-item a:hover {
+  color: var(--primary-color);
+
+}
