@@ -364,6 +364,46 @@
 					</div>
 				</div>
 			</div>
+			<div id="message" class="content-item active">
+				<div class="head-title">
+					<div class="left">
+						<h1>Message</h1>
+						<ul class="breadcrumb">
+							<li>
+								<a href="#">Message</a>
+							</li>
+							<li><i class='bx bx-chevron-right'></i></li>
+							<li>
+								<a class="menu-item" href="#">Home</a>
+							</li>
+						</ul>
+					</div>
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download'></i>
+						<span class="text">Download PDF</span>
+					</a>
+				</div>
+			</div>
+			<div id="employee" class="content-item active">
+				<div class="head-title">
+					<div class="left">
+						<h1>Employee</h1>
+						<ul class="breadcrumb">
+							<li>
+								<a href="#">Employee</a>
+							</li>
+							<li><i class='bx bx-chevron-right'></i></li>
+							<li>
+								<a class="menu-item" href="#">Home</a>
+							</li>
+						</ul>
+					</div>
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download'></i>
+						<span class="text">Download PDF</span>
+					</a>
+				</div>
+			</div>
 		</main>
 		<!-- MAIN -->
 	</section>
