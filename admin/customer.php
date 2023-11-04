@@ -243,6 +243,127 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div id="booking" class="content-item active">
+				<div class="head-title">
+					<div class="left">
+						<h1>Booking</h1>
+						<ul class="breadcrumb">
+							<li>
+								<a href="#">Booking</a>
+							</li>
+							<li><i class='bx bx-chevron-right'></i></li>
+							<li>
+								<a class="menu-item" href="#">Home</a>
+							</li>
+						</ul>
+					</div>
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download'></i>
+						<span class="text">Download PDF</span>
+					</a>
+				</div>
+				<div class="booking-inf">
+					<div class="card shadow mb-4">
+						<div class="card-body">
+							<div class="table-responsive">
+								<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+									<div class="row">
+										<div class="col-sm-12 col-md-6">
+											<div class="dataTables_length" id="dataTable_length">
+												<label>
+													Show
+													<select name="dataTable_length" aria-controls="dataTable" class="book-select book-select-sm form-control form-control -sm">
+														<option value="10">10</option>
+														<option value="25">25</option>
+														<option value="50">50</option>
+														<option value="100">100</option>
+													</select>
+													entries
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-6">
+											<div id="dataTable_filter" class="dataTables_filter">
+												<label>
+													Search:
+													<input type="search" class="form-control form-control-sm" placeholder aria-controls="dataTable">
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12">
+											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th><input type="checkbox"></th>
+														<th>id</th>
+														<th>Room</th>
+														<th>Number of vacant</th>
+														<th>Customer</th>
+														<th>Status</th>
+														<th>Start date</th>
+														<th>End date</th>
+													</tr>
+												</thead>
+												<tfoot>
+													<tr>
+														<th><input type="checkbox"></th>
+														<th>id</th>
+														<th>Room</th>
+														<th>Number of vacant</th>
+														<th>Customer</th>
+														<th>Status</th>
+														<th>Start date</th>
+														<th>End date</th>
+													</tr>
+												</tfoot>
+												<tbody>
+													<tr>
+														<td><input type="checkbox"></td>
+														<td>1</td>
+														<td>Executive</td>
+														<td>1</td>
+														<td>Tiger Nixon</td>
+														<td>Purchased</td>
+														<td>2023/10/16</td>
+														<td>2023/10/20</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12 col-md-5">
+											<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div class="dataTables_paginate paging_simple_numbers" id="dataTabl e_paginate">
+												<ul class="pagination">
+													<li class="paginate_button page-item previous disabled" id="dat aTable_previous">
+														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+													</li>
+													<li class="paginate_button page-item active"></li>
+													<li class="paginate_button page-item"></li>
+													<li class="paginate_button page-item"></li>
+													<li class="paginate_button page-item"></li>
+													<li class="paginate_button page-item"></li>
+													<li class="paginate button page-item"></li>
+													<li class="paginate_button page-item next" id="dataTable_next">
+														<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 		<!-- MAIN -->
 	</section>

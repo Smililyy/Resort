@@ -370,7 +370,8 @@ body {
   display: inline-block;
 }
 
-.custom-select-sm {
+.custom-select-sm,
+.book-select-sm {
   height: calc(1.5em + 0.5rem + 2px);
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -379,7 +380,8 @@ body {
 }
 .custom-control-label::before,
 .custom-file-label,
-.custom-select {
+.custom-select,
+.book-select {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 }
