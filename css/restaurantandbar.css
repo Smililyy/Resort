@@ -1,0 +1,198 @@
+
+.ResandBar-container{
+    display: flex;
+    flex-direction: column;
+}
+.wallpaper{
+    position: relative;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    height:auto;
+    width: 100%;
+    overflow: hidden;
+}
+.wallpaper img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.wallpaper h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* Adjust text color as needed */
+
+}
+.Menu-container{
+    display: flex;
+    position: relative;
+    background-color: white;
+    padding: 20px;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+}
+
+.carousel {
+    display: flex;
+    overflow: hidden;
+    width: 50%; 
+    margin: auto; 
+    position: relative;
+}
+
+.carousel-content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 200%; 
+}
+
+.carousel-item {
+    flex: 0 0 100%; 
+    box-sizing: border-box;
+}
+
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    background-color: brown;
+    border: none;
+    padding: 10px;
+    outline: none;
+    user-select: none;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+.Description{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+}
+.Title h2{
+    color: brown;
+    font-weight: 400;
+    font-size: 26px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+    text-align: center;
+}
+.info p {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 13.3px;
+    padding-left: 15%;
+    padding-right: 15%;
+    line-height: 1.8em;
+}
+.info ul{ 
+    font-family: arial,helvetica,sans-serif; 
+    font-size: 13px;
+    padding-left: 20%;
+    line-height: 1.8em;
+}
+.nav-reservation{
+    display: flex;
+    justify-content: center;
+}
+.nav-reservation a {
+    color: brown;
+    text-decoration: none;
+    font-size: 13.3px;
+}
+.nav-reservation :hover{
+    color: brown;
+    text-decoration: underline brown;
+}
+.Reservation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15%;
+    padding-right: 15%;
+    position: relative;
+}
+.Contact{
+    width: 100%;
+}
+.Contact h2 {
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+.Contact p {
+    width: 100%;
+    color: white;
+    text-align: center;
+    line-height: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.3px;
+}
+.Reservation form {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Reservation label {
+    display: none;
+}
+
+.Reservation input,
+.Reservation select,
+.Reservation textarea {
+    width: 45%;
+    height: 50px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-bottom: 16px;
+    margin-right: 2%;
+}
+
+.Reservation button {
+    width: 40%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the button horizontally */
+    background-color: rgb(97, 31, 31);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.Reservation button:hover {
+    background-color: brown;
+}
+
+
+
+
+/*============================================== */
+@media only screen and (max-width: 768px) {
+    .carousel {
+        width: 100%;
+    }
+}
