@@ -113,6 +113,7 @@
   text-align: center;
   margin-bottom: 50px;
 }
+
 #myCarousel {
   height: 1019px;
   width: 1519px;
@@ -219,7 +220,42 @@
   text-transform: uppercase;
 }
 
-.offer-item a:hover {
-  color: var(--primary-color);
+/*Event css*/
+.event-container {
+}
 
+.event-content {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  align-items: center;
+  padding-top: 35px;
+}
+
+.event-left-content {
+  width: 50%;
+  display: flex;
+  gap: 42px;
+  flex-direction: column;
+}
+
+.event-right-content {
+  flex: 1;
+}
+
+.event-left-content .event-des-wrapper {
+  background-color: var(--white-color);
+  padding: 25px 30px;
+}
+.event-left-content .event-slider-img {
+  width: 100%;
+}
+
+.event-des-wrapper p {
+  color: #2f2b2c;
+  font-family: Arial;
+  font-size: 12px;
+  grid-area: auto;
+  line-height: 23.994px;
+  margin: 0px 0px 20px;
 }

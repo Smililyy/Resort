@@ -245,7 +245,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="booking" class="content-item active">
+			<div id="booking" class="content-item">
 				<div class="head-title">
 					<div class="left">
 						<h1>Booking</h1>
@@ -364,7 +364,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="message" class="content-item active">
+			<div id="message" class="content-item">
 				<div class="head-title">
 					<div class="left">
 						<h1>Message</h1>
@@ -384,7 +384,7 @@
 					</a>
 				</div>
 			</div>
-			<div id="employee" class="content-item active">
+			<div id="employee" class="content-item">
 				<div class="head-title">
 					<div class="left">
 						<h1>Employee</h1>

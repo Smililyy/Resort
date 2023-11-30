@@ -1,6 +1,5 @@
 <div class="offer-wraper">
     <div class="container">
-        <h2 class="offer-heading">OFFERS</h2>
         <div class="offer-content">
             <div class="offer-item">
                 <img src="https://saigonhotel.com.vn/wp-content/uploads/2022/08/trungthu4.jpg" />

@@ -1,0 +1,414 @@
+.suit-room-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.room-type-banner-wrapper,
+.suit-banner-wrapper {
+  background-image: url("https://saigonhotel.com.vn/wp-content/uploads/2019/10/sgh-rooms-cover.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  box-sizing: border-box;
+  background-position: center center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.suit-banner-text {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.suit-banner-text h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 26px;
+  grid-area: auto;
+  letter-spacing: 0.2px;
+  line-height: 33.8px;
+  font-weight: 300;
+  text-shadow: hsl(0 0% 0%) 1px 1px 2px;
+  text-transform: uppercase;
+}
+
+.suit-banner-text a {
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.suit-infor {
+  padding: 10px 110px 5px 110px;
+  background-color: hsl(0 0% 0% / 0.3);
+  color: hsl(345 4% 18%);
+  font-size: 13.33px;
+  grid-area: auto;
+  line-height: 23.994px;
+}
+
+.suit-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 15px;
+  row-gap: 50px;
+}
+
+.suit-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white-color);
+}
+.suit-item .suit-img {
+  position: relative;
+  background-image: url("https://saigonhotel.com.vn/wp-content/themes/saigonhotel/images/img-bg-1.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: unset;
+}
+.suit-img img {
+  width: 100%;
+  padding-right: 40px;
+  box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, 0.3);
+}
+.suit-item .entry-title {
+  margin-bottom: 0;
+  margin-top: 16px;
+}
+.suit-item .entry-title a {
+  text-decoration: none;
+  color: var(--primary-color);
+  display: inline;
+  font-size: 26px;
+  grid-area: auto;
+  letter-spacing: 0.2px;
+  line-height: 26px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.suit-item .suit-detail-infor {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.detail-infor {
+  min-height: 100px;
+}
+
+.suit-detail-infor p {
+  color: #2f2b2c;
+  font-family: Arial;
+  font-size: 13.33px;
+  grid-area: auto;
+  line-height: 23.994px;
+}
+
+.suit-item .room-type-attributes {
+  border-top: none;
+  border-color: rgba(233, 225, 225, 1);
+  width: 100%;
+  margin: 0.5625em 0 0.5em;
+  margin-left: 0;
+  padding-left: 0;
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+}
+.suit-item .room-type-attributes i {
+  font-size: 15px;
+  padding-right: 5px;
+}
+
+.suit-item .room-type-attributes span {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13.33px;
+  color: #2f2b2c;
+}
+
+.room-type-attributes li {
+  border-left: none;
+  padding-left: 0;
+  border: 1px solid rgba(233, 225, 225, 1);
+  border-right: none;
+  display: table-cell;
+  width: 33.33%;
+  vertical-align: text-top;
+  padding-left: 20px;
+  position: relative;
+  padding: 14px 0;
+  display: flex;
+  align-items: center;
+}
+
+.room-type-attributes li:first-child {
+  border-left: 0;
+}
+
+.room-type-attributes li:not(:first-child) {
+  padding-left: 20px;
+}
+.room-type-attributes li span {
+  padding-left: 10px;
+}
+.view-details-wrapper {
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.to-book-btn-wrapper a,
+.view-details-button-wrapper a {
+  color: #a71218;
+  font-family: Arial;
+  font-size: 13.33px;
+  font-weight: 600;
+  grid-area: auto;
+  line-height: 13.33px;
+  padding: 8px 0px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.to-book-btn-wrapper {
+  display: inline-block;
+  margin-right: 2em;
+  vertical-align: top;
+}
+
+.room-type-view {
+  color: hsl(345 4% 18%);
+  display: list-item;
+  font-family: Arial;
+  font-size: 13.33px;
+  grid-area: auto;
+  line-height: 23.994px;
+  text-align: left;
+}
+
+.to-book-btn-wrapper a:hover,
+.view-details-button-wrapper a:hover,
+.suit-item .entry-title a:hover,
+.suit-banner-text a:hover {
+  text-decoration: underline;
+}
+
+.room-type-banner-wrapper {
+  min-height: 70vh;
+  position: relative;
+}
+
+.room-type-wrapper {
+  position: relative;
+  bottom: 15px;
+}
+
+.single-post-header {
+  margin: -82px auto 0 -40px;
+  padding: 1px 40px;
+  background-color: white;
+  border-bottom: 5px solid #a71218;
+  z-index: 1;
+  position: relative;
+  width: 107%;
+}
+
+.single-post-header h1 {
+  color: var(--primary-color);
+  font-family: Arial;
+  font-size: 27.524px;
+  font-weight: 300;
+  grid-area: auto;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.single-post-header > div {
+  position: relative;
+}
+.post-meta {
+  position: relative;
+  margin-bottom: 10px;
+  display: none;
+  padding-bottom: 15px;
+  width: auto;
+  margin-top: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13.33px;
+  line-height: 1.8em;
+}
+
+.post-meta-price {
+  width: 30%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 26px;
+  line-height: 1.5em;
+  color: var(--primary-color);
+}
+
+.room-type-detail {
+  display: flex;
+  gap: 20px;
+}
+
+.room-type-other {
+  color: var(--primary-color);
+  font-family: Arial;
+  font-size: 20px;
+  grid-area: auto;
+  letter-spacing: 0.2px;
+  line-height: 30px;
+  margin: 41.6px 0px 25.6px;
+  text-transform: uppercase;
+}
+
+.room-type-detail .room-type-slider #carouselInRoomType {
+  height: 100%;
+  width: 100%;
+}
+
+.room-type-detail .left-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white-color);
+  width: 60%;
+  background: #fff;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding: 35px 20px 20px 20px;
+}
+.room-type-detail .left-content p {
+  margin: 0;
+  padding-bottom: 0.5em;
+}
+
+.room-type-detail .right-sidebar {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 30px;
+}
+
+.room-type-details-amenities {
+  display: flex;
+}
+
+.room-type-details-amenities .room-type-details ul {
+  list-style: none;
+  display: table;
+  width: 100%;
+  margin: 0.5625em 0 0.5em;
+  padding-right: 40px;
+  padding-left: 0px;
+}
+
+.room-type-details-amenities .room-type-details ul li {
+  position: relative;
+  width: 100%;
+  padding: 11px 11px 11px 0;
+  border-bottom: 1px solid rgba(233, 225, 225, 1);
+  display: flex;
+  align-items: center;
+}
+
+.room-type-details-amenities .room-type-details ul li:first-child {
+  border-top: 1px solid rgba(233, 225, 225, 1);
+}
+
+.room-type-details-amenities .room-type-details ul li span {
+  min-width: 85px;
+  font-size: 13.33px;
+  padding-left: 15px;
+}
+
+/* 
+.room-type-details ul li span:nth-child(2) {
+  padding-left: 16px;
+} */
+
+.room-type-details-amenities .room-type-details {
+  width: 50%;
+}
+.room-type-details-amenities .room-type-amenities {
+  width: 50%;
+  float: left;
+}
+
+.room-type-amenities .amenities-wrapper {
+  overflow: auto;
+  max-height: 290px;
+}
+
+.amenities-wrapper .amenities-value-wrapper {
+  display: flex;
+  width: 48%;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.mphb-details-title {
+  color: #1c1c1c;
+  font-family: Arial;
+  font-size: 14px;
+  grid-area: auto;
+  letter-spacing: 0.2px;
+  line-height: 21px;
+  margin: 25.6px 0px;
+  text-transform: uppercase;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+.amenities-value-wrapper a {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: #888;
+}
+
+.right-sidebar ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.right-sidebar ul li {
+  background-color: var(--white-color);
+  margin-bottom: 30px !important;
+  padding: 15px;
+  background: #fff;
+  width: 100%;
+  margin: 0;
+  box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.right-sidebar ul li h4 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.8em;
+  margin: 0;
+  color: var(--primary-color);
+  padding-bottom: 25px;
+  border-bottom: 0.8px solid rgba(233, 225, 225, 1);
+}
+
+.right-sidebar ul li p {
+  color: hsl(345 4% 18%);
+  display: inline-block;
+  font-family: Arial;
+  font-size: 13.33px;
+  grid-area: auto;
+  line-height: 23.994px;
+  padding: 6.665px 0px;
+  text-align: left;
+}
