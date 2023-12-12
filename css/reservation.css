@@ -1,0 +1,47 @@
+.wrapper {
+    text-align: center;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-color: rgba(0,0,0,0.3);
+}
+.content{
+	font-family: arial, helvetica, sans-serif;
+    font-size: 10pt;
+    color: #e4e4e4;
+}
+.search-panel{
+	background-color: #8C0B0B;
+    color: #000000;
+}
+.room-info{
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+.room-img, .room-des{
+    display: inline-block;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
+.details{
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    margin-top: 0;
+    text-rendering: optimizeLegibility;
+    color:#000000;
+}
+.room-price{
+    vertical-align: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 14px;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+    color: #93130a;
+    text-align: center;
+}
