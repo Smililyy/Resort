@@ -1,0 +1,167 @@
+.header-wrapper {
+  text-align: center;
+  height: var(--header-height);
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header-wrapper.active {
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  color: var(--black-color);
+}
+.header-wrapper.active .search-input {
+  border: 2px solid var(--black-color);
+  color: var(--black-color);
+}
+
+.header-wrapper.active .search-input::placeholder {
+  color: black;
+}
+
+.header-wrapper.active .child-content a {
+  color: var(--black-color);
+}
+
+.header-wrapper.active .child-content a:hover {
+  color: var(--primary-color);
+}
+
+.header-wrapper.active .btnLogin {
+  color: var(--black-color);
+  border: 2px solid var(--black-color);
+}
+
+.header-wrapper.active .btnSignup {
+  color: var(--black-color);
+}
+
+.header-container {
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.header-left-content {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.submenu {
+  padding-left: 20px;
+  color: grey;
+  font-size: 30px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.header-logo {
+  width: 100%;
+  height: 100%;
+  background: url("https://saigonhotel.com.vn/wp-content/uploads/2021/10/saigonhotel-logo.svg")
+    center center no-repeat;
+  cursor: pointer;
+  background-size: contain;
+}
+
+.header-center-content {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.search-are {
+  margin-left: 50px;
+  margin-right: 20px;
+  border-radius: 30px;
+  height: 55%;
+  width: 25%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: transparent;
+}
+.search-icon {
+  padding-left: 10px;
+  color: black;
+  font-size: 20px;
+}
+
+.search-input {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  padding-left: 15px;
+  font-size: 12px;
+  background-color: transparent;
+  border: 2px solid var(--white-color);
+  outline: none;
+  color: var(--white-color);
+}
+
+.search-input::placeholder {
+  color: white;
+  opacity: 0.9;
+}
+.child-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
+.child-content a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--white-color);
+}
+.child-content a:hover {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.child-content a:hover .header-wrapper {
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  color: var(--black-color);
+}
+
+.header-right-content {
+  height: 100%;
+  width: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.btnLogin {
+  font-weight: 600;
+  background-color: transparent;
+  color: var(--white-color);
+  border: 2px solid var(--white-color);
+  height: 45%;
+  width: 35%;
+  margin: 10px;
+}
+
+.btnSignup {
+  font-weight: 600;
+  border: 2px solid var(--white-color);
+  color: var(--black-color);
+  border: 0;
+  width: 35%;
+  height: 45%;
+}
