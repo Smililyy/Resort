@@ -249,7 +249,7 @@
                     </div>
                 </div>
             </div>
-            <div class="meetingevent-inf">
+            <div class="meetingevent-inf" id="booking">
                 <div class="col-3"></div>
                 <div class="col-6">
                     <p id="title">BOOK NOW</p>
@@ -258,29 +258,155 @@
                 </div>
                 <div class="col-3"></div>
             </div>
-            <div class="meetingevent-box" id="booking">
+            <?php
+                include "connect.php";
+
+                $options = array();
+
+                $sql = "SELECT DISTINCT roomName FROM rooms WHERE roomType = 'Event Meeting '";
+                $result = $conn->query($sql);
+
+                // Lặp qua kết quả và thêm giá trị vào mảng options
+                if ($result !== false && $result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        $options[] = $row["roomName"];
+                    }
+                }
+            ?>
+            <div class="meetingevent-box" >
                 <div class="col-3"></div>
                 <div class="col-6">
-                    <form action="" method="post">
+                    <form action="event-controller.php" method="POST">
                         <div class="row-0">
-                            <input type="text" name="firstname" id="firstname" placeholder="First Name (required)">
-                            <input type="text" name="lastname" id="lastname" placeholder="Last Name (required)">
+                            <input type="text" name="firstname" id="firstname" placeholder="First Name (required)" required>
+                            <input type="text" name="lastname" id="lastname" placeholder="Last Name (required)" required>
                         </div>
                         <div class="row-1">
-                            <input type="text" name="phone" id="phone" placeholder="Phone (required)">
-                            <input type="email" name="email" id="email" placeholder="Email (required)">
+                            <input type="text" name="phone" id="phone" placeholder="Phone (required)" required>
+                            <input type="email" name="email" id="email" placeholder="Email (required)" required>
                         </div>
                         <div class="row-2">
                             <input type="text" name="eventdate" id="eventdate" placeholder="Event date">
-                            <input type="number" name="numberofguest" id="numberofguest" placeholder="Number of Guest (required)" min="1">
+                            <input type="number" name="numberofday" id="numberofday" placeholder="Number of Event Day" min="1">
+                        </div>
+                        <div class="row-2">
+                            <input type="text" name="nameroom" id="nameroom" placeholder="Category of room">
+                            <div id="dropdown" class="dropdown-content">
+                                <?php foreach ($options as $option) { ?>
+                                    <div class="option"><?php echo $option; ?></div>
+                                <?php } ?>
+                            </div>
+                            <input type="number" name="numberofguest" id="numberofguest" placeholder="Number of Guest (required)" min="1" required>
                         </div>
                         <div class="row-3">
-                            <textarea name="" id="" placeholder="Your Message"></textarea>
+                            <textarea name="message" id="message" placeholder="Your Message"></textarea>
                         </div>
                         <div class="row-3">
-                            <a href="" id="btn-send">SEND REQUEST</a>
+                            <button class="btn-send" type="submit">SEND REQUEST</button>
                         </div>
                     </form>
+                        <!-- Đoạn mã HTML và JavaScript -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                        var input = document.getElementById('nameroom');
+                        var dropdown = document.getElementById('dropdown');
+
+                        // Sự kiện click vào input
+                        input.addEventListener('click', function (event) {
+                            // Hiển thị hoặc ẩn dropdown
+                            dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
+
+                            // Ngăn chặn sự kiện click từ việc lan truyền lên và đóng dropdown ngay lập tức
+                            event.stopPropagation();
+                        });
+
+                        // Sự kiện chọn một option trong dropdown
+                        dropdown.addEventListener('click', function (e) {
+                            if (e.target.classList.contains('option')) {
+                                input.value = e.target.textContent;
+                                dropdown.style.display = 'none';
+                            }
+                        });
+
+                        // Sự kiện click ngoại ô
+                        document.addEventListener('click', function (event) {
+                            // Ẩn dropdown nếu click ngoài vùng input
+                            if (event.target !== input) {
+                                dropdown.style.display = 'none';
+                            }
+                        });
+                    });
+                    </script>
+                    <?php
+                    // Đóng kết nối CSDL
+                    $conn->close();
+                    ?>
+                    <script>
+                        function validateForm() {
+                            var isValid = true;
+
+                            // Validation for each input field
+                            isValid = validateField('firstname') && isValid;
+                            isValid = validateField('lastname') && isValid;
+                            isValid = validatePhone() && isValid;
+                            isValid = validateField('email') && isValid;
+                            isValid = validateField('numberofguest') && isValid;
+
+                            return isValid;
+                        }
+
+                        function validateField(fieldName) {
+                            var field = document.getElementById(fieldName);
+                            var fieldValue = field.value.trim();
+                            var errorElement = document.getElementById(fieldName + '-error');
+
+                            // Example validation: Check if the field is not empty
+                            if (fieldValue === '') {
+                                errorElement.innerHTML = 'This field is required';
+                                return false;
+                            } else {
+                                errorElement.innerHTML = ''; // Clear previous error message
+                                return true;
+                            }
+                        }
+
+                        function validatePhone() {
+                            var phoneField = document.getElementById('phone');
+                            var phoneValue = phoneField.value.trim();
+                            var phoneErrorElement = document.getElementById('phone-error');
+
+                            // Example validation: Check if the phone number is in a valid format
+                            var phoneRegex = /^[0-9]{10}$/; // Assuming a 10-digit phone number
+                            if (!phoneRegex.test(phoneValue)) {
+                                phoneErrorElement.innerHTML = 'Invalid phone number format';
+                                return false;
+                            } else {
+                                phoneErrorElement.innerHTML = ''; // Clear previous error message
+                                return true;
+                            }
+                        }
+
+                        // Add blur event listeners for each input field
+                        document.getElementById('firstname').addEventListener('blur', function() {
+                            validateField('firstname');
+                        });
+
+                        document.getElementById('lastname').addEventListener('blur', function() {
+                            validateField('lastname');
+                        });
+
+                        document.getElementById('phone').addEventListener('blur', function() {
+                            validatePhone();
+                        });
+
+                        document.getElementById('email').addEventListener('blur', function() {
+                            validateField('email');
+                        });
+
+                        document.getElementById('numberofguest').addEventListener('blur', function() {
+                            validateField('numberofguest');
+                        });
+                    </script>
                     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
                     <script>

@@ -214,16 +214,16 @@
                         </div>
                         <div>
                             <div style="display: inline-block" class="room-price">
-                                ₫ 2.500.000 per night
+                            ₫ 2.500.000 per night
                             </div>
                             <div style="display: inline-block" class=>
-                                <select name="room-quantity" id="quantity">
-                                    <option value="0" selected="selected">0 room</option>
-                                    <option value="1">1 room</option>
-                                    <option value="2">2 rooms</option>
-                                    <option value="3">3 rooms</option>
-                                    <option value="4">4 rooms</option>
-                                    <option value="5">5 rooms</option>
+                               <select name="room-quantity" id="quantity">
+                                 <option value="0" selected="selected">0 room</option>
+                                 <option value="1">1 room</option>
+                                 <option value="2">2 rooms</option>
+                                 <option value="3">3 rooms</option>
+                                 <option value="4">4 rooms</option>
+                                 <option value="5">5 rooms</option>
                                 </select>
                             </div>
                         </div>
