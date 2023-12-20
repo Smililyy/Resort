@@ -1,5 +1,6 @@
 <?php
-include "connect.php";
+include "./inc/db_config.php";
+include "./inc/essentials.php";
 
 $fname = $_POST['firstname'];
 $lname = $_POST['lastname'];
@@ -14,7 +15,7 @@ $message = $_POST['message'];
 // Check if the customer already exists
 $existingCustomer = null;
 $sqlCheckCustomer = "SELECT customerID FROM customers WHERE customerPhoneNumber = '".$phone."'";
-$resultCheckCustomer = mysqli_query($conn, $sqlCheckCustomer);
+$resultCheckCustomer = mysqli_query($con, $sqlCheckCustomer);
 
 if ($resultCheckCustomer) {
     $row = mysqli_fetch_assoc($resultCheckCustomer);
@@ -28,13 +29,13 @@ if ($existingCustomer === null) {
     $sqlInsertCustomer = "INSERT INTO customers (customerFirstName, customerLastName, customerPhoneNumber, customerEmail) 
                          VALUES ('".$fname."','".$lname."','".$phone."','".$email."')";
     
-    $resultInsertCustomer = mysqli_query($conn, $sqlInsertCustomer);
+    $resultInsertCustomer = mysqli_query($con, $sqlInsertCustomer);
 
     if (!$resultInsertCustomer) {
-        echo "Error inserting customer: " . mysqli_error($conn);
+        echo "Error inserting customer: " . mysqli_error($con);
         // Handle errors when adding new customers
     } else {
-        $existingCustomer = mysqli_insert_id($conn); // Get the ID of the newly added customer
+        $existingCustomer = mysqli_insert_id($con); // Get the ID of the newly added customer
     }
 }
 
@@ -44,7 +45,7 @@ $sqlSelectRoom = "SELECT roomID FROM rooms
                 WHERE roomName = '".$roomname."' AND roomStatus = 'Available' 
                 ORDER BY RAND() LIMIT 1";
 
-$resultSelectRoom = mysqli_query($conn, $sqlSelectRoom);
+$resultSelectRoom = mysqli_query($con, $sqlSelectRoom);
 
 if ($resultSelectRoom) {
     $row = mysqli_fetch_assoc($resultSelectRoom);
@@ -57,7 +58,7 @@ if ($resultSelectRoom) {
 if ($roomchoosen !== null) {
     // Select room rate
     $sqlGetRoomRate = "SELECT roomRate FROM rooms WHERE roomName = '".$roomname."'";
-    $resultGetRoomRate = mysqli_query($conn, $sqlGetRoomRate);
+    $resultGetRoomRate = mysqli_query($con, $sqlGetRoomRate);
 
     if ($resultGetRoomRate) {
         $row = mysqli_fetch_assoc($resultGetRoomRate);
@@ -67,23 +68,23 @@ if ($roomchoosen !== null) {
         $sqlInsertBooking = "INSERT INTO bookings (customerID, roomID, checkinDate, totalAmount, paymentStatus, numberOfCustomer, message) 
                             VALUES ('".$existingCustomer."','".$roomchoosen."','".$eventdate."','".$room_rate."','Unpaid','".$numberofguest."','".$message."')";
 
-        $resultInsertBooking = mysqli_query($conn, $sqlInsertBooking);
+        $resultInsertBooking = mysqli_query($con, $sqlInsertBooking);
 
         if ($resultInsertBooking) {
             // Reupdate room status to Reserved
             $sqlUpdateRoomStatus = "UPDATE rooms SET roomStatus = 'Reserved' WHERE roomID = '".$roomchoosen."'";
-            $resultUpdateRoomStatus = mysqli_query($conn, $sqlUpdateRoomStatus);
+            $resultUpdateRoomStatus = mysqli_query($con, $sqlUpdateRoomStatus);
 
             if (!$resultUpdateRoomStatus) {
-                echo "Error updating room status: " . mysqli_error($conn);
+                echo "Error updating room status: " . mysqli_error($con);
                 // Handle error update room status
             }
         } else {
-            echo "Error inserting booking: " . mysqli_error($conn);
+            echo "Error inserting booking: " . mysqli_error($con);
             // Handle error insert new booking
         }
     } else {
-        echo "Error getting room rate: " . mysqli_error($conn);
+        echo "Error getting room rate: " . mysqli_error($con);
         // Handle error get room rate
     }
 }
@@ -96,9 +97,9 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../vendor/PHPMailer/src/Exception.php';
-require '../vendor/PHPMailer/src/SMTP.php';
-require '../vendor/PHPMailer/src/PHPMailer.php';
+require '../../vendor/PHPMailer/src/Exception.php';
+require '../../vendor/PHPMailer/src/SMTP.php';
+require '../../vendor/PHPMailer/src/PHPMailer.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
@@ -112,7 +113,7 @@ try {
     $mail->Username   = 'tuthihue.qn@gmail.com';                     //SMTP username
     $mail->Password   = 'hvwmcyxwrzxtsquh';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Port       = 465;                                    //TCP port to conect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
     $mail->setFrom('tuthihue.qn@gmail.com','SaiGon Hotel');
@@ -153,7 +154,7 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-  header('Location: meetings-events.php');
-  $conn->close();
+  header('Location: http://localhost/hotel/src/views/meetingevent.php');
+  $con->close();
 
 ?>

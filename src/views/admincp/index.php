@@ -11,6 +11,14 @@ require('../../controllers/AdminController.php');
 	<!-- Start Of Boostrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	
 	<!-- End Of Boostrap  -->
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
@@ -24,8 +32,8 @@ require('../../controllers/AdminController.php');
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="#" class="brand">
-			<i class='bx bx-layer'></i>
-			<span class="text">Resort Management</span>
+		<span><img src="https://saigonhotel.com.vn/wp-content/uploads/2021/10/saigonhotel-logo.svg" alt="" style="width: 250px; margin-top: 30px;"></span>
+		<!-- <span class="text">Resort Management</span> -->
 		</a>
 		<ul class="side-menu top">
 			<li class="menu-item active" data-content="dashboard">
@@ -40,16 +48,16 @@ require('../../controllers/AdminController.php');
 					<span class="text">Customer</span>
 				</a>
 			</li>
-			<li class="menu-item" data-content="booking">
+			<li class="menu-item" data-content="room">
 				<a href="#">
 					<i class='bx bxs-shopping-bag-alt'></i>
-					<span class="text">Booking</span>
+					<span class="text">Room</span>
 				</a>
 			</li>
-			<li class="menu-item" data-content="message">
+			<li class="menu-item" data-content="booking">
 				<a href="#">
 					<i class='bx bxs-message-dots'></i>
-					<span class="text">Message</span>
+					<span class="text">Booking</span>
 				</a>
 			</li>
 			<li class="menu-item" data-content="employee">
@@ -60,12 +68,6 @@ require('../../controllers/AdminController.php');
 			</li>
 		</ul>
 		<ul class="side-menu">
-			<li>
-				<a href="#">
-					<i class='bx bxs-cog'></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
 			<li>
 				<a href="../../controllers/LogoutController.php" class="logout">
 					<i class='bx bxs-log-out-circle'></i>
@@ -95,7 +97,7 @@ require('../../controllers/AdminController.php');
 				<span class="num">8</span>
 			</a>
 			<a href="#" class="profile">
-				<img src="../img/user.jpg" alt="avatar">
+				<img src="../../../assets/img/user.jpg" alt="avatar">
 			</a>
 		</nav>
 		<!-- NAVBAR -->
@@ -125,297 +127,624 @@ require('../../controllers/AdminController.php');
 			<div id="customer" class="content-item">
 				<div class="head-title">
 					<div class="left">
-						<h1>Customer</h1>
-						<ul class="breadcrumb">
-							<li>
-								<a href="#">Customer</a>
-							</li>
-							<li><i class='bx bx-chevron-right'></i></li>
-							<li>
-								<a class="menu-item" href="#">Home</a>
-							</li>
-						</ul>
+						<h1>Customer Management</h1>
 					</div>
-					<a href="#" class="btn-download">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Download PDF</span>
+					<a href="#addCustomerModal" class="btn-download" data-toggle="modal">
+						<i class="material-icons">&#xE147;</i>
+						<span>Add New Customer</span>
 					</a>
 				</div>
-				<!-- Customer infomation -->
-				<div class="customer-inf">
-					<div class="card shadow mb-4">
-						<div class="card-body">
-							<div class="table-responsive">
-								<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-									<div class="row">
-										<div class="col-sm-12 col-md-6">
-											<div class="dataTables_length" id="dataTable_length">
-												<label>
-													Show
-													<select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control -sm">
-														<option value="10">10</option>
-														<option value="25">25</option>
-														<option value="50">50</option>
-														<option value="100">100</option>
-													</select>
-													entries
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-12 col-md-6">
-											<div id="dataTable_filter" class="dataTables_filter">
-												<label>
-													Search:
-													<input type="search" class="form-control form-control-sm" placeholder aria-controls="dataTable">
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-12">
-											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-												<thead>
-													<tr>
-														<th>id</th>
-														<th>Name</th>
-														<th>Email</th>
-														<th>ID Number</th>
-														<th>Phone </th>
-														<th>Location</th>
-														<th>DOB</th>
-														<th>Verified</th>
-														<th>Status</th>
-														<th>Date</th>
-													</tr>
-												</thead>
-												<tfoot>
-													<tr>
-														<th>id</th>
-														<th>Name</th>
-														<th>Email</th>
-														<th>ID Number</th>
-														<th>Phone </th>
-														<th>Location</th>
-														<th>DOB</th>
-														<th>Verified</th>
-														<th>Status</th>
-														<th>Date</th>
-													</tr>
-												</tfoot>
-												<tbody>
-													<tr>
-														<td>1</td>
-														<td>Tiger Nixon</td>
-														<td>tigernixon@gmail.com</td>
-														<td>1234567890</td>
-														<td>129 900 902</td>
-														<td>England</td>
-														<td>1998/04/25</td>
-														<td>none</td>
-														<td>61</td>
-														<td>2023/10/16</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-12 col-md-5">
-											<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-										</div>
-										<div class="col-sm-12 col-md-7">
-											<div class="dataTables_paginate paging_simple_numbers" id="dataTabl e_paginate">
-												<ul class="pagination">
-													<li class="paginate_button page-item previous disabled" id="dat aTable_previous">
-														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-													</li>
-													<li class="paginate_button page-item active"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate button page-item"></li>
-													<li class="paginate_button page-item next" id="dataTable_next">
-														<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				<table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+							<th>ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Date of Birth</th>
+							<th>Email</th>
+							<th>Phone Number</th>
+							<th>Address</th>
+							<th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer_data">
+                    </tbody>
+                </table>
+                <p class="loading">Loading Data</p>
+            </div>
+			<div id="room" class="content-item">
+				<div class="head-title">
+					<div class="left">
+						<h1>Room Management</h1>
 					</div>
+					<a href="#addRoomModal" class="btn-download" data-toggle="modal">
+						<i class="material-icons">&#xE147;</i>
+						<span>Add New Room</span> 
+					</a>
 				</div>
-			</div>
+				<table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+							<th>ID</th>
+							<th>Room Name</th>
+							<th>Room Type</th>
+							<th>Room Rate</th>
+							<th>Room Status</th>
+							<th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee_data">
+                    </tbody>
+                </table>
+			</div>	
 			<div id="booking" class="content-item">
 				<div class="head-title">
 					<div class="left">
-						<h1>Booking</h1>
-						<ul class="breadcrumb">
-							<li>
-								<a href="#">Booking</a>
-							</li>
-							<li><i class='bx bx-chevron-right'></i></li>
-							<li>
-								<a class="menu-item" href="#">Home</a>
-							</li>
-						</ul>
+						<h1>Booking Management</h1>
 					</div>
-					<a href="#" class="btn-download">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Download PDF</span>
+					<a href="#addBookingModal" class="btn-download" data-toggle="modal">
+						<i class="material-icons">&#xE147;</i>
+						<span>Add New Booking</span>
 					</a>
 				</div>
-				<div class="booking-inf">
-					<div class="card shadow mb-4">
-						<div class="card-body">
-							<div class="table-responsive">
-								<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-									<div class="row">
-										<div class="col-sm-12 col-md-6">
-											<div class="dataTables_length" id="dataTable_length">
-												<label>
-													Show
-													<select name="dataTable_length" aria-controls="dataTable" class="book-select book-select-sm form-control form-control -sm">
-														<option value="10">10</option>
-														<option value="25">25</option>
-														<option value="50">50</option>
-														<option value="100">100</option>
-													</select>
-													entries
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-12 col-md-6">
-											<div id="dataTable_filter" class="dataTables_filter">
-												<label>
-													Search:
-													<input type="search" class="form-control form-control-sm" placeholder aria-controls="dataTable">
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-12">
-											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-												<thead>
-													<tr>
-														<th><input type="checkbox"></th>
-														<th>id</th>
-														<th>Room</th>
-														<th>Number of vacant</th>
-														<th>Customer</th>
-														<th>Status</th>
-														<th>Start date</th>
-														<th>End date</th>
-													</tr>
-												</thead>
-												<tfoot>
-													<tr>
-														<th><input type="checkbox"></th>
-														<th>id</th>
-														<th>Room</th>
-														<th>Number of vacant</th>
-														<th>Customer</th>
-														<th>Status</th>
-														<th>Start date</th>
-														<th>End date</th>
-													</tr>
-												</tfoot>
-												<tbody>
-													<tr>
-														<td><input type="checkbox"></td>
-														<td>1</td>
-														<td>Executive</td>
-														<td>1</td>
-														<td>Tiger Nixon</td>
-														<td>Purchased</td>
-														<td>2023/10/16</td>
-														<td>2023/10/20</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-12 col-md-5">
-											<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-										</div>
-										<div class="col-sm-12 col-md-7">
-											<div class="dataTables_paginate paging_simple_numbers" id="dataTabl e_paginate">
-												<ul class="pagination">
-													<li class="paginate_button page-item previous disabled" id="dat aTable_previous">
-														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-													</li>
-													<li class="paginate_button page-item active"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate_button page-item"></li>
-													<li class="paginate button page-item"></li>
-													<li class="paginate_button page-item next" id="dataTable_next">
-														<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="message" class="content-item">
-				<div class="head-title">
-					<div class="left">
-						<h1>Message</h1>
-						<ul class="breadcrumb">
-							<li>
-								<a href="#">Message</a>
-							</li>
-							<li><i class='bx bx-chevron-right'></i></li>
-							<li>
-								<a class="menu-item" href="#">Home</a>
-							</li>
-						</ul>
-					</div>
-					<a href="#" class="btn-download">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Download PDF</span>
-					</a>
-				</div>
+				<table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+							<th>ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Room ID</th>
+							<th>Room Name</th>
+							<th>Check In Date</th>
+							<th>Check Out Date</th>
+							<th>Payment Status</th>
+							<th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee_data">
+                    </tbody>
+                </table>
 			</div>
 			<div id="employee" class="content-item">
 				<div class="head-title">
 					<div class="left">
-						<h1>Employee</h1>
-						<ul class="breadcrumb">
-							<li>
-								<a href="#">Employee</a>
-							</li>
-							<li><i class='bx bx-chevron-right'></i></li>
-							<li>
-								<a class="menu-item" href="#">Home</a>
-							</li>
-						</ul>
+						<h1>Service Management</h1>
 					</div>
-					<a href="#" class="btn-download">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Download PDF</span>
-					</a>
+					<!-- <a href="#addEmployeeModal" class="btn-download" data-toggle="modal">
+						<i class="material-icons">&#xE147;</i>
+						<span>Add New Customer</span>
+					</a> -->
 				</div>
+				<!-- <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+							<th>ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Date of Birth</th>
+							<th>Address</th>
+							<th>Email</th>
+							<th>Phone Number</th>
+							<th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee_data">
+                    </tbody>
+                </table> -->
+	
 			</div>
 		</main>
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
+	 <!-- ADD Modal HTML -->
+	 <div id="addCustomerModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body add_epmployee">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob_input" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="phone_input" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control" id="address_input" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add" onclick="addCustomer()">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="addRoomModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Room</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body add_epmployee">
+                    <div class="form-group">
+                        <label>Room Name</label>
+                        <input type="text" id="roomname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room Type</label>
+                        <input type="text" id="roomtype_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room Rate</label>
+                        <input type="number" id="rate_input" min="10" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Room Status</label>
+                        <input type="email" id="roomstatus_input" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add" onclick="addRoom()">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="addBookingModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body add_epmployee">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room ID</label>
+                        <input type="text" id="roomid_input" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Check In Date</label>
+                        <input type="date" id="checkout_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Check Out Date</label>
+                        <input type="date" id="checkin_input" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Status</label>
+                        <input type="text" id="paymentstatus_input" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add" onclick="addBooking()">
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- End Add modal -->
+    <!-- Edit Modal HTML -->
+    <div id="editCustomerModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body edit_epmployee">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob_input" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="phone_input" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control" id="address_input" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" onclick="editCustomer()" value="Save">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="editRoomModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+				<div class="modal-header">
+                    <h4 class="modal-title">Edit Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body edit_epmployee">
+                    <div class="form-group">
+                        <label>Room Name</label>
+                        <input type="text" id="roomname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room Type</label>
+                        <input type="text" id="roomtype_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room Rate</label>
+                        <input type="number" id="rate_input" min="10" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Room Status</label>
+                        <input type="email" id="roomstatus_input" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" onclick="editRoom()" value="Save">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="editBookingModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+			<div class="modal-header">
+                    <h4 class="modal-title">Edit Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body edit_epmployee">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room ID</label>
+                        <input type="text" id="roomid_input" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Check In Date</label>
+                        <input type="date" id="checkout_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Check Out Date</label>
+                        <input type="date" id="checkin_input" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Status</label>
+                        <input type="text" id="paymentstatus_input" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" onclick="editBooking()" value="Save">
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- End Edit Modal -->
+    <!-- View Modal HTML -->
+    <div id="viewCustomerModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob_input" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="phone_input" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control" id="address_input" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="viewRoomModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Room</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body view_employee">
+					<div class="form-group">
+                        <label>Room Name</label>
+                        <input type="text" id="roomname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room Type</label>
+                        <input type="text" id="roomtype_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room Rate</label>
+                        <input type="number" id="rate_input" min="10" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Room Status</label>
+                        <input type="email" id="roomstatus_input" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="viewBookingModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body view_employee">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Room ID</label>
+                        <input type="text" id="roomid_input" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Check In Date</label>
+                        <input type="date" id="checkout_input" class="form-control" required>
+                    </div>
+					<div class="form-group">
+                        <label>Check Out Date</label>
+                        <input type="date" id="checkin_input" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Status</label>
+                        <input type="text" id="paymentstatus_input" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal HTML -->
+	<div id="deleteEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <input type="hidden" id="delete_id">
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" onclick="deleteCustomer()" value="Delete">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="deleteEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Room</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <input type="hidden" id="delete_id">
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" onclick="deleteRoom()" value="Delete">
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="deleteEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <input type="hidden" id="delete_id">
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" onclick="deleteBooking()" value="Delete">
+                </div>
+            </div>
+        </div>
+    </div>
 	<?php
-	require('./inc/scripts.php')
+	    require('./inc/scripts.php')
 	?>
+	<script>
+        $(document).ready(function () {
+			$.get('http://localhost/hotel/src/controllers/list.php', function(data,status) {
+            // Log the received data to the console
+                $('#customer_data').html(data);
+            });
+	
+		});
+
+		// function CustomerList() {
+			
+		// }
 
 
+
+        // function addCustomer() {
+        //     var customerFirstName = $('.add_epmployee #firstname_input').val();
+        //     var customerLastName = $('.add_epmployee #lastname_input').val();
+        //     var customerDob = $('.add_epmployee #dob_input').val();
+        //     var customerAddress = $('.add_epmployee #email_input').val();
+        //     var customerPhoneNumber = $('.add_epmployee #phone_input').val();
+        //     var customerEmail = $('.add_epmployee #address_input').val();
+
+        //     $.ajax({
+        //         type: 'post',
+        //         data: {
+        //             customerFirstName: customerFirstName,
+        //             customerLastName: customerLastName,
+        //             customerDob: customerDob,
+        //             customerAddress: customerAddress,
+        //             customerPhoneNumber: customerPhoneNumber,
+        //             customerEmail: customerEmail,
+        //         },
+        //         url: "http://localhost/hotel/src/controllers/employee-add.php",
+        //         success: function (data) {
+        //             var response = JSON.parse(data);
+        //             $('#addEmployeeModal').modal('hide');
+        //             employeeList();
+        //             alert(response.message);
+        //         }
+
+        //     })
+        // }
+
+        // function editEmployee() {
+        //     var name = $('.edit_employee #name_input').val();
+        //     var email = $('.edit_employee #email_input').val();
+        //     var phone = $('.edit_employee #phone_input').val();
+        //     var address = $('.edit_employee #address_input').val();
+        //     var employee_id = $('.edit_employee #employee_id').val();
+
+        //     $.ajax({
+        //         type: 'post',
+        //         data: {
+        //             name: name,
+        //             email: email,
+        //             phone: phone,
+        //             address: address,
+        //             employee_id: employee_id,
+        //         },
+        //         url: "employee-edit.php",
+        //         success: function (data) {
+        //             var response = JSON.parse(data);
+        //             $('#editEmployeeModal').modal('hide');
+        //             employeeList();
+        //             alert(response.message);
+        //         }
+
+        //     })
+        // }
+
+        // function viewEmployee(id = 2) {
+        //     $.ajax({
+        //         type: 'get',
+        //         data: {
+        //             id: id,
+        //         },
+        //         url: "employee-view.php",
+        //         success: function (data) {
+        //             var response = JSON.parse(data);
+        //             $('.edit_employee #name_input').val(response.name);
+        //             $('.edit_employee #email_input').val(response.email);
+        //             $('.edit_employee #phone_input').val(response.phone);
+        //             $('.edit_employee #address_input').val(response.address);
+        //             $('.edit_employee #employee_id').val(response.id);
+        //             $('.view_employee #name_input').val(response.name);
+        //             $('.view_employee #email_input').val(response.email);
+        //             $('.view_employee #phone_input').val(response.phone);
+        //             $('.view_employee #address_input').val(response.address);
+        //         }
+        //     })
+        // }
+
+        // function deleteEmployee() {
+        //     var id = $('#delete_id').val();
+        //     $('#deleteEmployeeModal').modal('hide');
+        //     $.ajax({
+        //         type: 'get',
+        //         data: {
+        //             id: id,
+        //         },
+        //         url: "employee-delete.php",
+        //         success: function (data) {
+        //             var response = JSON.parse(data);
+        //             employeeList();
+        //             alert(response.message);
+        //         }
+        //     })
+        // }
+    </script>
 </body>
 
 </html>

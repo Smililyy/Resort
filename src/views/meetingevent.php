@@ -94,7 +94,7 @@
                             var modalImg = document.getElementById("img01");
                             mybtn.onclick = function() {
                                 modal.style.display = "block";
-                                modalImg.src = "../img/detail-1.png";
+                                modalImg.src = "../../assets/img/detail-1.png";
                             }
 
                             // Get the <span> element that closes the modal
@@ -259,12 +259,13 @@
                 <div class="col-3"></div>
             </div>
             <?php
-                include "connect.php";
+                include "../controllers/inc/db_config.php";
+                include "../controllers/inc/essentials.php";
 
                 $options = array();
 
                 $sql = "SELECT DISTINCT roomName FROM rooms WHERE roomType = 'Event Meeting '";
-                $result = $conn->query($sql);
+                $result = $con->query($sql);
 
                 // Lặp qua kết quả và thêm giá trị vào mảng options
                 if ($result !== false && $result->num_rows > 0) {
@@ -276,7 +277,7 @@
             <div class="meetingevent-box" >
                 <div class="col-3"></div>
                 <div class="col-6">
-                    <form action="event-controller.php" method="POST">
+                    <form action="../controllers/meetingevent.php" method="POST">
                         <div class="row-0">
                             <input type="text" name="firstname" id="firstname" placeholder="First Name (required)" required>
                             <input type="text" name="lastname" id="lastname" placeholder="Last Name (required)" required>
@@ -339,7 +340,7 @@
                     </script>
                     <?php
                     // Đóng kết nối CSDL
-                    $conn->close();
+                    $con->close();
                     ?>
                     <script>
                         function validateForm() {
