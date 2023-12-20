@@ -488,10 +488,13 @@ body {
   display: block;
 }
 
+.side-menu .side-item.active,
 .side-menu .menu-item.active {
   background: var(--grey);
   position: relative;
 }
+
+.side-menu .menu-item.active::before,
 .side-menu .menu-item.active::before {
   content: "";
   position: absolute;

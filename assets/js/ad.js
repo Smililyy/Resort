@@ -95,3 +95,4 @@ tabs.forEach(function (tab, index) {
     panes[index].classList.add("active");
   };
 });
+
