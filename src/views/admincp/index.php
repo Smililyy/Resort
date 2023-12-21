@@ -748,6 +748,7 @@ require('../../controllers/AdminController.php');
 	<?php
 	require('./inc/scripts.php');
 	?>
+
     <!-- HANDLE LISTDATA -->
     <script>
         var $j = jQuery.noConflict();
@@ -1035,9 +1036,10 @@ require('../../controllers/AdminController.php');
             })
         }
     </script>
-    <script>
-        let general_data;
 
+
+	<script>
+		let general_data;
 		function get_general() {
 			let side_title = document.getElementById("side_title");
 			let side_about = document.getElementById("side_about");
@@ -1075,6 +1077,7 @@ require('../../controllers/AdminController.php');
 		window.onload = function() {
 			get_general();
 		}
+
     </script>
         
 </body>
