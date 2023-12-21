@@ -68,6 +68,12 @@ require('../../controllers/AdminController.php');
 			</li>
 		</ul>
 		<ul class="side-menu">
+			<li class="menu-item" data-content="settings">
+				<a href="#">
+					<i class='bx bxs-cog'></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
 			<li>
 				<a href="../../controllers/LogoutController.php" class="logout">
 					<i class='bx bxs-log-out-circle'></i>
@@ -233,6 +239,85 @@ require('../../controllers/AdminController.php');
                 </table> -->
 	
 			</div>
+			<div id="setting" class="content-item">
+				<div class="head-title">
+					<div class="left">
+						<h1>Settings</h1>
+						<ul class="breadcrumb">
+							<li>
+								<a href="#">Settings</a>
+							</li>
+							<li><i class='bx bx-chevron-right'></i></li>
+							<li>
+								<a class="menu-item" href="#">Home</a>
+							</li>
+						</ul>
+					</div>
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download'></i>
+						<span class="text">Download PDF</span>
+					</a>
+				</div>
+			</div>
+			<div id="setting" class="content-item">
+				<div class="head-title">
+					<div class="left">
+						<h1>Settings</h1>
+						<ul class="breadcrumb">
+							<li>
+								<a href="#">Settings</a>
+							</li>
+							<li><i class='bx bx-chevron-right'></i></li>
+							<li>
+								<a class="menu-item" href="#">Home</a>
+							</li>
+						</ul>
+					</div>
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download'></i>
+						<span class="text">Download PDF</span>
+					</a>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between mb-3">
+							<h5 class="card-title m-0">General settings</h5>
+							<button type="button" class="btn btn-dark shadow-none btn-small" data-bs-toggle="modal" data-bs-target="#general-s">
+								<i class="bi bi-pencil-square">Edit</i>
+							</button>
+						</div>
+						<h6 class="card-subtitle mb-1 fw-bold">Card subtitle</h6>
+						<p class="card-text" id="side_title"></p>
+						<h6 class="card-subtitle mb-1 fw-bold">Card subtitle</h6>
+						<p class="card-text" id="side_about">content</p>
+					</div>
+				</div>
+				<div class="modal fade" id="general-s" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<form>
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="mb-3">
+										<label class="form-lable">Side Title</label>
+										<input type="text" id="side_title_inp" name="side_title" class="form-control shadow-none">Side Title</input>
+									</div>
+									<div class="mb-3">
+										<label class="form-lable">Address</label>
+										<textarea name="side_about" id="side_about_inp" class="form-control shadow-none" rows="6"></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" onclick="side_title.value = general_data.site_title, side_about.value = general_data.side_about" class="btn text-secondary shadow-none" data-bs-dismiss="modal">CANCEL</button>
+									<button type="button" onclick="upd_general(side_title.value, side_about.value)" class="btn custome-bg text-green shadow-none">SUBMIT</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 		</main>
 		<!-- MAIN -->
 	</section>
@@ -633,118 +718,52 @@ require('../../controllers/AdminController.php');
         </div>
     </div>
 	<?php
-	    require('./inc/scripts.php')
+	require('./inc/scripts.php');
 	?>
+
 	<script>
-        $(document).ready(function () {
-			$.get('http://localhost/hotel/src/controllers/list.php', function(data,status) {
-            // Log the received data to the console
-                $('#customer_data').html(data);
-            });
-	
-		});
+		let general_data;
 
-		// function CustomerList() {
-			
-		// }
+		function get_general() {
+			let side_title = document.getElementById("side_title");
+			let side_about = document.getElementById("side_about");
+
+			let side_title_inp = document.getElementById("side_title_inp");
+			let side_about_inp = document.getElementById("side_about_inp");
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				general_data = JSON.parse(this.responseText);
+
+				side_title.innerText = general_data.side_title;
+				side_about.innerText = general_data.side_about;
+
+				side_title_inp.value = general_data.side_title;
+				side_about_inp.value = general_data.side_about;
+			}
+			xhr.send('get_general');
+		}
+
+		function upd_general(side_title_val, side_about_val) {
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				console.log(this.responseText);
+				var myModal = document.getElementById('general-s');
+				var modal = document.Modal.getInstance(myModal);
+				modal.hide();
+			}
+			xhr.send('site_title = ' + side_title_val + '&site_about = ' + side_about_val + '&upd_general');
+		}
+
+		window.onload = function() {
+			get_general();
+		}
+	</script>
 
 
-
-        // function addCustomer() {
-        //     var customerFirstName = $('.add_epmployee #firstname_input').val();
-        //     var customerLastName = $('.add_epmployee #lastname_input').val();
-        //     var customerDob = $('.add_epmployee #dob_input').val();
-        //     var customerAddress = $('.add_epmployee #email_input').val();
-        //     var customerPhoneNumber = $('.add_epmployee #phone_input').val();
-        //     var customerEmail = $('.add_epmployee #address_input').val();
-
-        //     $.ajax({
-        //         type: 'post',
-        //         data: {
-        //             customerFirstName: customerFirstName,
-        //             customerLastName: customerLastName,
-        //             customerDob: customerDob,
-        //             customerAddress: customerAddress,
-        //             customerPhoneNumber: customerPhoneNumber,
-        //             customerEmail: customerEmail,
-        //         },
-        //         url: "http://localhost/hotel/src/controllers/employee-add.php",
-        //         success: function (data) {
-        //             var response = JSON.parse(data);
-        //             $('#addEmployeeModal').modal('hide');
-        //             employeeList();
-        //             alert(response.message);
-        //         }
-
-        //     })
-        // }
-
-        // function editEmployee() {
-        //     var name = $('.edit_employee #name_input').val();
-        //     var email = $('.edit_employee #email_input').val();
-        //     var phone = $('.edit_employee #phone_input').val();
-        //     var address = $('.edit_employee #address_input').val();
-        //     var employee_id = $('.edit_employee #employee_id').val();
-
-        //     $.ajax({
-        //         type: 'post',
-        //         data: {
-        //             name: name,
-        //             email: email,
-        //             phone: phone,
-        //             address: address,
-        //             employee_id: employee_id,
-        //         },
-        //         url: "employee-edit.php",
-        //         success: function (data) {
-        //             var response = JSON.parse(data);
-        //             $('#editEmployeeModal').modal('hide');
-        //             employeeList();
-        //             alert(response.message);
-        //         }
-
-        //     })
-        // }
-
-        // function viewEmployee(id = 2) {
-        //     $.ajax({
-        //         type: 'get',
-        //         data: {
-        //             id: id,
-        //         },
-        //         url: "employee-view.php",
-        //         success: function (data) {
-        //             var response = JSON.parse(data);
-        //             $('.edit_employee #name_input').val(response.name);
-        //             $('.edit_employee #email_input').val(response.email);
-        //             $('.edit_employee #phone_input').val(response.phone);
-        //             $('.edit_employee #address_input').val(response.address);
-        //             $('.edit_employee #employee_id').val(response.id);
-        //             $('.view_employee #name_input').val(response.name);
-        //             $('.view_employee #email_input').val(response.email);
-        //             $('.view_employee #phone_input').val(response.phone);
-        //             $('.view_employee #address_input').val(response.address);
-        //         }
-        //     })
-        // }
-
-        // function deleteEmployee() {
-        //     var id = $('#delete_id').val();
-        //     $('#deleteEmployeeModal').modal('hide');
-        //     $.ajax({
-        //         type: 'get',
-        //         data: {
-        //             id: id,
-        //         },
-        //         url: "employee-delete.php",
-        //         success: function (data) {
-        //             var response = JSON.parse(data);
-        //             employeeList();
-        //             alert(response.message);
-        //         }
-        //     })
-        // }
-    </script>
 </body>
 
 </html>
