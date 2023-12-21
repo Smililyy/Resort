@@ -277,7 +277,7 @@
             <div class="meetingevent-box" >
                 <div class="col-3"></div>
                 <div class="col-6">
-                    <form action="../controllers/meetingevent.php" method="POST">
+                    <form action="../controllers/MeetingeventController.php" method="POST">
                         <div class="row-0">
                             <input type="text" name="firstname" id="firstname" placeholder="First Name (required)" required>
                             <input type="text" name="lastname" id="lastname" placeholder="Last Name (required)" required>
