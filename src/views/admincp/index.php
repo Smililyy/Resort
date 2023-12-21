@@ -1035,7 +1035,7 @@ require('../../controllers/AdminController.php');
             })
         }
     </script>
-    </script>
+    <script>
         let general_data;
 
 		function get_general() {
@@ -1075,7 +1075,8 @@ require('../../controllers/AdminController.php');
 		window.onload = function() {
 			get_general();
 		}
-    <script>
+    </script>
+        
 </body>
 
 </html>
