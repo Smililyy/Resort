@@ -260,7 +260,6 @@ span .close {
   box-sizing: border-box;
   background-color: white;
   margin-top: 150px;
-  
 }
 
 .meetingevent-box .row-2 #dropdown option {
@@ -323,7 +322,6 @@ span .close {
   width: 100%;
   max-width: 1000px;
 }
-
 
 /* Add Animation */
 @-webkit-keyframes zoom {

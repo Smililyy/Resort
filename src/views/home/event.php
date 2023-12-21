@@ -29,18 +29,12 @@
                     <div class="column">
                         <img src="../../../assets/img/sgh-meeting-home-5-1.jpg" alt="" style="width:100%" onclick="myFunction(this);">
                     </div>
-                    <!-- <div class="column">
-                                            <img src="../img/sgh-meeting-home-6-1.jpg" alt="" style="width:100%" onclick="myFunction(this);">
-                                        </div>
-                                        <div class="column">
-                                            <img src="../img/sgh-meeting-home-7-1.jpg" alt="" style="width:100%" onclick="myFunction(this);">
-                                        </div> -->
                 </div>
             </div>
         </div>
         <div class="meetingevent-content-2-2" style="display: block;">
             <img src="" alt="" id="preimage" style="width:95%">
-            <img id="expandedImg" style="width:95%; position: relative; top: 10px " src="http://localhost:3000/img/sgh-meeting-home-1-1.jpg">
+            <img id="expandedImg" style="width:95%; position: relative; top: 10px " src="../../../assets/img/sgh-meeting-home-1-1.jpg">
             <div id="imgtext"></div>
         </div>
         <script>
@@ -52,7 +46,6 @@
                 expandImg.src = imgs.src;
                 imgText.innerHTML = imgs.alt;
                 expandImg.parentElement.style.display = "block";
-
             }
         </script>
     </div>

@@ -6,12 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/restaurantandbar.css">
-    <link rel="stylesheet" href="../../assets/css/meetings-events.css">
-    <link rel="stylesheet" href="../../assets/css/home.css" />
     <link rel="stylesheet" href="../../assets/css/header.css" />
     <link rel="stylesheet" href="../../assets/css/footer.css" />
     <link rel="stylesheet" href="../../assets/css/styles.css" />
-    <link rel="stylesheet" href="../js/index.js" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>Restaurants</title>
 </head>
@@ -83,7 +80,6 @@
                 </div>
 
             </div>
-
             <div class="Menu-container">
 
                 <div class="Description">
@@ -143,7 +139,6 @@
                 </div>
 
             </div>
-
             <div class="Menu-container">
 
                 <div class="carousel">
@@ -239,7 +234,6 @@
                 </form>
 
             </div>
-
             <script>
                 // JavaScript for smooth scrolling
                 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
