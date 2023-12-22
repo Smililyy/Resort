@@ -226,7 +226,7 @@
                 </div>
             </div>
         </div>
-        <?php include("../components/header.php") ?>
+        <?php include("../components/footer.php") ?>
     </div>
     <script src="../../../assets/js/index.js"></script>
 </body>
