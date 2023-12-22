@@ -10,7 +10,7 @@
                         For all meeting rooms details, please contact our Event Sales Team on (+84) 28 3829 9734 ext 189 or email: eventsm@saigonhotel.com.vn</p>
                     <div class="wpb_text_column wpb_content_element">
                         <div class="wpb_wrapper">
-                            <p style="text-align: center;"><strong><a href="http://localhost:3000/pages/meetings-events.php" style="padding: 0px"><span style="color: #a71218">READ DETAIL</span></a></strong></p>
+                            <p style="text-align: center;"><strong><a href="http://localhost/hotel/src/views/meetingevent.php" style="padding: 0px"><span style="color: #a71218">READ DETAIL</span></a></strong></p>
                         </div>
                     </div>
                 </div>

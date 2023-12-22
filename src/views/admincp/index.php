@@ -27,7 +27,7 @@ require('../../controllers/AdminController.php');
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!--My custom css -->
 	<link rel="stylesheet" href="../../../assets/css/ad-customer.css">
-	<title>Customer</title>
+	<title>Manage</title>
 </head>
 
 <body>
@@ -161,15 +161,8 @@ require('../../controllers/AdminController.php');
 						<!-- Data will be dynamically populated here -->
 					</tbody>
 
-					<script>
-						// Use jQuery to fetch data from list.php
-						$.get('http://localhost:3000/src/controllers/list.php', function(data, status) {
-							// Log the received data to the console
-							$('#customer_data').html(data);
-						});
-					</script>
-
-					<!-- <p class="loading">Loading Data</p> -->
+				</table>
+					<p class="loading">Loading Data</p>
 			</div>
 			<div id="room" class="content-item">
 				<div class="head-title">

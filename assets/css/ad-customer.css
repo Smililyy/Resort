@@ -370,20 +370,6 @@ body {
   box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
-.table-title {
-  padding-bottom: 15px;
-  background: #435d7d;
-  color: #fff;
-  padding: 16px 30px;
-  min-width: 100%;
-  margin: -20px -25px 10px;
-  border-radius: 3px 3px 0 0;
-}
-
-.table-title h2 {
-  margin: 5px 0 0;
-  font-size: 24px;
-}
 
 .table-title .btn-group {
   float: right;
@@ -449,22 +435,23 @@ table.table td:last-child i {
 
 table.table td a {
   font-weight: bold;
-  color: #566787;
+  color: #93130a;
   display: inline-block;
   text-decoration: none;
   outline: none !important;
 }
 
 table.table td a:hover {
-color: #2196F3;
+  color: var(--red);
 }
 
-table.table td a.edit {
-color: #FFC107;
-}
-
+table.table td a.edit,
 table.table td a.delete {
-color: #F44336;
+  color: #93130a;
+}
+table.table td a.edit:hover,
+table.table td a.delete:hover {
+  color: var(--red);
 }
 
 table.table td i {
@@ -479,7 +466,7 @@ margin-right: 10px;
 
 /* Modal styles */
 .modal .modal-dialog {
-max-width: 400px;
+max-width: 500px;
 }
 
 .modal .modal-header,
@@ -515,6 +502,52 @@ resize: vertical;
 .modal .btn {
 border-radius: 2px;
 min-width: 100px;
+/* background-color: #93130a; */
+}
+
+.btn-default,
+.btn-info,
+.btn-success,
+.btn-danger {
+  background-color: #93130a;
+  color: var(--grey);
+  border: none;
+}
+
+.btn-default:hover,
+.btn-info:hover,
+.btn-success:hover,
+.btn-danger:hover {
+  background-color: var(--red);
+  color: var(--grey);
+
+}
+
+.btn-default:active,
+.btn-info:active,
+.btn-success:active,
+.btn-danger:active {
+  background-color: var(--blue);
+  color: var(--grey);
+
+}
+
+.btn-default:focus,
+.btn-info:focus,
+.btn-success:focus,
+.btn-danger:focus {
+  background-color:var(--blue);
+  color: var(--grey);
+
+}
+
+.btn-default:visited,
+.btn-info:visited,
+.btn-success:visited,
+.btn-danger:visited {
+    background-color: var(--red);
+    color: var(--grey);
+
 }
 
 .modal form label {
@@ -568,18 +601,18 @@ animation: dots 1s steps(5, end) infinite;
 /* CONTENT */
 
 @media screen and (max-width: 768px) {
-  #sidebar {
-    width: 200px;
-  }
+#sidebar {
+  width: 200px;
+}
 
-  #content {
-    width: calc(100% - 60px);
-    left: 200px;
-  }
+#content {
+  width: calc(100% - 60px);
+  left: 200px;
+}
 
-  #content nav .nav-link {
-    display: none;
-  }
+#content nav .nav-link {
+  display: none;
+}
 }
 
 @media screen and (max-width: 576px) {
@@ -588,43 +621,43 @@ animation: dots 1s steps(5, end) infinite;
   }
 
   #content nav form .form-input button {
-    width: auto;
-    height: auto;
-    background: transparent;
-    border-radius: none;
-    color: var(--dark);
-  }
+  width: auto;
+  height: auto;
+  background: transparent;
+  border-radius: none;
+  color: var(--dark);
+}
 
-  #content nav form.show .form-input input {
-    display: block;
-    width: 100%;
-  }
-  #content nav form.show .form-input button {
-    width: 36px;
-    height: 100%;
-    border-radius: 0 36px 36px 0;
-    color: var(--light);
-    background: var(--red);
-  }
+#content nav form.show .form-input input {
+  display: block;
+  width: 100%;
+}
+#content nav form.show .form-input button {
+  width: 36px;
+  height: 100%;
+  border-radius: 0 36px 36px 0;
+  color: var(--light);
+  background: var(--red);
+}
 
-  #content nav form.show ~ .notification,
-  #content nav form.show ~ .profile {
-    display: none;
-  }
+#content nav form.show ~ .notification,
+#content nav form.show ~ .profile {
+  display: none;
+}
 
-  #content main .box-info {
-    grid-template-columns: 1fr;
-  }
+#content main .box-info {
+  grid-template-columns: 1fr;
+}
 
-  #content main .table-data .head {
-    min-width: 420px;
-  }
-  #content main .table-data .order table {
-    min-width: 420px;
-  }
-  #content main .table-data .todo .todo-list {
-    min-width: 420px;
-  }
+#content main .table-data .head {
+  min-width: 420px;
+}
+#content main .table-data .order table {
+  min-width: 420px;
+}
+#content main .table-data .todo .todo-list {
+  min-width: 420px;
+}
 }
 
 /*CSS tab/pane */
