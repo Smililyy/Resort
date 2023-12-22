@@ -12,16 +12,16 @@ require('../../controllers/AdminController.php');
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	
+
 	<!-- End Of Boostrap  -->
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
@@ -35,41 +35,41 @@ require('../../controllers/AdminController.php');
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="#" class="brand">
-		<span><img src="https://saigonhotel.com.vn/wp-content/uploads/2021/10/saigonhotel-logo.svg" alt="" style="width: 250px; margin-top: 30px;"></span>
-		<!-- <span class="text">Resort Management</span> -->
+			<span><img src="https://saigonhotel.com.vn/wp-content/uploads/2021/10/saigonhotel-logo.svg" alt="" style="width: 250px; margin-top: 30px;"></span>
+			<!-- <span class="text">Resort Management</span> -->
 		</a>
 		<ul class="side-menu top">
-            <li class="menu-item active" data-content="dashboard">
-                <a href="#">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li class="menu-item" data-content="customer">
-                <a href="#">
-                    <i class='bx bxs-user'></i> 
-                    <span class="text">Customer</span>
-                </a>
-            </li>
-            <li class="menu-item" data-content="room">
-                <a href="#">
-                    <i class='bx bxs-bed'></i> 
-                    <span class="text">Room</span>
-                </a>
-            </li>
-            <li class="menu-item" data-content="booking">
-                <a href="#">
-                    <i class='bx bxs-calendar-check'></i> 
-                    <span class="text">Booking</span>
-                </a>
-            </li>
-            <li class="menu-item" data-content="invoice">
-                <a href="#">
-                    <i class='bx bxs-receipt'></i> 
-                    <span class="text">Invoice</span>
-                </a>
-            </li>
-        </ul>
+			<li class="menu-item active" data-content="dashboard">
+				<a href="#">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="menu-item" data-content="customer">
+				<a href="#">
+					<i class='bx bxs-user'></i>
+					<span class="text">Customer</span>
+				</a>
+			</li>
+			<li class="menu-item" data-content="room">
+				<a href="#">
+					<i class='bx bxs-bed'></i>
+					<span class="text">Room</span>
+				</a>
+			</li>
+			<li class="menu-item" data-content="booking">
+				<a href="#">
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">Booking</span>
+				</a>
+			</li>
+			<li class="menu-item" data-content="invoice">
+				<a href="#">
+					<i class='bx bxs-receipt'></i>
+					<span class="text">Invoice</span>
+				</a>
+			</li>
+		</ul>
 
 		<ul class="side-menu">
 			<li class="menu-item" data-content="settings">
@@ -145,8 +145,8 @@ require('../../controllers/AdminController.php');
 					</a>
 				</div>
 				<table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
+					<thead>
+						<tr>
 							<th>ID</th>
 							<th>First Name</th>
 							<th>Last Name</th>
@@ -155,13 +155,22 @@ require('../../controllers/AdminController.php');
 							<th>Phone Number</th>
 							<th>Address</th>
 							<th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="customer_data">
-                    </tbody>
-                </table>
-                <p class="loading">Loading Data</p>
-            </div>
+						</tr>
+					</thead>
+					<tbody id="customer_data">
+						<!-- Data will be dynamically populated here -->
+					</tbody>
+
+					<script>
+						// Use jQuery to fetch data from list.php
+						$.get('http://localhost:3000/src/controllers/list.php', function(data, status) {
+							// Log the received data to the console
+							$('#customer_data').html(data);
+						});
+					</script>
+
+					<!-- <p class="loading">Loading Data</p> -->
+			</div>
 			<div id="room" class="content-item">
 				<div class="head-title">
 					<div class="left">
@@ -169,24 +178,24 @@ require('../../controllers/AdminController.php');
 					</div>
 					<a href="#addRoomModal" class="btn-download" data-toggle="modal">
 						<i class="material-icons">&#xE147;</i>
-						<span>Add New Room</span> 
+						<span>Add New Room</span>
 					</a>
 				</div>
 				<table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
+					<thead>
+						<tr>
 							<th>ID</th>
 							<th>Room Name</th>
 							<th>Room Type</th>
 							<th>Room Rate</th>
 							<th>Room Status</th>
 							<th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="room_data">
-                    </tbody>
-                </table>
-			</div>	
+						</tr>
+					</thead>
+					<tbody id="room_data">
+					</tbody>
+				</table>
+			</div>
 			<div id="booking" class="content-item">
 				<div class="head-title">
 					<div class="left">
@@ -198,8 +207,8 @@ require('../../controllers/AdminController.php');
 					</a>
 				</div>
 				<table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
+					<thead>
+						<tr>
 							<th>ID</th>
 							<th>First Name</th>
 							<th>Last Name</th>
@@ -209,11 +218,11 @@ require('../../controllers/AdminController.php');
 							<th>Check Out Date</th>
 							<th>Payment Status</th>
 							<th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="booking_data">
-                    </tbody>
-                </table>
+						</tr>
+					</thead>
+					<tbody id="booking_data">
+					</tbody>
+				</table>
 			</div>
 			<div id="invoice" class="content-item">
 				<div class="head-title">
@@ -241,7 +250,7 @@ require('../../controllers/AdminController.php');
                     <tbody id="employee_data">
                     </tbody>
                 </table> -->
-	
+
 			</div>
 			<div id="setting" class="content-item">
 				<div class="head-title">
@@ -326,720 +335,758 @@ require('../../controllers/AdminController.php');
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-	 <!-- ADD Modal HTML -->
-	 <div id="addCustomerModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Customer</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body add_customer">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="firstname_input" class="form-control" required>
-                    </div>
-					<div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="lastname_input" class="form-control" required>
-                    </div>
-					<div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="text" id="dob_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" id="email_input" class="form-control" required>
-                    </div>
-					<div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" id="phone_input" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" id="address_input" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" value="Add" onclick="addCustomer()">
-                </div>
-            </div>
-        </div>
-    </div>
-	<div id="addRoomModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Room</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body add_room">
-                    <div class="form-group">
-                        <label>Room Name</label>
-                        <input type="text" id="roomname_input" class="form-control" required>
-                    </div>
-					<div class="form-group">
-                        <label>Room Type</label>
-                        <input type="text" id="roomtype_input" class="form-control" required>
-                    </div>
-					<div class="form-group">
-                        <label>Room Rate</label>
-                        <input type="number" id="rate_input" min="10" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Room Status</label>
-                        <input type="text" id="roomstatus_input" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" value="Add" onclick="addRoom()">
-                </div>
-            </div>
-        </div>
-    </div>
-	<div id="addBookingModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body add_booking">
-                    <div class="form-group">
-                        <label>Customer ID</label>
-                        <input type="text" id="customerID_input" class="form-control">
-                    </div>
-					<div class="form-group">
-                        <label>Room ID</label>
-                        <input type="text" id="roomid_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Check In Date</label>
-                        <input type="text" id="checkout_input" class="form-control" required>
-                    </div>
-					<div class="form-group">
-                        <label>Check Out Date</label>
-                        <input type="text" id="checkin_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Status</label>
-                        <input type="text" id="paymentstatus_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Number of Guest</label>
-                        <input type="text" id="guests_input" class="form-control">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" value="Add" onclick="addBooking()">
-                </div>
-            </div>
-        </div>
-    </div>
-	<!-- End Add modal -->
-    <!-- Edit Modal HTML -->
-    <div id="editCustomerModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Customer</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body edit_employee">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="firstname_input" class="form-control">
-                    </div>
-					<div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="lastname_input" class="form-control" >
-                    </div>
-					<div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="text" id="dob_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="email_input" class="form-control" >
-                    </div>
-					<div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" id="phone_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" id="address_input"></textarea>
-                    </div>
-                    <input type="hidden" id="customer_id">
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" onclick="editCustomer()" value="Save">
-                </div>
-            </div>
-        </div>
-    </div>
-	<div id="editRoomModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
+	<!-- ADD Modal HTML -->
+	<div id="addCustomerModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
 				<div class="modal-header">
-                    <h4 class="modal-title">Edit Room</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body edit_employee">
-                    <div class="form-group">
-                        <label>Room Name</label>
-                        <input type="text" id="roomname_input" class="form-control" >
-                    </div>
+					<h4 class="modal-title">Add Customer</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body add_customer">
 					<div class="form-group">
-                        <label>Room Type</label>
-                        <input type="text" id="roomtype_input" class="form-control" >
-                    </div>
+						<label>First Name</label>
+						<input type="text" id="firstname_input" class="form-control" required>
+					</div>
 					<div class="form-group">
-                        <label>Room Rate</label>
-                        <input type="number" id="rate_input" min="10" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Room Status</label>
-                        <input type="text" id="roomstatus_input" class="form-control" >
-                    </div>
-                    <input type="hidden" id="room_id">
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" onclick="editRoom()" value="Save">
-                </div>
-            </div>
-        </div>
-    </div>
+						<label>Last Name</label>
+						<input type="text" id="lastname_input" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Date of Birth</label>
+						<input type="text" id="dob_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="text" id="email_input" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Phone Number</label>
+						<input type="text" id="phone_input" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<textarea class="form-control" id="address_input" required></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add" onclick="addCustomer()">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="addRoomModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Room</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body add_room">
+					<div class="form-group">
+						<label>Room Name</label>
+						<input type="text" id="roomname_input" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Room Type</label>
+						<input type="text" id="roomtype_input" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Room Rate</label>
+						<input type="number" id="rate_input" min="10" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Room Status</label>
+						<input type="text" id="roomstatus_input" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add" onclick="addRoom()">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="addBookingModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Booking</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body add_booking">
+					<div class="form-group">
+						<label>Customer ID</label>
+						<input type="text" id="customerID_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Room ID</label>
+						<input type="text" id="roomid_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Check In Date</label>
+						<input type="text" id="checkout_input" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Check Out Date</label>
+						<input type="text" id="checkin_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Payment Status</label>
+						<input type="text" id="paymentstatus_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Number of Guest</label>
+						<input type="text" id="guests_input" class="form-control">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add" onclick="addBooking()">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Add modal -->
+	<!-- Edit Modal HTML -->
+	<div id="editCustomerModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Customer</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body edit_employee">
+					<div class="form-group">
+						<label>First Name</label>
+						<input type="text" id="firstname_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Last Name</label>
+						<input type="text" id="lastname_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Date of Birth</label>
+						<input type="text" id="dob_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="email" id="email_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Phone Number</label>
+						<input type="text" id="phone_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<textarea class="form-control" id="address_input"></textarea>
+					</div>
+					<input type="hidden" id="customer_id">
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" onclick="editCustomer()" value="Save">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="editRoomModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Room</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body edit_employee">
+					<div class="form-group">
+						<label>Room Name</label>
+						<input type="text" id="roomname_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Room Type</label>
+						<input type="text" id="roomtype_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Room Rate</label>
+						<input type="number" id="rate_input" min="10" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Room Status</label>
+						<input type="text" id="roomstatus_input" class="form-control">
+					</div>
+					<input type="hidden" id="room_id">
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" onclick="editRoom()" value="Save">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="editBookingModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-			<div class="modal-header">
-                    <h4 class="modal-title">Edit Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body edit_employee">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="firstname_input" class="form-control" readonly>
-                    </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Booking</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body edit_employee">
 					<div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="lastname_input" class="form-control" readonly>
-                    </div>
+						<label>First Name</label>
+						<input type="text" id="firstname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Room ID</label>
-                        <input type="text" id="roomid_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Check In Date</label>
-                        <input type="text" id="checkout_input" class="form-control">
-                    </div>
+						<label>Last Name</label>
+						<input type="text" id="lastname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Check Out Date</label>
-                        <input type="text" id="checkin_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Status</label>
-                        <input type="text" id="paymentstatus_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Number of Guest</label>
-                        <input type="text" id="guests_input" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Total Amount</label>
-                        <input type="text" id="total_input" class="form-control" readonly>
-                    </div>
-                    <input type="hidden" id="booking_id">
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" onclick="editBooking()" value="Save">
-                </div>
-            </div>
-        </div>
-    </div>
+						<label>Room ID</label>
+						<input type="text" id="roomid_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Check In Date</label>
+						<input type="text" id="checkout_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Check Out Date</label>
+						<input type="text" id="checkin_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Payment Status</label>
+						<input type="text" id="paymentstatus_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Number of Guest</label>
+						<input type="text" id="guests_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Total Amount</label>
+						<input type="text" id="total_input" class="form-control" readonly>
+					</div>
+					<input type="hidden" id="booking_id">
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" onclick="editBooking()" value="Save">
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- End Edit Modal -->
-    <!-- View Modal HTML -->
-    <div id="viewCustomerModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">View Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body view_employee">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="firstname_input" class="form-control" readonly>
-                    </div>
+	<!-- View Modal HTML -->
+	<div id="viewCustomerModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">View Employee</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body view_employee">
 					<div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="lastname_input" class="form-control" readonly>
-                    </div>
+						<label>First Name</label>
+						<input type="text" id="firstname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="text" id="dob_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="email_input" class="form-control" readonly>
-                    </div>
+						<label>Last Name</label>
+						<input type="text" id="lastname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" id="phone_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" id="address_input" readonly></textarea>
-                    </div>   
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-                </div>
-            </div>
-        </div>
-    </div>
+						<label>Date of Birth</label>
+						<input type="text" id="dob_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="email" id="email_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Phone Number</label>
+						<input type="text" id="phone_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<textarea class="form-control" id="address_input" readonly></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="viewRoomModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">View Room</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body view_employee">
-                    <div class="form-group">
-                        <label>Room Name</label>
-                        <input type="text" id="roomname_input" class="form-control" readonly>
-                    </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">View Room</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body view_employee">
 					<div class="form-group">
-                        <label>Room Type</label>
-                        <input type="text" id="roomtype_input" class="form-control" readonly>
-                    </div>
+						<label>Room Name</label>
+						<input type="text" id="roomname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Room Rate</label>
-                        <input type="number" id="rate_input" min="10" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Room Status</label>
-                        <input type="email" id="roomstatus_input" class="form-control" readonly>
-                    </div>  
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-                </div>
-            </div>
-        </div>
-    </div>
+						<label>Room Type</label>
+						<input type="text" id="roomtype_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Room Rate</label>
+						<input type="number" id="rate_input" min="10" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Room Status</label>
+						<input type="email" id="roomstatus_input" class="form-control" readonly>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="viewBookingModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">View Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body view_employee">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="firstname_input" class="form-control" readonly>
-                    </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">View Booking</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body view_employee">
 					<div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="lastname_input" class="form-control" readonly>
-                    </div>
+						<label>First Name</label>
+						<input type="text" id="firstname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Room ID</label>
-                        <input type="text" id="roomid_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Check In Date</label>
-                        <input type="text" id="checkout_input" class="form-control" readonly>
-                    </div>
+						<label>Last Name</label>
+						<input type="text" id="lastname_input" class="form-control" readonly>
+					</div>
 					<div class="form-group">
-                        <label>Check Out Date</label>
-                        <input type="text" id="checkin_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Status</label>
-                        <input type="text" id="paymentstatus_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Number of Guest</label>
-                        <input type="text" id="guests_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Total Amount</label>
-                        <input type="text" id="total_input" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea class="form-control" id="message_input" readonly></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Delete Modal HTML -->
+						<label>Room ID</label>
+						<input type="text" id="roomid_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Check In Date</label>
+						<input type="text" id="checkout_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Check Out Date</label>
+						<input type="text" id="checkin_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Payment Status</label>
+						<input type="text" id="paymentstatus_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Number of Guest</label>
+						<input type="text" id="guests_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Total Amount</label>
+						<input type="text" id="total_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Message</label>
+						<textarea class="form-control" id="message_input" readonly></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML -->
 	<div id="deleteCustomerModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Customer</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <input type="hidden" id="delete_id">
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" onclick="deleteCustomer()" value="Delete">
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Delete Customer</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<input type="hidden" id="delete_id">
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" onclick="deleteCustomer()" value="Delete">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="deleteRoomModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Room</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <input type="hidden" id="delete_id">
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" onclick="deleteRoom()" value="Delete">
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Delete Room</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<input type="hidden" id="delete_id">
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" onclick="deleteRoom()" value="Delete">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="deleteBookingModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <input type="hidden" id="delete_id">
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" onclick="deleteBooking()" value="Delete">
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Delete Booking</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<input type="hidden" id="delete_id">
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" onclick="deleteBooking()" value="Delete">
+				</div>
+			</div>
+		</div>
+	</div>
 	<?php
 	require('./inc/scripts.php');
 	?>
 
-    <!-- HANDLE LISTDATA -->
-    <script>
-        var $j = jQuery.noConflict();
+	<!-- HANDLE LISTDATA -->
+	<script>
+		var $j = jQuery.noConflict();
 
-        function fetchData(action, targetId) {
-            $j.get('http://localhost/hotel/src/models/Admin.php?action=' + action, function (data, status) {
-                $j(targetId).html(data);
-                $j('.loading').hide();
-            });
-        }
+		function fetchData(action, targetId) {
+			$j.get('http://localhost/hotel/src/models/Admin.php?action=' + action, function(data, status) {
+				$j(targetId).html(data);
+				$j('.loading').hide();
+			});
+		}
 
-        // Call the function for each data source
-       
-        fetchData('listcustomer', '#customer_data');
-        fetchData('listbooking', '#booking_data');
-        fetchData('listroom', '#room_data');
-        
-    </script>
-    <!-- END HANDLE LISTDATA -->
-    <script>
+		// Call the function for each data source
+
+		fetchData('listcustomer', '#customer_data');
+		fetchData('listbooking', '#booking_data');
+		fetchData('listroom', '#room_data');
+	</script>
+	<!-- END HANDLE LISTDATA -->
+	<script>
 		var $jq = jQuery.noConflict();
-    
-        function viewCustomer(id) {
-            $jq('.edit_employee #customer_id').val(id);
 
-            $jq.get('http://localhost/hotel/src/models/Admin.php', { action: 'viewCustomer', idcustomer: id }, function (data, status) {
-            // Parse the JSON data received from the server
-                var customerData = JSON.parse(data);
-                // Update modal content with customer data
-                $jq('.edit_employee #firstname_input').val(customerData.customerFirstName);
-                $jq('.edit_employee #lastname_input').val(customerData.customerLastName);
-                $jq('.edit_employee #dob_input').val(customerData.customerDob);
-                $jq('.edit_employee #email_input').val(customerData.customerEmail);
-                $jq('.edit_employee #phone_input').val(customerData.customerPhoneNumber);
-                $jq('.edit_employee #address_input').val(customerData.customerAddress);
-                $jq('.view_employee #firstname_input').val(customerData.customerFirstName);
-                $jq('.view_employee #lastname_input').val(customerData.customerLastName);
-                $jq('.view_employee #dob_input').val(customerData.customerDob);
-                $jq('.view_employee #email_input').val(customerData.customerEmail);
-                $jq('.view_employee #phone_input').val(customerData.customerPhoneNumber);
-                $jq('.view_employee #address_input').val(customerData.customerAddress);
+		function viewCustomer(id) {
+			$jq('.edit_employee #customer_id').val(id);
 
-            });
-        }
-        function viewRoom(id) {
-            $jq('.edit_employee #room_id').val(id);
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'viewCustomer',
+				idcustomer: id
+			}, function(data, status) {
+				// Parse the JSON data received from the server
+				var customerData = JSON.parse(data);
+				// Update modal content with customer data
+				$jq('.edit_employee #firstname_input').val(customerData.customerFirstName);
+				$jq('.edit_employee #lastname_input').val(customerData.customerLastName);
+				$jq('.edit_employee #dob_input').val(customerData.customerDob);
+				$jq('.edit_employee #email_input').val(customerData.customerEmail);
+				$jq('.edit_employee #phone_input').val(customerData.customerPhoneNumber);
+				$jq('.edit_employee #address_input').val(customerData.customerAddress);
+				$jq('.view_employee #firstname_input').val(customerData.customerFirstName);
+				$jq('.view_employee #lastname_input').val(customerData.customerLastName);
+				$jq('.view_employee #dob_input').val(customerData.customerDob);
+				$jq('.view_employee #email_input').val(customerData.customerEmail);
+				$jq('.view_employee #phone_input').val(customerData.customerPhoneNumber);
+				$jq('.view_employee #address_input').val(customerData.customerAddress);
 
-            $jq.get('http://localhost/hotel/src/models/Admin.php', { action: 'viewRoom', idroom: id }, function (data, status) {
-                // Parse the JSON data received from the server
-                var roomData = JSON.parse(data);
+			});
+		}
 
-                // Update modal content with room data
-                $jq('.edit_employee #roomname_input').val(roomData.roomName);
-                $jq('.edit_employee #roomtype_input').val(roomData.roomType);
-                $jq('.edit_employee #rate_input').val(roomData.roomRate);
-                $jq('.edit_employee #roomstatus_input').val(roomData.roomStatus);
-                $jq('.view_employee #roomname_input').val(roomData.roomName);
-                $jq('.view_employee #roomtype_input').val(roomData.roomType);
-                $jq('.view_employee #rate_input').val(roomData.roomRate);
-                $jq('.view_employee #roomstatus_input').val(roomData.roomStatus);
-            });
-        }
-        function viewBooking(id) {
-            $jq('.edit_employee #booking_id').val(id);
-            $jq.get('http://localhost/hotel/src/models/Admin.php', { action: 'viewBooking', idbooking: id }, function (data, status) {
-                // Parse the JSON data received from the server
-                var bookingData = JSON.parse(data);
+		function viewRoom(id) {
+			$jq('.edit_employee #room_id').val(id);
 
-                // Update modal content with booking data
-                $jq('.edit_employee #firstname_input').val(bookingData.customerFirstName);
-                $jq('.edit_employee #lastname_input').val(bookingData.customerLastName);
-                $jq('.edit_employee #roomid_input').val(bookingData.roomID);
-                $jq('.edit_employee #checkout_input').val(bookingData.checkOutDate);
-                $jq('.edit_employee #checkin_input').val(bookingData.checkinDate);
-                $jq('.edit_employee #paymentstatus_input').val(bookingData.paymentStatus);
-                $jq('.edit_employee #guests_input').val(bookingData.numberOfCustomer);
-                $jq('.edit_employee #message_input').val(bookingData.message);
-                $jq('.edit_employee #total_input').val(bookingData.totalAmount);
-                $jq('.view_employee #firstname_input').val(bookingData.customerFirstName);
-                $jq('.view_employee #lastname_input').val(bookingData.customerLastName);
-                $jq('.view_employee #roomid_input').val(bookingData.roomID);
-                $jq('.view_employee #checkout_input').val(bookingData.checkOutDate);
-                $jq('.view_employee #checkin_input').val(bookingData.checkinDate);
-                $jq('.view_employee #paymentstatus_input').val(bookingData.paymentStatus);
-                $jq('.view_employee #guests_input').val(bookingData.numberOfCustomer);
-                $jq('.view_employee #message_input').val(bookingData.message);
-                $jq('.view_employee #total_input').val(bookingData.totalAmount);
-            });
-        }
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'viewRoom',
+				idroom: id
+			}, function(data, status) {
+				// Parse the JSON data received from the server
+				var roomData = JSON.parse(data);
 
-        function prepareAction(ID) {
-            $jq('#delete_id').val(ID);
-        }
+				// Update modal content with room data
+				$jq('.edit_employee #roomname_input').val(roomData.roomName);
+				$jq('.edit_employee #roomtype_input').val(roomData.roomType);
+				$jq('.edit_employee #rate_input').val(roomData.roomRate);
+				$jq('.edit_employee #roomstatus_input').val(roomData.roomStatus);
+				$jq('.view_employee #roomname_input').val(roomData.roomName);
+				$jq('.view_employee #roomtype_input').val(roomData.roomType);
+				$jq('.view_employee #rate_input').val(roomData.roomRate);
+				$jq('.view_employee #roomstatus_input').val(roomData.roomStatus);
+			});
+		}
 
-        function deleteCustomer() {
-            var customerID = $jq('#delete_id').val();
+		function viewBooking(id) {
+			$jq('.edit_employee #booking_id').val(id);
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'viewBooking',
+				idbooking: id
+			}, function(data, status) {
+				// Parse the JSON data received from the server
+				var bookingData = JSON.parse(data);
 
-            $jq.get('http://localhost/hotel/src/models/Admin.php', { action: 'deleteCustomer', idcustomer: customerID }, function (data, status) {
-                $jq('#deleteCustomerModal').modal('hide');
-                fetchData('listcustomer', '#customer_data'); 
-            });
-        }
-        function deleteBooking() {
-            var bookingID = $jq('#delete_id').val();
+				// Update modal content with booking data
+				$jq('.edit_employee #firstname_input').val(bookingData.customerFirstName);
+				$jq('.edit_employee #lastname_input').val(bookingData.customerLastName);
+				$jq('.edit_employee #roomid_input').val(bookingData.roomID);
+				$jq('.edit_employee #checkout_input').val(bookingData.checkOutDate);
+				$jq('.edit_employee #checkin_input').val(bookingData.checkinDate);
+				$jq('.edit_employee #paymentstatus_input').val(bookingData.paymentStatus);
+				$jq('.edit_employee #guests_input').val(bookingData.numberOfCustomer);
+				$jq('.edit_employee #message_input').val(bookingData.message);
+				$jq('.edit_employee #total_input').val(bookingData.totalAmount);
+				$jq('.view_employee #firstname_input').val(bookingData.customerFirstName);
+				$jq('.view_employee #lastname_input').val(bookingData.customerLastName);
+				$jq('.view_employee #roomid_input').val(bookingData.roomID);
+				$jq('.view_employee #checkout_input').val(bookingData.checkOutDate);
+				$jq('.view_employee #checkin_input').val(bookingData.checkinDate);
+				$jq('.view_employee #paymentstatus_input').val(bookingData.paymentStatus);
+				$jq('.view_employee #guests_input').val(bookingData.numberOfCustomer);
+				$jq('.view_employee #message_input').val(bookingData.message);
+				$jq('.view_employee #total_input').val(bookingData.totalAmount);
+			});
+		}
+
+		function prepareAction(ID) {
+			$jq('#delete_id').val(ID);
+		}
+
+		function deleteCustomer() {
+			var customerID = $jq('#delete_id').val();
+
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'deleteCustomer',
+				idcustomer: customerID
+			}, function(data, status) {
+				$jq('#deleteCustomerModal').modal('hide');
+				fetchData('listcustomer', '#customer_data');
+			});
+		}
+
+		function deleteBooking() {
+			var bookingID = $jq('#delete_id').val();
 
 
-            $jq.get('http://localhost/hotel/src/models/Admin.php', { action: 'deleteBooking', idbooking: bookingID }, function (data, status) {
-                // Handle the response if needed
-                fetchData('listbooking', '#booking_data');
-                $jq('#deleteBookingModal').modal('hide');
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'deleteBooking',
+				idbooking: bookingID
+			}, function(data, status) {
+				// Handle the response if needed
+				fetchData('listbooking', '#booking_data');
+				$jq('#deleteBookingModal').modal('hide');
 
-            });
-        }
-        function deleteRoom() {
-            var roomID = $jq('#delete_id').val();
+			});
+		}
 
-            $jq.get('http://localhost/hotel/src/models/Admin.php', { action: 'deleteRoom', idroom: roomID }, function (data, status) {
-                // Handle the response if needed
-                fetchData('listroom', '#room_data');
-                $jq('#deleteRoomModal').modal('hide');
-            });
-        }
-        function editCustomer() {
-            var customerid = $jq('.edit_employee #customer_id').val();
-            var firstname = $jq('.edit_employee #firstname_input').val();
-            var lastname = $jq('.edit_employee #lastname_input').val();
-            var dob = $jq('.edit_employee #dob_input').val();
-            var email = $jq('.edit_employee #email_input').val();
-            var phone = $jq('.edit_employee #phone_input').val();
-            var address = $jq('.edit_employee #address_input').val();
-            // Create parameters string
-            var parameters ="customerid=" + customerid +
-                            "&firstname=" + firstname +
-                            "&lastname=" + lastname +
-                            "&dob=" + dob +
-                            "&email=" + email +
-                            "&phone=" + phone +
-                            "&address=" + address;
+		function deleteRoom() {
+			var roomID = $jq('#delete_id').val();
 
-            // http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
-            // checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
-            // Use parameters in a GET request
-            $jq.get('http://localhost/hotel/src/models/Admin.php?'+ parameters, {action: 'editCustomer'}, function (data, status) {
-                // Handle the response if needed
-                fetchData('listcustomer', '#customer_data');
-                $jq('#editCustomerModal').modal('hide');      
-            });
-    
-        }
-        function editRoom() {
-            var roomid = $jq('.edit_employee #room_id').val();
-            var roomname = $jq('.edit_employee #roomname_input').val();
-            var roomtype = $jq('.edit_employee #roomtype_input').val();
-            var roomrate = $jq('.edit_employee #rate_input').val();
-            var roomstatus = $jq('.edit_employee #roomstatus_input').val();
-            // Create parameters string
-            var parameters ="roomid=" + roomid +
-                            "&roomname=" + roomname +
-                            "&roomtype=" + roomtype +
-                            "&roomrate=" + roomrate +
-                            "&roomstatus=" + roomstatus;
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'deleteRoom',
+				idroom: roomID
+			}, function(data, status) {
+				// Handle the response if needed
+				fetchData('listroom', '#room_data');
+				$jq('#deleteRoomModal').modal('hide');
+			});
+		}
 
-            // http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
-            // checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
-            // Use parameters in a GET request
-            $jq.get('http://localhost/hotel/src/models/Admin.php?'+ parameters, {action: 'editRoom'}, function (data, status) {
-                // Handle the response if needed
-                fetchData('listroom', '#room_data');
-                $jq('#editRoomModal').modal('hide');      
-            });
-    
-        }
-        function editBooking() {
-            var bookingid = $jq('.edit_employee #booking_id').val();
-            var roomid = $jq('.edit_employee #roomid_input').val();
-            var checkoutdate = $jq('.edit_employee #checkout_input').val();
-            var checkindate = $jq('.edit_employee #checkin_input').val();
-            var paymentstatus = $jq('.edit_employee #paymentstatus_input').val();
-            var guests = $jq('.edit_employee #guests_input').val();
-            var message = $jq('.edit_employee #message_input').val();
-            // Create parameters string
-            var parameters ="bookingid=" + bookingid +
-                            "&roomid=" + roomid +
-                            "&checkoutdate=" + checkoutdate +
-                            "&checkindate=" + checkindate +
-                            "&paymentstatus=" + paymentstatus +
-                            "&guests=" + guests +
-                            "&message=" + message;
+		function editCustomer() {
+			var customerid = $jq('.edit_employee #customer_id').val();
+			var firstname = $jq('.edit_employee #firstname_input').val();
+			var lastname = $jq('.edit_employee #lastname_input').val();
+			var dob = $jq('.edit_employee #dob_input').val();
+			var email = $jq('.edit_employee #email_input').val();
+			var phone = $jq('.edit_employee #phone_input').val();
+			var address = $jq('.edit_employee #address_input').val();
+			// Create parameters string
+			var parameters = "customerid=" + customerid +
+				"&firstname=" + firstname +
+				"&lastname=" + lastname +
+				"&dob=" + dob +
+				"&email=" + email +
+				"&phone=" + phone +
+				"&address=" + address;
 
-            // http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
-            // checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
-            // Use parameters in a GET request
-            $jq.get('http://localhost/hotel/src/models/Admin.php?'+ parameters, {action: 'editBooking'}, function (data, status) {
-                // Handle the response if needed
-                fetchData('listbooking', '#booking_data');
-                $jq('#editBookingModal').modal('hide');      
-            });
-    
-        }
-         // Add new data
-         function addCustomer() {
-            // Collect data from the form
-            var firstName = $jq('.add_customer #firstname_input').val();
-            var lastName = $jq('.add_customer #lastname_input').val();
-            var dob = $jq('.add_customer #dob_input').val();
-            var email = $jq('.add_customer #email_input').val();
-            var phoneNumber = $jq('.add_customer #phone_input').val();
-            var address = $jq('.add_customer #address_input').val();
+			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
+			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
+			// Use parameters in a GET request
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'editCustomer'
+			}, function(data, status) {
+				// Handle the response if needed
+				fetchData('listcustomer', '#customer_data');
+				$jq('#editCustomerModal').modal('hide');
+			});
 
-            // Simple client-side validation
-            if (!firstName || !lastName || !email || !phoneNumber || !address) {
-                alert('Please fill in all required fields.');
-                return;
-            }
+		}
 
-            // Create a URL-encoded string
-            var parameters ="firstName=" + firstName +
-                            "&lastName=" + lastName +
-                            "&dob=" + dob +
-                            "&email=" + email +
-                            "&phoneNumber=" + phoneNumber +
-                            "&address=" + address;
-            // alert('http://localhost/hotel/src/models/Admin.php?action=addCustomer?'+ parameters);
-            // debugger;
-            // Perform any additional client-side logic if needed
+		function editRoom() {
+			var roomid = $jq('.edit_employee #room_id').val();
+			var roomname = $jq('.edit_employee #roomname_input').val();
+			var roomtype = $jq('.edit_employee #roomtype_input').val();
+			var roomrate = $jq('.edit_employee #rate_input').val();
+			var roomstatus = $jq('.edit_employee #roomstatus_input').val();
+			// Create parameters string
+			var parameters = "roomid=" + roomid +
+				"&roomname=" + roomname +
+				"&roomtype=" + roomtype +
+				"&roomrate=" + roomrate +
+				"&roomstatus=" + roomstatus;
 
-            // Add logic to send the data to the server via AJAX
-            $jq.get('http://localhost/hotel/src/models/Admin.php?'+ parameters, {action: 'addCustomer'}, function (data, status) {
-                // Handle the response from the server if needed
-                $jq('#addCustomerModal').modal('hide');
-                // Update and perform additional actions
-                fetchData('listcustomer', '#customer_data');
-            })
-        }
+			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
+			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
+			// Use parameters in a GET request
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'editRoom'
+			}, function(data, status) {
+				// Handle the response if needed
+				fetchData('listroom', '#room_data');
+				$jq('#editRoomModal').modal('hide');
+			});
 
-        function addRoom() {
-            // Collect data from the form
-            var roomname = $jq('.add_room #roomname_input').val();
-            var roomtype = $jq('.add_room #roomtype_input').val();
-            var roomrate = $jq('.add_room #rate_input').val();
-            var roomstatus = $jq('.add_room #roomstatus_input').val();
+		}
 
-            // Create a URL-encoded string
-            var parameters ="roomname=" + roomname +
-                            "&roomtype=" + roomtype +
-                            "&roomrate=" + roomrate +
-                            "&roomstatus=" + roomstatus;
-           
-            // Perform any additional client-side logic if needed
+		function editBooking() {
+			var bookingid = $jq('.edit_employee #booking_id').val();
+			var roomid = $jq('.edit_employee #roomid_input').val();
+			var checkoutdate = $jq('.edit_employee #checkout_input').val();
+			var checkindate = $jq('.edit_employee #checkin_input').val();
+			var paymentstatus = $jq('.edit_employee #paymentstatus_input').val();
+			var guests = $jq('.edit_employee #guests_input').val();
+			var message = $jq('.edit_employee #message_input').val();
+			// Create parameters string
+			var parameters = "bookingid=" + bookingid +
+				"&roomid=" + roomid +
+				"&checkoutdate=" + checkoutdate +
+				"&checkindate=" + checkindate +
+				"&paymentstatus=" + paymentstatus +
+				"&guests=" + guests +
+				"&message=" + message;
 
-            // Add logic to send the data to the server via AJAX
-            $jq.get('http://localhost/hotel/src/models/Admin.php?'+ parameters, {action: 'addRoom'}, function (data, status) {
-                // Handle the response from the server if needed
-                $jq('#addRoomModal').modal('hide');
-                // Update and perform additional actions
-                fetchData('listroom', '#room_data');
-            })
-        }
-        function addBooking() {
-            var customerID = $jq('.add_booking #customerID_input').val();
-            var roomid = $jq('.add_booking #roomid_input').val();
-            var checkoutdate = $jq('.add_booking #checkout_input').val();
-            var checkindate = $jq('.add_booking #checkin_input').val();
-            var paymentstatus = $jq('.add_booking #paymentstatus_input').val();
-            var guests = $jq('.add_booking #guests_input').val();
+			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
+			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
+			// Use parameters in a GET request
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'editBooking'
+			}, function(data, status) {
+				// Handle the response if needed
+				fetchData('listbooking', '#booking_data');
+				$jq('#editBookingModal').modal('hide');
+			});
 
-            // Create a URL-encoded string
-            var parameters ="customerID=" + customerID +
-                            "&roomid=" + roomid +
-                            "&checkoutdate=" + checkoutdate +
-                            "&checkindate=" + checkindate +
-                            "&paymentstatus=" + paymentstatus +
-                            "&guests=" + guests;
+		}
+		// Add new data
+		function addCustomer() {
+			// Collect data from the form
+			var firstName = $jq('.add_customer #firstname_input').val();
+			var lastName = $jq('.add_customer #lastname_input').val();
+			var dob = $jq('.add_customer #dob_input').val();
+			var email = $jq('.add_customer #email_input').val();
+			var phoneNumber = $jq('.add_customer #phone_input').val();
+			var address = $jq('.add_customer #address_input').val();
 
-            // // Debugging: Alert parameters and stop code execution
-            // alert(parameters);
-            // debugger;
+			// Simple client-side validation
+			if (!firstName || !lastName || !email || !phoneNumber || !address) {
+				alert('Please fill in all required fields.');
+				return;
+			}
 
-            // Add logic to send the data to the server via AJAX
-            $jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, { action: 'addBooking' }, function (data, status) {
-                // Handle the response from the server if needed
-                $jq('#addBookingModal').modal('hide');
-                // Update and perform additional actions
-                fetchData('listbooking', '#booking_data');
-            })
-        }
-    </script>
+			// Create a URL-encoded string
+			var parameters = "firstName=" + firstName +
+				"&lastName=" + lastName +
+				"&dob=" + dob +
+				"&email=" + email +
+				"&phoneNumber=" + phoneNumber +
+				"&address=" + address;
+			// alert('http://localhost/hotel/src/models/Admin.php?action=addCustomer?'+ parameters);
+			// debugger;
+			// Perform any additional client-side logic if needed
+
+			// Add logic to send the data to the server via AJAX
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'addCustomer'
+			}, function(data, status) {
+				// Handle the response from the server if needed
+				$jq('#addCustomerModal').modal('hide');
+				// Update and perform additional actions
+				fetchData('listcustomer', '#customer_data');
+			})
+		}
+
+		function addRoom() {
+			// Collect data from the form
+			var roomname = $jq('.add_room #roomname_input').val();
+			var roomtype = $jq('.add_room #roomtype_input').val();
+			var roomrate = $jq('.add_room #rate_input').val();
+			var roomstatus = $jq('.add_room #roomstatus_input').val();
+
+			// Create a URL-encoded string
+			var parameters = "roomname=" + roomname +
+				"&roomtype=" + roomtype +
+				"&roomrate=" + roomrate +
+				"&roomstatus=" + roomstatus;
+
+			// Perform any additional client-side logic if needed
+
+			// Add logic to send the data to the server via AJAX
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'addRoom'
+			}, function(data, status) {
+				// Handle the response from the server if needed
+				$jq('#addRoomModal').modal('hide');
+				// Update and perform additional actions
+				fetchData('listroom', '#room_data');
+			})
+		}
+
+		function addBooking() {
+			var customerID = $jq('.add_booking #customerID_input').val();
+			var roomid = $jq('.add_booking #roomid_input').val();
+			var checkoutdate = $jq('.add_booking #checkout_input').val();
+			var checkindate = $jq('.add_booking #checkin_input').val();
+			var paymentstatus = $jq('.add_booking #paymentstatus_input').val();
+			var guests = $jq('.add_booking #guests_input').val();
+
+			// Create a URL-encoded string
+			var parameters = "customerID=" + customerID +
+				"&roomid=" + roomid +
+				"&checkoutdate=" + checkoutdate +
+				"&checkindate=" + checkindate +
+				"&paymentstatus=" + paymentstatus +
+				"&guests=" + guests;
+
+			// // Debugging: Alert parameters and stop code execution
+			// alert(parameters);
+			// debugger;
+
+			// Add logic to send the data to the server via AJAX
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'addBooking'
+			}, function(data, status) {
+				// Handle the response from the server if needed
+				$jq('#addBookingModal').modal('hide');
+				// Update and perform additional actions
+				fetchData('listbooking', '#booking_data');
+			})
+		}
+	</script>
 
 
 	<script>
 		let general_data;
+
 		function get_general() {
 			let side_title = document.getElementById("side_title");
 			let side_about = document.getElementById("side_about");
@@ -1077,9 +1124,8 @@ require('../../controllers/AdminController.php');
 		window.onload = function() {
 			get_general();
 		}
+	</script>
 
-    </script>
-        
 </body>
 
 </html>
