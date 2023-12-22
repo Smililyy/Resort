@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/meetings-events.css">
-    <link rel="stylesheet" href="../../assets/css/home.css" />
     <link rel="stylesheet" href="../../assets/css/header.css" />
     <link rel="stylesheet" href="../../assets/css/footer.css" />
     <link rel="stylesheet" href="../../assets/css/styles.css" />
@@ -264,20 +263,20 @@
 
                 $options = array();
 
-                $sql = "SELECT DISTINCT roomName FROM rooms WHERE roomType = 'Event Meeting '";
-                $result = $con->query($sql);
+                    $sql = "SELECT DISTINCT roomName FROM rooms WHERE roomType = 'Event Meeting '";
+                    $result = $con->query($sql);
 
                 // Lặp qua kết quả và thêm giá trị vào mảng options
                 if ($result !== false && $result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
                         $options[] = $row["roomName"];
                     }
                 }
             ?>
-            <div class="meetingevent-box" >
+            <div class="meetingevent-box">
                 <div class="col-3"></div>
                 <div class="col-6">
-                    <form action="../controllers/meetingevent.php" method="POST">
+                    <form action="../controllers/MeetingeventController.php" method="POST">
                         <div class="row-0">
                             <input type="text" name="firstname" id="firstname" placeholder="First Name (required)" required>
                             <input type="text" name="lastname" id="lastname" placeholder="Last Name (required)" required>
@@ -306,37 +305,37 @@
                             <button class="btn-send" type="submit">SEND REQUEST</button>
                         </div>
                     </form>
-                        <!-- Đoạn mã HTML và JavaScript -->
+                    <!-- Đoạn mã HTML và JavaScript -->
                     <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                        var input = document.getElementById('nameroom');
-                        var dropdown = document.getElementById('dropdown');
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var input = document.getElementById('nameroom');
+                            var dropdown = document.getElementById('dropdown');
 
-                        // Sự kiện click vào input
-                        input.addEventListener('click', function (event) {
-                            // Hiển thị hoặc ẩn dropdown
-                            dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
+                            // Sự kiện click vào input
+                            input.addEventListener('click', function(event) {
+                                // Hiển thị hoặc ẩn dropdown
+                                dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
 
-                            // Ngăn chặn sự kiện click từ việc lan truyền lên và đóng dropdown ngay lập tức
-                            event.stopPropagation();
+                                // Ngăn chặn sự kiện click từ việc lan truyền lên và đóng dropdown ngay lập tức
+                                event.stopPropagation();
+                            });
+
+                            // Sự kiện chọn một option trong dropdown
+                            dropdown.addEventListener('click', function(e) {
+                                if (e.target.classList.contains('option')) {
+                                    input.value = e.target.textContent;
+                                    dropdown.style.display = 'none';
+                                }
+                            });
+
+                            // Sự kiện click ngoại ô
+                            document.addEventListener('click', function(event) {
+                                // Ẩn dropdown nếu click ngoài vùng input
+                                if (event.target !== input) {
+                                    dropdown.style.display = 'none';
+                                }
+                            });
                         });
-
-                        // Sự kiện chọn một option trong dropdown
-                        dropdown.addEventListener('click', function (e) {
-                            if (e.target.classList.contains('option')) {
-                                input.value = e.target.textContent;
-                                dropdown.style.display = 'none';
-                            }
-                        });
-
-                        // Sự kiện click ngoại ô
-                        document.addEventListener('click', function (event) {
-                            // Ẩn dropdown nếu click ngoài vùng input
-                            if (event.target !== input) {
-                                dropdown.style.display = 'none';
-                            }
-                        });
-                    });
                     </script>
                     <?php
                     // Đóng kết nối CSDL
@@ -424,8 +423,7 @@
         </div>
         <?php include("./components/footer.php") ?>
     </div>
-    <script src="../../assets/js/index.js">
-    </script>
+    <script src="../../assets/js/index.js"></script>
 </body>
 
 </html>
