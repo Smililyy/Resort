@@ -144,25 +144,27 @@ require('../../controllers/AdminController.php');
 						<span>Add New Customer</span>
 					</a>
 				</div>
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Date of Birth</th>
-							<th>Email</th>
-							<th>Phone Number</th>
-							<th>Address</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody id="customer_data">
-						<!-- Data will be dynamically populated here -->
-					</tbody>
+				<div id = sort_customer_data>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th><a class="column_sortcustomer" id="customerFirstName" data-order="desc" href="#">First Name<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortcustomer" id="customerLastName" data-order="desc" href="#">Last Name<i class='bx bx-sort-alt-2'></i></a></th>
+								<th>Date of Birth</th>
+								<th>Email</th>
+								<th>Phone Number</th>
+								<th>Address</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="customer_data">
+							<!-- Data will be dynamically populated here -->
+						</tbody>
 
-				</table>
+					</table>
 					<p class="loading">Loading Data</p>
+				</div>
 			</div>
 			<div id="room" class="content-item">
 				<div class="head-title">
@@ -174,20 +176,22 @@ require('../../controllers/AdminController.php');
 						<span>Add New Room</span>
 					</a>
 				</div>
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Room Name</th>
-							<th>Room Type</th>
-							<th>Room Rate</th>
-							<th>Room Status</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody id="room_data">
-					</tbody>
-				</table>
+				<div id="sort_room_data">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th><a class="column_sortroom" id="roomName" data-order="desc" href="#">Room Name<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortroom" id="roomType" data-order="desc" href="#">Room Type<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortroom" id="roomRate" data-order="desc" href="#">Room Rate<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortroom" id="roomStatus" data-order="desc" href="#">Room Status<i class='bx bx-sort-alt-2'></i></a></th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="room_data">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div id="booking" class="content-item">
 				<div class="head-title">
@@ -199,23 +203,25 @@ require('../../controllers/AdminController.php');
 						<span>Add New Booking</span>
 					</a>
 				</div>
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Room ID</th>
-							<th>Room Name</th>
-							<th>Check In Date</th>
-							<th>Check Out Date</th>
-							<th>Payment Status</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody id="booking_data">
-					</tbody>
-				</table>
+				<div id="sort_booking_data">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th><a class="column_sortbooking" id="roomID" data-order="desc" href="#">Room ID<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="roomName" data-order="desc" href="#">Room Name<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="checkinDate" data-order="desc" href="#">Check In Date<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="checkOutDate" data-order="desc" href="#">Check Out Date<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="paymentStatus" data-order="desc" href="#">Payment Status<i class='bx bx-sort-alt-2'></i></a></th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="booking_data">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div id="invoice" class="content-item">
 				<div class="head-title">
@@ -1074,6 +1080,70 @@ require('../../controllers/AdminController.php');
 				fetchData('listbooking', '#booking_data');
 			})
 		}
+		// Sorting
+		$jq(document).on('click', '.column_sortcustomer', function () {
+			var column_name = $jq(this).attr("id");
+			var order = $jq(this).data("order");
+			var parameters = "column_name=" + column_name + "&order=" + order;
+			var arrow ='';
+
+			// if (order == 'desc') {
+			// 	arrow = '<i class="bx bx-arrow-down"></i>';
+			// } else {
+			// 	arrow = '<i class="bx bx-arrow-up"></i>';
+			// }
+
+
+			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'sortcustomer'
+			}, function (data, status) {
+				$jq('#sort_customer_data').html(data);
+				// $jq('.column_sortcustomer i').html(arrow);
+			});
+		});
+		$jq(document).on('click', '.column_sortroom', function () {
+			var column_name = $jq(this).attr("id");
+			var order = $jq(this).data("order");
+			var parameters = "column_name=" + column_name + "&order=" + order;
+			var arrow ='';
+
+			// if (order == 'desc') {
+			// 	arrow = '<i class="bx bx-arrow-down"></i>';
+			// } else {
+			// 	arrow = '<i class="bx bx-arrow-up"></i>';
+			// }
+
+
+			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'sortroom'
+			}, function (data, status) {
+				$jq('#sort_room_data').html(data);
+				// $jq('.column_sortcustomer i').html(arrow);
+			});
+		});
+		$jq(document).on('click', '.column_sortbooking', function () {
+			var column_name = $jq(this).attr("id");
+			var order = $jq(this).data("order");
+			var parameters = "column_name=" + column_name + "&order=" + order;
+			var arrow ='';
+
+			// if (order == 'desc') {
+			// 	arrow = '<i class="bx bx-arrow-down"></i>';
+			// } else {
+			// 	arrow = '<i class="bx bx-arrow-up"></i>';
+			// }
+
+
+			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+				action: 'sortbooking'
+			}, function (data, status) {
+				$jq('#sort_booking_data').html(data);
+				// $jq('.column_sortcustomer i').html(arrow);
+			});
+		});
 	</script>
 
 

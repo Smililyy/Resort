@@ -362,6 +362,182 @@ switch ($action) {
             echo "Error updating record: " . mysqli_error($con);
         }
     break;
+    case 'sortcustomer':
+        $column_name = $_GET['column_name'];
+        $order = $_GET["order"];
+        
+        if ($order == 'desc') {
+            $order = 'asc';
+        } else {
+            $order = 'desc';
+        }
+        
+        $query = "SELECT * FROM customers ORDER BY " . $_GET["column_name"] . " " . $_GET["order"];
+        $result = mysqli_query($con, $query);
+        
+        if ($result) {
+            $html = ''; // Variable to store the generated HTML
+            $html .= '<table class="table table-striped table-hover">';
+            $html .= '<thead>';
+            $html .= '<tr>';
+            $html .= '<th>ID</th>';
+            $html .= '<th><a class="column_sortcustomer" id="customerFirstName" data-order="' . $order . '" href="#">First Name<i class="bx bx-sort-alt-2"></i></a></th>';
+            $html .= '<th><a class="column_sortcustomer" id="customerLastName" data-order="' . $order . '" href="#">Last Name<i class="bx bx-sort-alt-2"></i></a></th>';
+            $html .= '<th>Date of Birth</th>';
+            $html .= '<th>Email</th>';
+            $html .= '<th>Phone Number</th>';
+            $html .= '<th>Address</th>';
+            $html .= '<th>Action</th>';
+            $html .= '</tr>';
+            $html .= '</thead>';
+            $html .= '<tbody id="customer_data">';
+        
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= '<tr>';
+                $html .= '<td>' . $row['customerID'] . '</td>';
+                $html .= '<td>' . $row['customerFirstName'] . '</td>';
+                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['customerDob'] . '</td>';
+                $html .= '<td>' . $row['customerEmail'] . '</td>';
+                $html .= '<td>' . $row['customerPhoneNumber'] . '</td>';
+                $html .= '<td>' . $row['customerAddress'] . '</td>';
+                $html .= '<td><div class="d-flex">';
+                $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['customerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
+                $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['customerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
+                $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['customerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+                $html .= '</div></td>';
+                $html .= '</tr>';
+            }
+        
+            $html .= '</tbody>';
+            $html .= '</table>';
+        
+            // Echo the generated HTML
+            echo $html;
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }        
+    break;
+    case 'sortroom':
+        $column_name = $_GET['column_name'];
+        $order = $_GET["order"];
+        
+        if ($order == 'desc') {
+            $order = 'asc';
+        } else {
+            $order = 'desc';
+        }
+        
+        $query = "SELECT * FROM rooms ORDER BY " . $_GET["column_name"] . " " . $_GET["order"];
+        $result = mysqli_query($con, $query);
+        
+        if ($result) {
+
+            echo'<table class="table table-striped table-hover">';
+            echo'<thead>';
+            echo'<tr>';
+            echo'<th>ID</th>';
+            echo'<th><a class="column_sortroom" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo'<th><a class="column_sortroom" id="roomType" data-order="' . $order . '" href="#">Room Type<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo'<th><a class="column_sortroom" id="roomRate" data-order="' . $order . '" href="#">Room Rate<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo'<th><a class="column_sortroom" id="roomStatus" data-order="' . $order . '" href="#">Room Status<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo'<th>Action</th>';
+            echo'</tr>';
+            echo'</thead>';
+            echo'<tbody id="room_data">';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td>' . $row['roomType'] . '</td>';
+                echo '<td>' . $row['roomRate'] . '</td>';
+                echo '<td>' . $row['roomStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['roomID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            echo'</tbody>';
+            echo'</table>';
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }   
+    break;
+    case 'sortbooking':
+        $column_name = $_GET['column_name'];
+        $order = $_GET["order"];
+        
+        if ($order == 'desc') {
+            $order = 'asc';
+        } else {
+            $order = 'desc';
+        }
+        
+        $query = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
+        FROM bookings
+        JOIN rooms ON bookings.roomID = rooms.roomID
+        JOIN customers ON bookings.customerID = customers.customerID
+        ORDER BY " . $_GET["column_name"] . " " . $_GET["order"];
+        $result = mysqli_query($con, $query);
+        
+        if ($result) {
+
+            echo '<table class="table table-striped table-hover">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>ID</th>';
+            echo '<th>First Name</th>';
+            echo '<th>Last Name</th>';
+            echo '<th><a class="column_sortbooking" id="roomID" data-order="' . $order . '" href="#">Room ID<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th><a class="column_sortbooking" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th><a class="column_sortbooking" id="checkinDate" data-order="' . $order . '" href="#">Check In Date<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th><a class="column_sortbooking" id="checkOutDate" data-order="' . $order . '" href="#">Check Out Date<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th><a class="column_sortbooking" id="paymentStatus" data-order="' . $order . '" href="#">Payment Status<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th>Action</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody id="booking_data">';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['customerFirstName'] . '</td>';
+                echo '<td>' . $row['customerLastName'] . '</td>';
+                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td>' . $row['checkinDate'] . '</td>';
+                echo '<td>' . $row['checkOutDate'] . '</td>';
+                echo '<td>' . $row['paymentStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            echo'</tbody>';
+            echo'</table>';
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }   
+    break;
     default:
         //  echo"can't reach";
     break;

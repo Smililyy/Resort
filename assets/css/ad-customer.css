@@ -426,7 +426,9 @@ table.table th i {
   margin: 0 5px;
   cursor: pointer;
 }
-
+table.table th a {
+  color: var(--dark);
+}
 table.table td:last-child i {
   opacity: 0.9;
   font-size: 22px;
