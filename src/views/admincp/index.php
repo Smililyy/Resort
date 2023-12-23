@@ -72,7 +72,7 @@ require('../../controllers/AdminController.php');
 		</ul>
 
 		<ul class="side-menu">
-			<li class="menu-item" data-content="settings">
+			<li class="menu-item" data-content="setting">
 				<a href="#">
 					<i class='bx bxs-cog'></i>
 					<span class="text">Settings</span>
@@ -270,26 +270,6 @@ require('../../controllers/AdminController.php');
 						<span class="text">Download PDF</span>
 					</a>
 				</div>
-			</div>
-			<div id="setting" class="content-item">
-				<div class="head-title">
-					<div class="left">
-						<h1>Settings</h1>
-						<ul class="breadcrumb">
-							<li>
-								<a href="#">Settings</a>
-							</li>
-							<li><i class='bx bx-chevron-right'></i></li>
-							<li>
-								<a class="menu-item" href="#">Home</a>
-							</li>
-						</ul>
-					</div>
-					<a href="#" class="btn-download">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Download PDF</span>
-					</a>
-				</div>
 				<div class="card">
 					<div class="card-body">
 						<div class="d-flex align-items-center justify-content-between mb-3">
@@ -330,6 +310,7 @@ require('../../controllers/AdminController.php');
 						</form>
 					</div>
 				</div>
+			</div>
 		</main>
 		<!-- MAIN -->
 	</section>
