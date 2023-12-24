@@ -1,47 +1,80 @@
-.wrapper {
-    text-align: center;
-    margin-right: 0px;
-    margin-left: 0px;
-    background-color: rgba(0,0,0,0.3);
+.body{
+    --body-bg-color: rgba(255,255,255,1);
+    --content-color: #2f2b2c;
+    --link-color: #a71218;
+    --menu-height: 80px;
+    --shared-border-color: rgba(233,225,225,1)
+}
+.reservation-wrapper{
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 100px;
+
+}
+.reservation-title{
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
 }
 .content{
-	font-family: arial, helvetica, sans-serif;
-    font-size: 10pt;
-    color: #e4e4e4;
-}
-.search-panel{
-	background-color: #8C0B0B;
-    color: #000000;
-}
-.room-info{
-    border: 1px solid black;
-    margin: 1rem;
-    padding: 2rem 2rem;
-    text-align: center;
-}
-.room-img, .room-des{
-    display: inline-block;
-    padding: 1rem 1rem;
-    vertical-align: middle;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.33px;
+    line-height: 1.8em;
+    color: #ebe4e4;
 }
 .details{
-    font-family: inherit;
-    font-weight: inherit;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    margin-top: 0;
-    text-rendering: optimizeLegibility;
-    color:#000000;
+    line-height: 1.8em;
+    color: #2f2b2c;
 }
-.room-price{
-    vertical-align: unset;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 14px;
-    margin-bottom: 4px;
-    box-sizing: border-box;
+.searchpanel{
+    background-color: #8C0B0B;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+#datepicker{
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left:20px;
+}
+b{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.8em;
     color: #93130a;
-    text-align: center;
+}
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.8em;
+    color: #2f2b2c;
+}
+.room-info{
+    margin-top:50px;
+    margin-left:100px;
+    margin-right:100px;
+    overflow: hidden;
+    background-color: #ebe4e4;
+}
+.room-img{
+    margin-top: 25px;
+    margin-left: 25px;
+    float: left;
+    margin-right:25px;
+}
+.room-details{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+.button{
+    margin-top: 50px;
+    margin-bottom:50px;
+    margin-left: 400px;
+    background-color:#a71218;
+    border: none;
 }
