@@ -27,12 +27,9 @@
                     </div>
                 </div>
                 <div class='header-right-content'>
-                    <button class='btnLogin'>
-                        Log in
-                    </button>
-                    <button class='btnSignup'>
-                        Sign up
-                    </button>
+                    <div class='child-content'>
+                        <a href="#">Contact</a>
+                    </div>
                 </div>
             </div>
         </div>
