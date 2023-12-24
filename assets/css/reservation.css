@@ -59,6 +59,7 @@ p{
     margin-right:100px;
     overflow: hidden;
     background-color: #ebe4e4;
+    margin-bottom: 60px;
 }
 .room-img{
     margin-top: 25px;
@@ -71,10 +72,28 @@ p{
     margin-bottom: 25px;
     overflow: hidden;
 }
-.button{
-    margin-top: 50px;
-    margin-bottom:50px;
-    margin-left: 400px;
-    background-color:#a71218;
+.button_submit{
+    text-align: center;
+    align-items: center;
+    padding-top: 5px;
+    padding-right: 20px;
+    float: right;
+}
+.button_submit button{
+    margin: 0;
+    padding: 16px 20px;
+    background-color: #a71218;
+    color: white;
+    text-decoration: none;
+    font-size: 13.33px;
+    border: none;
+}
+.button_submit button:hover{
+    margin: 0;
+    padding: 16px 20px;
+    background-color:#bb171c;
+    color: white;
+    text-decoration: none;
+    font-size: 13.33px;
     border: none;
 }

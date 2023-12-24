@@ -25,12 +25,11 @@
                     <div class='child-content'>
                         <a href="#">Feedback</a>
                     </div>
-                </div>
-                <div class='header-right-content'>
                     <div class='child-content'>
                         <a href="#">Contact</a>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

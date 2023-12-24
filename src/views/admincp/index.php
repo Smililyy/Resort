@@ -171,6 +171,9 @@ require('../../controllers/AdminController.php');
 					<div class="left">
 						<h1>Room Management</h1>
 					</div>
+					<div class="form-group">
+						<input type="date" id="date_input" class="form-control">
+					</div>
 					<a href="#addRoomModal" class="btn-download" data-toggle="modal">
 						<i class="material-icons">&#xE147;</i>
 						<span>Add New Room</span>

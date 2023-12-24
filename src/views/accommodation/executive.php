@@ -188,7 +188,7 @@
                                 </div>
                             </div>
                             <h2 class="room-type-other">Other accommodations</h2>
-                            <?php include("../../pages/section/slider.php") ?>
+                            <?php include("../home/slider.php") ?>
                         </div>
                         <div id="sidebar" class="right-sidebar">
                             <ul>

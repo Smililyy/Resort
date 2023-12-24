@@ -42,6 +42,9 @@
                     <div class="searchpanel">
                         <input type="date" id="datepicker" value="<?php echo date('Y-m-d'); ?>">
                         <input type="date" id="datepicker" value="<?php echo date('Y-m-d'); ?>">
+                        <div class="button_submit">
+                        <button class="button" type="submit">BOOK NOW</button>
+                    </div>
                     </div>
                     <div class="room-info">
                         <div class="room-img">
@@ -233,9 +236,7 @@
                         </div>
                         </div>
                     </div>
-                    <div>
-                        <button class="button" type="submit"><b>BOOK NOW</b></button>
-                    </div>
+                    
                 </form>
             </div>
         </div>
