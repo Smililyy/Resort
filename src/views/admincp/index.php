@@ -237,10 +237,30 @@ require('../../controllers/AdminController.php');
 					<div class="left">
 						<h1>Invoice</h1>
 					</div>
+					<a href="#addInvoiceModal" class="btn-download" data-toggle="modal">
+						<i class='bx bxs-cloud-download'></i>
+						<span class="text">Print Invoice</span>
+					</a>
 					<!-- <a href="#addEmployeeModal" class="btn-download" data-toggle="modal">
 						<i class="material-icons">&#xE147;</i>
 						<span>Add New Customer</span>
 					</a> -->
+				</div>
+				<div id="sort_invoice_data">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+							    <th>ID</th>
+								<th><a class="column_sortbooking" id="bookingID" data-order="desc" href="#">Booking ID<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="paymentDate" data-order="desc" href="#">Payment Date<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="ammount" data-order="desc" href="#">Ammount<i class='bx bx-sort-alt-2'></i></a></th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="invoice_data">
+
+						</tbody>
+					</table>
 				</div>
 				<!-- <table class="table table-striped table-hover">
                     <thead>
@@ -685,6 +705,37 @@ require('../../controllers/AdminController.php');
 			</div>
 		</div>
 	</div>
+	<div id="viewInvoiceModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">View Invoice</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body view_employee">
+					<div class="form-group">
+						<label>ID</label>
+						<input type="text" id="invoiceid_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Booking ID</label>
+						<input type="text" id="bookingid_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Payment Date</label>
+						<input type="text" id="paymentdate_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Ammount</label>
+						<input type="email" id="ammount_input" class="form-control" readonly>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Delete Modal HTML -->
 	<div id="deleteCustomerModal" class="modal fade">
 		<div class="modal-dialog">
@@ -746,7 +797,113 @@ require('../../controllers/AdminController.php');
 	<?php
 	require('./inc/scripts.php');
 	?>
+	<!-- PRINT INVOICE MODAL HTML -->
+	<style>
+    .invoice-title h2, .invoice-title h3 {
+      display: inline-block;
+    }
 
+    .table > tbody > tr > .no-line {
+      border-top: none;
+    }
+
+    .table > thead > tr > .no-line {
+      border-bottom: none;
+    }
+
+    .table > tbody > tr > .thick-line {
+      border-top: 2px solid;
+    }
+    </style>
+  <div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="invoice-title">
+        <h2>Invoice</h2><h3 class="pull-right">Order # 12345</h3>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-6">
+          <address>
+            <strong>Billed To:</strong><br>
+            John Smith<br>
+            1234 Main<br>
+            Apt. 4B<br>
+            Springfield, ST 54321
+          </address>
+        </div>
+        <div class="col-xs-6 text-right">
+          <address>
+            <strong>Shipped To:</strong><br>
+            Jane Smith<br>
+            1234 Main<br>
+            Apt. 4B<br>
+            Springfield, ST 54321
+          </address>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 text-right">
+          <address>
+            <strong>Order Date:</strong><br>
+            March 7, 2014<br><br>
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Order summary</strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <td><strong>Item</strong></td>
+                  <td class="text-center"><strong>Price</strong></td>
+                  <td class="text-center"><strong>Quantity</strong></td>
+                  <td class="text-right"><strong>Totals</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Superior</td>
+                  <td class="text-center">$10.99</td>
+                  <td class="text-center">1</td>
+                  <td class="text-right">$10.99</td>
+                </tr>
+                <tr>
+                  <td>Deluxe</td>
+                  <td class="text-center">$20.00</td>
+                  <td class="text-center">3</td>
+                  <td class="text-right">$60.00</td>
+                </tr>
+                <tr>
+                  <td>Saigon Suite</td>
+                  <td class="text-center">$600.00</td>
+                  <td class="text-center">1</td>
+                  <td class="text-right">$600.00</td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Total</strong></td>
+                  <td class="no-line text-right">$685.99</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+	<!-- PRINT INVOIEC MODAL END -->
 	<!-- HANDLE LISTDATA -->
 	<script>
 		var $j = jQuery.noConflict();
