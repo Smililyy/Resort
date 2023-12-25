@@ -51,7 +51,7 @@ switch ($action) {
                 echo '<td>' . $row['roomID'] . '</td>';
                 echo '<td>' . $row['roomName'] . '</td>';
                 echo '<td>' . $row['checkinDate'] . '</td>';
-                echo '<td>' . $row['checkOutDate'] . '</td>';
+                // echo '<td>' . $row['checkOutDate'] . '</td>';
                 echo '<td>' . $row['paymentStatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
@@ -557,7 +557,7 @@ switch ($action) {
             echo '<th><a class="column_sortbooking" id="roomID" data-order="' . $order . '" href="#">Room ID<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortbooking" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortbooking" id="checkinDate" data-order="' . $order . '" href="#">Check In Date<i class="bx bx-sort-alt-2"></i></a></th>';
-            echo '<th><a class="column_sortbooking" id="checkOutDate" data-order="' . $order . '" href="#">Check Out Date<i class="bx bx-sort-alt-2"></i></a></th>';
+            // echo '<th><a class="column_sortbooking" id="checkOutDate" data-order="' . $order . '" href="#">Check Out Date<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortbooking" id="paymentStatus" data-order="' . $order . '" href="#">Payment Status<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th>Action</th>';
             echo '</tr>';
@@ -571,7 +571,7 @@ switch ($action) {
                 echo '<td>' . $row['roomID'] . '</td>';
                 echo '<td>' . $row['roomName'] . '</td>';
                 echo '<td>' . $row['checkinDate'] . '</td>';
-                echo '<td>' . $row['checkOutDate'] . '</td>';
+                // echo '<td>' . $row['checkOutDate'] . '</td>';
                 echo '<td>' . $row['paymentStatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
