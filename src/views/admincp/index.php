@@ -69,6 +69,12 @@ require('../../controllers/AdminController.php');
 					<span class="text">Invoice</span>
 				</a>
 			</li>
+			<li class="menu-item" data-content="message">
+				<a href="#">
+					<i class='bx bxs-chat'></i>					
+					<span class="text">Message</span>
+				</a>
+			</li>
 		</ul>
 
 		<ul class="side-menu">
