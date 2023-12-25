@@ -104,6 +104,62 @@ switch ($action) {
             echo 'Error executing SQL query: ' . mysqli_error($con);
         }
     break;
+    case 'listmessage':
+        $sql = "SELECT * FROM messages";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['idMessage'] . '</td>';
+                echo '<td>' . $row['sender'] . '</td>';
+                echo '<td>' . $row['subject'] . '</td>';
+                echo '<td>' . $row['content'] . '</td>';
+                echo '<td>' . $row['timestamp'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['idMessage'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['idMessage'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Send">forward_to_inbox</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'listinvoice':
+        $sql = "SELECT * FROM invoices";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td><input type="checkbox" name="" id=""></td>';
+                echo '<td>' . $row['invoicelD'] . '</td>';
+                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['paymentDate'] . '</td>';
+                echo '<td>' . $row['amount'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' .$row['invoicelD'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#viewInvoice" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['invoicelD'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
     case 'deleteCustomer':
         $id =$_GET['idcustomer'];  
         $sql= "DELETE FROM  customers WHERE customerID  = '$id' " ; 

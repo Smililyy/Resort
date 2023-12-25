@@ -177,9 +177,6 @@ require('../../controllers/AdminController.php');
 					<div class="left">
 						<h1>Room Management</h1>
 					</div>
-					<div class="form-group">
-						<input type="date" id="date_input" class="form-control">
-					</div>
 					<a href="#addRoomModal" class="btn-download" data-toggle="modal">
 						<i class="material-icons">&#xE147;</i>
 						<span>Add New Room</span>
@@ -250,6 +247,7 @@ require('../../controllers/AdminController.php');
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
+								<th>Check</th>
 							    <th>ID</th>
 								<th><a class="column_sortbooking" id="bookingID" data-order="desc" href="#">Booking ID<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="paymentDate" data-order="desc" href="#">Payment Date<i class='bx bx-sort-alt-2'></i></a></th>
@@ -258,7 +256,6 @@ require('../../controllers/AdminController.php');
 							</tr>
 						</thead>
 						<tbody id="invoice_data">
-
 						</tbody>
 					</table>
 				</div>
@@ -279,6 +276,33 @@ require('../../controllers/AdminController.php');
                     </tbody>
                 </table> -->
 
+			</div>
+			<div id="message" class="content-item">
+				<div class="head-title">
+					<div class="left">
+						<h1>Message Management</h1>
+					</div>
+					<!-- <a href="#addBookingModal" class="btn-download" data-toggle="modal">
+						<i class="material-icons">&#xE147;</i>
+						<span>Add New Booking</span>
+					</a> -->
+				</div>
+				<div id="sort_message_data">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Sender</th>
+								<th>Subject</th>
+								<th>Content</th>
+								<th>Timestamp</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="message_data">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div id="setting" class="content-item">
 				<div class="head-title">
@@ -453,6 +477,34 @@ require('../../controllers/AdminController.php');
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add" onclick="addBooking()">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="sendModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Send message</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body add_room">
+					<div class="form-group">
+						<label>Recipient</label>
+						<input type="text" id="sender_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Subject</label>
+						<input type="text" id="subject_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Content</label>
+						<textarea class="form-control" id="content_input" readonly></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add" onclick="sendMessage()">
 				</div>
 			</div>
 		</div>
@@ -654,6 +706,37 @@ require('../../controllers/AdminController.php');
 			</div>
 		</div>
 	</div>
+	<div id="viewMessageModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">View Message</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body view_employee">
+					<div class="form-group">
+						<label>Timestamp</label>
+						<input type="date" id="timestamp_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Sender</label>
+						<input type="text" id="sender_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Subject</label>
+						<input type="text" id="subject_input" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label>Content</label>
+						<textarea class="form-control" id="content_input" readonly></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="viewBookingModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -798,112 +881,110 @@ require('../../controllers/AdminController.php');
 	require('./inc/scripts.php');
 	?>
 	<!-- PRINT INVOICE MODAL HTML -->
-	<style>
-    .invoice-title h2, .invoice-title h3 {
-      display: inline-block;
-    }
+	<div id="viewInvoice" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Invoice</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="invoice-title">
+                            <h3 class="pull-right">Order # 12345</h3>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <address>
+                                    <strong>Billed To:</strong><br>
+                                    John Smith<br>
+                                    1234 Main<br>
+                                    Apt. 4B<br>
+                                    Springfield, ST 54321
+                                </address>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <address>
+                                    <strong>Shipped To:</strong><br>
+                                    Jane Smith<br>
+                                    1234 Main<br>
+                                    Apt. 4B<br>
+                                    Springfield, ST 54321
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 text-right">
+                                <address>
+                                    <strong>Order Date:</strong><br>
+                                    March 7, 2014<br><br>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    .table > tbody > tr > .no-line {
-      border-top: none;
-    }
-
-    .table > thead > tr > .no-line {
-      border-bottom: none;
-    }
-
-    .table > tbody > tr > .thick-line {
-      border-top: 2px solid;
-    }
-    </style>
-  <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="invoice-title">
-        <h2>Invoice</h2><h3 class="pull-right">Order # 12345</h3>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-xs-6">
-          <address>
-            <strong>Billed To:</strong><br>
-            John Smith<br>
-            1234 Main<br>
-            Apt. 4B<br>
-            Springfield, ST 54321
-          </address>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><strong>Order summary</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <td><strong>Item</strong></td>
+                                                <td class="text-center"><strong>Price</strong></td>
+                                                <td class="text-center"><strong>Quantity</strong></td>
+                                                <td class="text-right"><strong>Totals</strong></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Superior</td>
+                                                <td class="text-center">$10.99</td>
+                                                <td class="text-center">1</td>
+                                                <td class="text-right">$10.99</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Deluxe</td>
+                                                <td class="text-center">$20.00</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-right">$60.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Saigon Suite</td>
+                                                <td class="text-center">$600.00</td>
+                                                <td class="text-center">1</td>
+                                                <td class="text-right">$600.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no-line"></td>
+                                                <td class="no-line"></td>
+                                                <td class="no-line text-center"><strong>Total</strong></td>
+                                                <td class="no-line text-right">$685.99</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input type="submit" class="btn btn-danger" onclick="Print()" value="Print">
+            </div>
         </div>
-        <div class="col-xs-6 text-right">
-          <address>
-            <strong>Shipped To:</strong><br>
-            Jane Smith<br>
-            1234 Main<br>
-            Apt. 4B<br>
-            Springfield, ST 54321
-          </address>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6 text-right">
-          <address>
-            <strong>Order Date:</strong><br>
-            March 7, 2014<br><br>
-          </address>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><strong>Order summary</strong></h3>
-        </div>
-        <div class="panel-body">
-          <div class="table-responsive">
-            <table class="table table-condensed">
-              <thead>
-                <tr>
-                  <td><strong>Item</strong></td>
-                  <td class="text-center"><strong>Price</strong></td>
-                  <td class="text-center"><strong>Quantity</strong></td>
-                  <td class="text-right"><strong>Totals</strong></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Superior</td>
-                  <td class="text-center">$10.99</td>
-                  <td class="text-center">1</td>
-                  <td class="text-right">$10.99</td>
-                </tr>
-                <tr>
-                  <td>Deluxe</td>
-                  <td class="text-center">$20.00</td>
-                  <td class="text-center">3</td>
-                  <td class="text-right">$60.00</td>
-                </tr>
-                <tr>
-                  <td>Saigon Suite</td>
-                  <td class="text-center">$600.00</td>
-                  <td class="text-center">1</td>
-                  <td class="text-right">$600.00</td>
-                </tr>
-                <tr>
-                  <td class="no-line"></td>
-                  <td class="no-line"></td>
-                  <td class="no-line text-center"><strong>Total</strong></td>
-                  <td class="no-line text-right">$685.99</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
-	<!-- PRINT INVOIEC MODAL END -->
+
+	<!-- PRINT INVOICE MODAL END -->
 	<!-- HANDLE LISTDATA -->
 	<script>
 		var $j = jQuery.noConflict();
@@ -920,6 +1001,9 @@ require('../../controllers/AdminController.php');
 		fetchData('listcustomer', '#customer_data');
 		fetchData('listbooking', '#booking_data');
 		fetchData('listroom', '#room_data');
+		fetchData('listmessage', '#message_data');
+		fetchData('listinvoice', '#invoice_data');
+
 	</script>
 	<!-- END HANDLE LISTDATA -->
 	<script>
