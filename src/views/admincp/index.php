@@ -792,6 +792,7 @@ require('../../controllers/AdminController.php');
 	require('./inc/scripts.php');
 	?>
 	<!-- PRINT INVOICE MODAL HTML -->
+	<div id="printInvoiceModal" class="modal fade">
 	<style>
     .invoice-title h2, .invoice-title h3 {
       display: inline-block;
@@ -896,6 +897,7 @@ require('../../controllers/AdminController.php');
       </div>
     </div>
   </div>
+</div>
 </div>
 	<!-- PRINT INVOIEC MODAL END -->
 	<!-- HANDLE LISTDATA -->
