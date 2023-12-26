@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #hbe-bws-page {
   max-width: 1200px;
   background-color: #fff;
@@ -3781,4 +3782,81 @@ select.error {
   background-repeat: no-repeat;
   background-color: #dbdbdb;
   background-position: 20px 0;
+=======
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif; /* Set your desired font family */
+    background-color: rgb(40, 39, 39);/* Set your desired background color */
+}
+
+.layout-container {
+    display: inline-block;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    background-color: rgb(40, 39, 39); /* Set your desired background color */
+}
+.layout-container .content{
+    padding-right: 300px;
+    padding-left: 300px;
+}
+.dateblock,
+.checkoutinfo,
+.info {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    color: whitesmoke;
+}
+
+.date p,
+.combobox,
+.customer-inf {
+    margin: 10px 0;
+}
+
+.combobox label,
+.customer-inf label {
+    font-size: 15px;
+    color: whitesmoke;
+    display: block;
+    margin-bottom: 5px;
+}
+
+select,
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+button {
+    margin: 0;
+    padding: 16px 20px;
+    background-color: #a71218;
+    color: white;
+    text-decoration: none;
+    font-size: 13.33px;
+    border: none;
+}
+
+button:hover {
+    margin: 0;
+    padding: 16px 20px;
+    background-color:#bb171c;
+    color: white;
+    text-decoration: none;
+    font-size: 13.33px;
+    border: none;
+>>>>>>> 4678bce254f44fccc4bc70b87176696610803a11
 }

@@ -20,6 +20,8 @@ require('../../controllers/AdminController.php');
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 	<!-- End Of Boostrap  -->
@@ -138,6 +140,62 @@ require('../../controllers/AdminController.php');
 						<i class='bx bxs-cloud-download'></i>
 						<span class="text">Download PDF</span>
 					</a>
+				</div>
+				<div class="main__body">
+					<ul class="main__body__box-info">
+						<li>
+							<i class='bx bxs-wallet'></i>
+							<h5>$823</h5>
+							<p>Revenue</p>
+						</li>
+						<li>
+							<i class='bx bxs-calendar-check'></i>
+							<h5>23</h5>
+							<p>Booking</p>
+						</li>
+						<li>
+							<i class="ph-users-fill"></i>
+							<h5>55</h5>
+							<p>Customers</p>
+						</li>
+					</ul>
+					<div class="main__body__data">
+						<div class="sales-summary">
+							<div class="sales-summary__top">
+								<h4>Revenue Summary</h4>
+								<div class="sales-summary__menu">
+									<i class="ph-dots-three-outline-vertical-fill"></i>
+									<ul class="menu">
+										<li>
+											<a href="#">Edit</a>
+										</li>
+										<li>
+											<a href="#">Remove</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<ul class="sales-summary__info">
+								<li>
+									<p>Avg. Room</p>
+									<h5>$76</h5>
+								</li>
+								<li>
+									<p>Avg.Meeting&Event </p>
+									<h5>$76</h5>
+								</li>
+								<li>
+									<p>Avg. Revenue</p>
+									<h5>$76</h5>
+								</li>
+								<li>
+									<p>Avg. customer</p>
+									<h5>$76</h5>
+								</li>
+							</ul>
+							<div id="chart"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div id="customer" class="content-item">
