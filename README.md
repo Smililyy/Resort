@@ -4,10 +4,10 @@
 This project is part of the coursework for the Web Application Development course. It is developed by Team 1, consisting of the following members:
 | **Member** | **Name**       | **Student ID** | **GitHub Account** |
 |------------|----------------|----------------|---------------------|
-| 1          | Nguyễn      | [MSSV]         | [GitHub Username]   |
+| 1          | Nguyễn Quốc Huy       | 21522158         | <a href="https://github.com/HuyNguyenCode">HuyNguyenCode</a>   |
 | 2          | Từ Thị Huệ     | 21522109    | <a href="https://github.com/tuthihue">tuthihue</a>|
-| 3          | [Full Name]     | [MSSV]         | [GitHub Username]   |
-| 4          | Nguyễn      | [MSSV]         | [GitHub Username]   |
+| 3          | Phạm Tiến Đạt    | 21521948         | <a href="https://github.com/3ckk0n">3ckk0n</a> |
+| 4          | Nguyễn Phú Kiệt      | 21522257       | <a href="https://github.com/UIT-21522257">UIT-21522257</a>  |
 
 
 
@@ -22,7 +22,6 @@ The project utilizes the following technologies:
 
 - **Backend:**
   - Node.js
-  - Express.js
 
 - **Database:**
   - MySQL
