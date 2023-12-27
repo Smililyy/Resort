@@ -9,10 +9,10 @@ use PHPMailer\PHPMailer\Exception;
 
 class MeetingeventModel {
     private $con;
-    private $db_server = 'sql12.freesqldatabase.com';
-    private $db_username = 'sql12670612';
-    private $db_password = 'lrzZ8N6luY';
-    private $db_name = 'sql12670612';
+    private $db_server = 'localhost';
+    private $db_username = 'root';
+    private $db_password = '';
+    private $db_name = 'hotel';
     
     public function __construct() {
         // Initialize the database connection
@@ -124,11 +124,11 @@ class MeetingeventModel {
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                     // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'tuthihue.qn@gmail.com';               // SMTP username
-            $mail->Password   = 'hvwmcyxwrzxtsquh';                    // SMTP password
+            $mail->Username   = 'santelacuisine@gmail.com';               // SMTP username
+            $mail->Password   = 'ifdknnejliqzbzqj';                    // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           // Enable implicit TLS encryption
             $mail->Port       = 465;                                   // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
+            
             // Recipients
             $mail->setFrom('tuthihue.qn@gmail.com','SaiGon Hotel');
             $mail->addAddress($email, $fname);     // Add a recipient

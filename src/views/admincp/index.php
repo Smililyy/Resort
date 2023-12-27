@@ -546,23 +546,23 @@ require('../../controllers/AdminController.php');
 					<h4 class="modal-title">Send message</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body add_room">
+				<div class="modal-body send_message">
 					<div class="form-group">
 						<label>Recipient</label>
 						<input type="text" id="sender_input" class="form-control" readonly>
 					</div>
 					<div class="form-group">
 						<label>Subject</label>
-						<input type="text" id="subject_input" class="form-control" readonly>
+						<input type="text" id="subject_input" class="form-control" require>
 					</div>
 					<div class="form-group">
 						<label>Content</label>
-						<textarea class="form-control" id="content_input" readonly></textarea>
+						<textarea class="form-control" id="content_input" require></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add" onclick="sendMessage()">
+					<input type="submit" class="btn btn-success" value="Send" onclick="sendMessage()">
 				</div>
 			</div>
 		</div>
@@ -771,7 +771,7 @@ require('../../controllers/AdminController.php');
 					<h4 class="modal-title">View Message</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body view_employee">
+				<div class="modal-body view_message">
 					<div class="form-group">
 						<label>Timestamp</label>
 						<input type="date" id="timestamp_input" class="form-control" readonly>
@@ -931,6 +931,25 @@ require('../../controllers/AdminController.php');
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-danger" onclick="deleteBooking()" value="Delete">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="deleteMessageModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Delete 	Message</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<input type="hidden" id="delete_id">
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" onclick="deleteMessage()" value="Delete">
 				</div>
 			</div>
 		</div>
@@ -1114,6 +1133,24 @@ require('../../controllers/AdminController.php');
 				$jq('.view_employee #roomstatus_input').val(roomData.roomStatus);
 			});
 		}
+		function viewMessage(id) {
+
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'viewMessage',
+				idmessage: id
+			}, function(data, status) {
+				// Parse the JSON data received from the server
+				var messageData = JSON.parse(data);
+
+				// Update modal content with message data
+				$jq('.send_message #sender_input').val(messageData.sender);
+				$jq('.view_message #timestamp_input').val(messageData.timestamp);
+				$jq('.view_message #sender_input').val(messageData.sender);
+				$jq('.view_message #subject_input').val(messageData.subject);
+				$jq('.view_message #content_input').val(messageData.content);
+			});
+		}
+
 
 		function viewBooking(id) {
 			$jq('.edit_employee #booking_id').val(id);
@@ -1145,7 +1182,19 @@ require('../../controllers/AdminController.php');
 				$jq('.view_employee #total_input').val(bookingData.totalAmount);
 			});
 		}
-
+		// send
+		function sendMessage() {
+			var sender = $jq('#sender_input').val();
+			var subject = $jq('#subject_input').val();
+			var content = $jq('#content_input').val();
+			var parameters = "sender=" + sender + "&subject="+subject+"&content="+content;
+			$jq.get('http://localhost/hotel/src/models/Admin.php?'+parameters, {
+				action: 'sendMessage',
+			}, function(data, status) {
+				// Handle the response if needed
+			});
+		}
+		// delete
 		function prepareAction(ID) {
 			$jq('#delete_id').val(ID);
 		}
@@ -1187,6 +1236,18 @@ require('../../controllers/AdminController.php');
 				// Handle the response if needed
 				fetchData('listroom', '#room_data');
 				$jq('#deleteRoomModal').modal('hide');
+			});
+		}
+		function deleteMessage() {
+			var messageID = $jq('#delete_id').val();
+
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'deleteMessage',
+				idmessage: messageID
+			}, function(data, status) {
+				// Handle the response if needed
+				fetchData('listmessage', '#message_data');
+				$jq('#deleteMessageModal').modal('hide');
 			});
 		}
 

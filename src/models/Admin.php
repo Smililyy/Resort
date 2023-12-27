@@ -3,6 +3,13 @@ include "../controllers/inc/db_config.php";
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
+require '../../vendor/PHPMailer/src/Exception.php';
+require '../../vendor/PHPMailer/src/SMTP.php';
+require '../../vendor/PHPMailer/src/PHPMailer.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 switch ($action) {
     case 'listcustomer':
         $sql = "SELECT * FROM customers";
@@ -117,11 +124,14 @@ switch ($action) {
                 echo '<td>' . $row['timestamp'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['idMessage'] . ')">
+                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewMessage(' . $row['idMessage'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';            
                 echo '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['idMessage'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Send">forward_to_inbox</i>
+                    </a>';
+                echo '<a href="#deleteMessageModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' .$row['idMessage'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
                 echo '</td>';
@@ -190,6 +200,16 @@ switch ($action) {
             echo "Error deleting record: " . mysqli_error($con);
         }
     break;
+    case 'deleteMessage':
+        $id =$_GET['idmessage'];  
+        $sql= "DELETE FROM  messages WHERE idMessage  = '$id' " ; 
+
+        if (mysqli_query($con, $sql)) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . mysqli_error($con);
+        }
+    break;
     case 'viewCustomer':
         $id =$_GET['idcustomer'];  
         $sql = "SELECT * FROM customers WHERE customerID = '$id'";
@@ -236,6 +256,22 @@ switch ($action) {
     
             // Return customer data as JSON
             echo json_encode($BookingData);
+        } else {
+            // Handle the error if needed
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+        
+    break;
+    case 'viewMessage':
+        $id =$_GET['idmessage'];  
+        $sql = "SELECT * FROM messages WHERE idMessage = '$id'";
+        $result = mysqli_query($con, $sql);
+    
+        if ($result) {
+            $messageData = mysqli_fetch_assoc($result);
+    
+            // Return customer data as JSON
+            echo json_encode($messageData);
         } else {
             // Handle the error if needed
             echo 'Error executing SQL query: ' . mysqli_error($con);
@@ -721,6 +757,43 @@ switch ($action) {
         } else {
             echo 'Error executing SQL query: ' . mysqli_error($con);
         }
+    break;
+    case 'sendMessage':
+        $sender = $_GET['sender'];
+        $subject = $_GET['subject'];
+        $content = $_GET['content'];
+        
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'santelacuisine@gmail.com';               // SMTP username
+            $mail->Password   = 'ifdknnejliqzbzqj';                    // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           // Enable implicit TLS encryption
+            $mail->Port       = 465;                                   // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+            // Recipients
+            $mail->setFrom('santelacuisine@gmail.com','SaiGon Hotel');
+            $mail->addAddress($sender);     // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = $subject;
+
+            // Email body
+            $mail->Body =  $content;
+
+            // Plain text version for non-HTML mail clients
+            $mail->AltBody = 'Thank you for choosing SaiGonHotel! Your meeting event has been confirmed.';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }  
     break;
     default:
         //  echo"can't reach";
