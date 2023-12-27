@@ -104,8 +104,8 @@ require('../../controllers/AdminController.php');
 			<a href="#" class="nav-link">Categories</a>
 			<form action="#">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+					<input type="search" placeholder="Search..." id="searchInput">
+					<button type="submit" class="search-btn" id="searchBtn"><i class='bx bx-search'></i></button>
 				</div>
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
@@ -277,7 +277,7 @@ require('../../controllers/AdminController.php');
 								<th><a class="column_sortbooking" id="roomID" data-order="desc" href="#">Room ID<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="roomName" data-order="desc" href="#">Room Name<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="checkinDate" data-order="desc" href="#">Check In Date<i class='bx bx-sort-alt-2'></i></a></th>
-								<th><a class="column_sortbooking" id="checkOutDate" data-order="desc" href="#">Check Out Date<i class='bx bx-sort-alt-2'></i></a></th>
+								<!-- <th><a class="column_sortbooking" id="checkOutDate" data-order="desc" href="#">Check Out Date<i class='bx bx-sort-alt-2'></i></a></th> -->
 								<th><a class="column_sortbooking" id="paymentStatus" data-order="desc" href="#">Payment Status<i class='bx bx-sort-alt-2'></i></a></th>
 								<th>Action</th>
 							</tr>
@@ -1433,6 +1433,19 @@ require('../../controllers/AdminController.php');
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
 		});
+		$jq(document).on('click', '#searchBtn', function () {
+            // Get the search query and current content type
+            var searchQuery = $jq('#searchInput').val();
+            var contentType = $jq('.content-item.active').attr('id');
+            // Make an AJAX request to your PHP endpoint
+			$jq.get('http://localhost/hotel/src/models/Admin.php?searchQuery=' + searchQuery, {
+				action: contentType
+			}, function (data, status) {
+				$jq('#' + contentType + '_data').html(data);
+				// $jq('.column_sortcustomer i').html(arrow);
+			});
+        });
+
 	</script>
 
 
@@ -1477,6 +1490,7 @@ require('../../controllers/AdminController.php');
 			get_general();
 		}
 	</script>
+
 
 </body>
 

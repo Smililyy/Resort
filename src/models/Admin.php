@@ -594,6 +594,134 @@ switch ($action) {
             echo 'Error executing SQL query: ' . mysqli_error($con);
         }   
     break;
+    case 'customer':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+        
+        $sql = "SELECT * FROM customers 
+                WHERE customerFirstName LIKE '%" .$searchQuery. "%'
+                OR customerLastName LIKE '%" .$searchQuery. "%'
+                OR customerDob LIKE '%" .$searchQuery. "%'
+                OR customerEmail LIKE '%" .$searchQuery. "%'
+                OR customerPhoneNumber LIKE '%" .$searchQuery. "%'
+                OR customerAddress LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+
+        if ($result) {
+            $html = ''; // Variable to store the generated HTML
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= '<tr>';
+                $html .= '<td>' . $row['customerID'] . '</td>';
+                $html .= '<td>' . $row['customerFirstName'] . '</td>';
+                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['customerDob'] . '</td>';
+                $html .= '<td>' . $row['customerEmail'] . '</td>';
+                $html .= '<td>' . $row['customerPhoneNumber'] . '</td>';
+                $html .= '<td>' . $row['customerAddress'] . '</td>';
+                $html .= '<td><div class="d-flex">';
+                $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['customerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
+                $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['customerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
+                $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['customerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+                $html .= '</div></td>';
+                $html .= '</tr>';
+            }
+
+            // Echo the generated HTML
+            echo $html;
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'room':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+        
+        $sql = "SELECT * FROM rooms 
+                WHERE roomID LIKE '%" .$searchQuery. "%'
+                OR  roomName LIKE '%" .$searchQuery. "%'
+                OR  roomType LIKE '%" .$searchQuery. "%'
+                OR  roomRate LIKE '%" .$searchQuery. "%'
+                OR  roomStatus LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td>' . $row['roomType'] . '</td>';
+                echo '<td>' . $row['roomRate'] . '</td>';
+                echo '<td>' . $row['roomStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['roomID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'booking':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+        
+        $sql = "SELECT * FROM bookings 
+                WHERE roomName LIKE '%" .$searchQuery. "%'";
+
+        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
+        FROM bookings
+        JOIN rooms ON bookings.roomID = rooms.roomID
+        JOIN customers ON bookings.customerID = customers.customerID
+        WHERE customerFirstName LIKE '%" .$searchQuery. "%'
+            OR customerLastName LIKE '%" .$searchQuery. "%'
+            OR rooms.roomID LIKE '%" .$searchQuery. "%'
+            OR rooms.roomName LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['customerFirstName'] . '</td>';
+                echo '<td>' . $row['customerLastName'] . '</td>';
+                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td>' . $row['checkinDate'] . '</td>';
+                // echo '<td>' . $row['checkOutDate'] . '</td>';
+                echo '<td>' . $row['paymentStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
     default:
         //  echo"can't reach";
     break;
