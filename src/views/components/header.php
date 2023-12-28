@@ -8,16 +8,16 @@
                 </div>
                 <div class='header-center-content'>
                     <div class='child-content'>
-                        <a href="http://localhost:3000/src/views/home/index.php">Home</a>
+                        <a href="http://localhost/hotel/src/views/home/">Home</a>
                     </div>
                     <div class='child-content'>
-                        <a href="http://localhost:3000/src/views/accommodation/index.php">Suits & rooms</a>
+                        <a href="http://localhost/hotel/src/views/accommodation/">Suits & rooms</a>
                     </div>
                     <div class='child-content'>
-                        <a href="http://localhost:3000/src/views/meetings-events.php">Meeting & events</a>
+                        <a href="http://localhost/hotel/src/views/meetingevent.php">Meeting & events</a>
                     </div>
                     <div class='child-content'>
-                        <a href="http://localhost:3000/src/views/restaurantandbars.php">RESTAURANT & BAR</a>
+                        <a href="http://localhost/hotel/src/views/restaurantandbars.php">RESTAURANT & BAR</a>
                     </div>
                     <div class='child-content'>
                         <a href="#">Other services</a>

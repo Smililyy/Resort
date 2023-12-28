@@ -314,7 +314,9 @@ span .close {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 }
-
+.modal .close{
+margin-top: 100px;
+}
 /* Modal Content (image) */
 .modal-content {
   margin: auto;
