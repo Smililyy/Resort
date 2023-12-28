@@ -148,7 +148,6 @@ switch ($action) {
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td><input type="checkbox" name="" id=""></td>';
                 echo '<td>' . $row['invoicelD'] . '</td>';
                 echo '<td>' . $row['bookingID'] . '</td>';
                 echo '<td>' . $row['paymentDate'] . '</td>';

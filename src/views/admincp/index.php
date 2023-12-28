@@ -305,7 +305,6 @@ require('../../controllers/AdminController.php');
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Check</th>
 							    <th>ID</th>
 								<th><a class="column_sortbooking" id="bookingID" data-order="desc" href="#">Booking ID<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="paymentDate" data-order="desc" href="#">Payment Date<i class='bx bx-sort-alt-2'></i></a></th>
