@@ -15,18 +15,18 @@ class BookingController {
         //$message = $postData['message'];
 
         // Create an instance of the model
-        $meetingeventModel = new MeetingeventModel();
+        $bookingModel = new bookingModel();
 
         // Check if the customer already exists
-        $existingCustomer = $meetingeventModel->checkCustomer($phone);
+        $existingCustomer = $bookingModel->checkCustomer($phone);
 
         // If the customer does not exist, add a new one
         if ($existingCustomer === null) {
-            $existingCustomer = $meetingeventModel->addNewCustomer($fname, $lname, $phone, $email);
+            $existingCustomer = $bookingModel->addNewCustomer($fname, $lname, $phone, $email);
         }
 
         // Close the database connection
-        $meetingeventModel->closeConnection();
+        $bookingModel->closeConnection();
 
         // Redirect to the confirmation page
         header('Location: http://localhost/hotel/src/views/Booking.php');
@@ -35,7 +35,7 @@ class BookingController {
 
 // Usage: Instantiate the controller and call the processMeetingEvent method
 $meetingeventController = new BookingController();
-$meetingeventController->processBookingEvent($_POST);
+$meetingeventController->processBooking($_POST);
 mysqli_close($con);
 
 ?>

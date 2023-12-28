@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="../../assets/css/header.css" />
     <link rel="stylesheet" href="../../assets/css/footer.css" />
     <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/css/checkout.css" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -38,13 +41,13 @@
                 </p>
             </div>
             <div class="wrapper">
-                <form>
+                <form action="../views/checkout.php" method="GET">>
                     <div class="searchpanel">
-                        <input type="date" id="datepicker" value="<?php echo date('Y-m-d'); ?>">
-                        <input type="date" id="datepicker" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" id="checkindate" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" id="checkoutdate" value="<?php echo date('Y-m-d'); ?>">
                         <div class="button_submit">
-                        <button class="button" type="submit">BOOK NOW</button>
-                    </div>
+                            <button onclick="location.href='../../src/views/checkout.php';" class="button" type="submit" id="myBtn">BOOK NOW</button>
+                        </div>
                     </div>
                     <div class="room-info">
                         <div class="room-img">
@@ -236,10 +239,10 @@
                         </div>
                         </div>
                     </div>
-                    
                 </form>
             </div>
         </div>
+    </div>
         <?php include("./components/footer.php") ?>
     </div>
     <script src="../../assets/js/index.js"></script>
