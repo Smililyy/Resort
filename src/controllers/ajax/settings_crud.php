@@ -1,9 +1,9 @@
 <?php
 
-$servername = "sql12.freesqldatabase.com";
-$username = "sql12670612";
-$password = "lrzZ8N6luY";
-$dbname = "sql12670612";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "hotel";
 
 $con = mysqli_connect(
     $servername,
@@ -24,6 +24,7 @@ function adminLogin()
     </script>;
     ";
     }
+    exit;
 }
 
 function select($sql, $values, $datatypes)
@@ -87,6 +88,32 @@ if (isset($_POST['upd_general'])) {
     $frm_data = filteration($_POST);
     $q = "UPDATE `settings` SET `side_title` = ?, `side_about` = ? WHERE `sr_no` = ?";
     $values = [$frm_data['side_title'], $frm_data['side_about'], 1];
-    $res = update($q, $values, "ssi");
+    $res = update($q, $values, 'ssi');
+    echo $res;
+}
+
+if (isset($_POST['upd_shutdown'])) {
+    $frm_data = ($_POST['upd_shutdown'] == 0) ? 1 : 0;
+    $q = "UPDATE `settings` SET `shutdown` = ? WHERE `sr_no` = ?";
+    $values = [$frm_data, 1];
+    $res = update($q, $values, 'ii');
+    echo $res;
+}
+
+
+if (isset($_POST['get_contacts'])) {
+    $query = "SELECT * FROM `contact_details` WHERE `sr_no` = ?";
+    $values = [1];
+    $res = select($query, $values, "i");
+    $data = mysqli_fetch_assoc($res);
+    $json_data = json_encode($data);
+    echo $json_data;
+}
+
+if (isset($_POST['upd_contacts'])) {
+    $frm_data = filteration($_POST);
+    $q = "UPDATE `contact_details` SET `address`=?,`website`=?,`pn1`=?,`pn2`=?,`email`=?,`fb`=?,`tpv`=? WHERE `sr_no` = ?";
+    $values = [$frm_data['address'], $frm_data['website'], $frm_data['pn1'], $frm_data['pn2'], $frm_data['email'], $frm_data['fb'], $frm_data['tpv'], 1];
+    $res = update($q, $values, 'sssssssi');
     echo $res;
 }

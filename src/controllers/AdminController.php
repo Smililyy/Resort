@@ -5,8 +5,8 @@ function adminLogin()
     if (!isset($_SESSION['adminLogin']) && ($_SESSION['adminLogin'] == true)) {
         echo "<script>
     window.location.href='auth.php';
-    </script>;
-    ";
+    </script>;";
+        exit;
     }
-    session_regenerate_id(true);
+    // session_regenerate_id(true);
 }

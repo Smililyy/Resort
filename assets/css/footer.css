@@ -37,6 +37,10 @@
   align-items: flex-start;
   justify-content: center;
 }
+.ft-social {
+  display: flex;
+  line-height: 0;
+}
 
 .email-input-wrapper {
   display: flex;

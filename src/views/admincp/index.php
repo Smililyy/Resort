@@ -22,14 +22,42 @@ require('../../controllers/AdminController.php');
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://unpkg.com/phosphor-icons"></script>
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
+	<script src="../../../assets/js/auth.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
 	<!-- End Of Boostrap  -->
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!--My custom css -->
 	<link rel="stylesheet" href="../../../assets/css/ad-customer.css">
-	<title>Manage</title>
+	<title>Admin control panel</title>
+	<style>
+		.custom-alert {
+			position: fixed;
+			top: 80px;
+			right: 25px;
+			z-index: 1009;
+			width: 17%;
+			padding-right: 10px;
+		}
+
+		.close {
+			background: transparent;
+			border: none;
+			width: -37%;
+			line-height: 0;
+		}
+
+		.close span {
+			font-size: 24px;
+			margin-left: 10px;
+			line-height: 0;
+		}
+
+		.modal-lg {
+			max-width: 800px !important;
+		}
+	</style>
 </head>
 
 <body>
@@ -73,7 +101,7 @@ require('../../controllers/AdminController.php');
 			</li>
 			<li class="menu-item" data-content="message">
 				<a href="#">
-					<i class='bx bxs-chat'></i>					
+					<i class='bx bxs-chat'></i>
 					<span class="text">Message</span>
 				</a>
 			</li>
@@ -208,7 +236,7 @@ require('../../controllers/AdminController.php');
 						<span>Add New Customer</span>
 					</a>
 				</div>
-				<div id = sort_customer_data>
+				<div id=sort_customer_data>
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
@@ -306,7 +334,7 @@ require('../../controllers/AdminController.php');
 						<thead>
 							<tr>
 								<th>Check</th>
-							    <th>ID</th>
+								<th>ID</th>
 								<th><a class="column_sortbooking" id="bookingID" data-order="desc" href="#">Booking ID<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="paymentDate" data-order="desc" href="#">Payment Date<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="ammount" data-order="desc" href="#">Ammount<i class='bx bx-sort-alt-2'></i></a></th>
@@ -381,41 +409,184 @@ require('../../controllers/AdminController.php');
 						<span class="text">Download PDF</span>
 					</a>
 				</div>
-				<div class="card">
+
+				<!-- General settings section -->
+				<div class="card border-0 shadow-sm mb-4">
 					<div class="card-body">
 						<div class="d-flex align-items-center justify-content-between mb-3">
-							<h5 class="card-title m-0">General settings</h5>
+							<h5 class="card-title m-0 fw-bold">General settings</h5>
 							<button type="button" class="btn btn-dark shadow-none btn-small" data-bs-toggle="modal" data-bs-target="#general-s">
 								<i class="bi bi-pencil-square">Edit</i>
 							</button>
 						</div>
-						<h6 class="card-subtitle mb-1 fw-bold">Card subtitle</h6>
+						<h6 class="card-subtitle mb-1 fw-bold">Form submit Title</h6>
 						<p class="card-text" id="side_title"></p>
-						<h6 class="card-subtitle mb-1 fw-bold">Card subtitle</h6>
+						<h6 class="card-subtitle mb-1 fw-bold">Form Submit Content</h6>
 						<p class="card-text" id="side_about">content</p>
 					</div>
 				</div>
+
+				<!-- General settings modal -->
 				<div class="modal fade" id="general-s" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog">
-						<form>
+						<form id="general_s_form">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="staticBackdropLabel">General Settings</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="mb-3">
+										<label class="form-lable fw-bold">Submit Title</label>
+										<input name="side_title" type="text" id="side_title_inp" class="form-control shadow-none" require></input>
+									</div>
+									<div class="mb-3">
+										<label class="form-lable fw-bold">Content</label>
+										<textarea name="side_about" id="side_about_inp" class="form-control shadow-none" rows="6" require></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" onclick="side_title.value = general_data.side_title, side_about.value = general_data.side_about" class="btn text-secondary shadow-none" data-bs-dismiss="modal">CANCEL</button>
+									<button type="submit" class="btn custome-bg text-green shadow-none" data-bs-dismiss="modal">SUBMIT</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Shutdown section -->
+				<div class="card border-0 shadow-sm mb-4">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between mb-3">
+							<h5 class="card-title m-0 fw-bold">Shutdown Website</h5>
+							<div class="form-check form-switch">
+								<form>
+									<input onchange="upd_shutdown(this.value)" class="form-check-input" role="switch" type="checkbox" id="shutdown-toogle">
+								</form>
+
+							</div>
+						</div>
+						<p class="card-text">
+							No customer will be allowed to make bookings for all website services, when shutdown mode ís turned on.
+						</p>
+					</div>
+				</div>
+
+				<!-- Contact details section -->
+				<div class="card border-0 shadow mb-4">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between mb-3">
+							<h5 class="card-title m-0 fw-bold">Contacts Settings</h5>
+							<button type="button" class="btn btn-dark shadow-none btn-small" data-bs-toggle="modal" data-bs-target="#contacts-s">
+								<i class="bi bi-pencil-square">Edit</i>
+							</button>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="mb-4">
+									<h6 class="card-subtitle mb-1 fw-bold">Address</h6>
+									<p class="card-text" id="address"></p>
+								</div>
+								<div class="mb-4">
+									<h6 class="card-subtitle mb-1 fw-bold">Website</h6>
+									<p class="card-text" id="website"></p>
+								</div>
+								<div class="mb-4">
+									<h6 class="card-subtitle mb-1 fw-bold">Phone Numbers</h6>
+									<p class="card-text mb-1">
+										<i class="bi bi-telephone-fill"></i>
+										<span id="pn1"></span>
+									</p>
+									<p class="card-text">
+										<i class="bi bi-telephone-fill"></i>
+										<span id="pn2"></span>
+									</p>
+								</div>
+								<div class="mb-4">
+									<h6 class="card-subtitle mb-1 fw-bold">E-mail</h6>
+									<p class="card-text" id="email"> </p>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="mb-4">
+									<h6 class="card-subtitle mb-1 fw-bold">Social Links</h6>
+									<p class="card-text mb-1">
+										<img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" class="alignnone wp-image-3205 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" alt="" width="27" height="27" data-was-processed="true">
+										<span id="fb"></span>
+									</p>
+									<p class="card-text">
+										<img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" class="alignnone wp-image-3204 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" alt="" width="30" height="30" data-was-processed="true">
+										<span id="tpv"></span>
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Contact details modal -->
+				<div class="modal fade" id="contacts-s" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<form id="contacts_s_form">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
-									<div class="mb-3">
-										<label class="form-lable">Side Title</label>
-										<input type="text" id="side_title_inp" name="side_title" class="form-control shadow-none">Side Title</input>
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="mb-3">
+													<label class="form-lable fw-bold">Address</label>
+													<input name="address" type="text" id="address_inp" class="form-control shadow-none" require></input>
+												</div>
+												<div class="mb-3">
+													<label class="form-lable fw-bold">Website Link</label>
+													<input name="website" type="text" id="website_inp" class="form-control shadow-none" require></input>
+												</div>
+												<div class="mb-3">
+													<label class="form-lable fw-bold">Phone Numbers (with contry code)</label>
+													<div class="input-group mb-3">
+														<span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+														<input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" require>
+													</div>
+													<div class="input-group mb-3">
+														<span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+														<input type="text" name="pn2" id="pn2_inp" class="form-control shadow-none" require>
+													</div>
+												</div>
+												<div class="mb-3">
+													<label class="form-lable fw-bold">Email</label>
+													<input name="email" type="text" id="email_inp" class="form-control shadow-none" require></input>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="mb-3">
+													<label class="form-lable fw-bold">Social Links</label>
+													<div class="input-group mb-3">
+														<span class="input-group-text">
+															<img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" class="alignnone wp-image-3205 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" alt="" width="27" height="27" data-was-processed="true">
+														</span>
+														<input type="text" name="fb" id="fb_inp" class="form-control shadow-none" require>
+													</div>
+													<div class="input-group mb-3">
+														<span class="input-group-text">
+															<img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" class="alignnone wp-image-3204 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" alt="" width="30" height="30" data-was-processed="true">
+														</span>
+														<input type="text" name="tpv" id="tpv_inp" class="form-control shadow-none" require>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="mb-3">
-										<label class="form-lable">Address</label>
-										<textarea name="side_about" id="side_about_inp" class="form-control shadow-none" rows="6"></textarea>
-									</div>
+
+
 								</div>
 								<div class="modal-footer">
-									<button type="button" onclick="side_title.value = general_data.site_title, side_about.value = general_data.side_about" class="btn text-secondary shadow-none" data-bs-dismiss="modal">CANCEL</button>
-									<button type="button" onclick="upd_general(side_title.value, side_about.value)" class="btn custome-bg text-green shadow-none">SUBMIT</button>
+									<button type="button" onclick="contacts_inp(contacts_data)" class="btn text-secondary shadow-none" data-bs-dismiss="modal">CANCEL</button>
+									<button type="submit" class="btn custome-bg text-green shadow-none" data-bs-dismiss="modal">SUBMIT</button>
 								</div>
 							</div>
 						</form>
@@ -935,112 +1106,110 @@ require('../../controllers/AdminController.php');
 			</div>
 		</div>
 	</div>
-	<?php
-	require('./inc/scripts.php');
-	?>
+
 	<!-- PRINT INVOICE MODAL HTML -->
 	<div id="viewInvoice" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Invoice</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="invoice-title">
-                            <h3 class="pull-right">Order # 12345</h3>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <address>
-                                    <strong>Billed To:</strong><br>
-                                    John Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <address>
-                                    <strong>Shipped To:</strong><br>
-                                    Jane Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 text-right">
-                                <address>
-                                    <strong>Order Date:</strong><br>
-                                    March 7, 2014<br><br>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Invoice</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="invoice-title">
+								<h3 class="pull-right">Order # 12345</h3>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-xs-6">
+									<address>
+										<strong>Billed To:</strong><br>
+										John Smith<br>
+										1234 Main<br>
+										Apt. 4B<br>
+										Springfield, ST 54321
+									</address>
+								</div>
+								<div class="col-xs-6 text-right">
+									<address>
+										<strong>Shipped To:</strong><br>
+										Jane Smith<br>
+										1234 Main<br>
+										Apt. 4B<br>
+										Springfield, ST 54321
+									</address>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 text-right">
+									<address>
+										<strong>Order Date:</strong><br>
+										March 7, 2014<br><br>
+									</address>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><strong>Order summary</strong></h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <td><strong>Item</strong></td>
-                                                <td class="text-center"><strong>Price</strong></td>
-                                                <td class="text-center"><strong>Quantity</strong></td>
-                                                <td class="text-right"><strong>Totals</strong></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Superior</td>
-                                                <td class="text-center">$10.99</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$10.99</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Deluxe</td>
-                                                <td class="text-center">$20.00</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-right">$60.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Saigon Suite</td>
-                                                <td class="text-center">$600.00</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$600.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="no-line"></td>
-                                                <td class="no-line"></td>
-                                                <td class="no-line text-center"><strong>Total</strong></td>
-                                                <td class="no-line text-right">$685.99</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                <input type="submit" class="btn btn-danger" onclick="Print()" value="Print">
-            </div>
-        </div>
-    </div>
-</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title"><strong>Order summary</strong></h3>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-condensed">
+											<thead>
+												<tr>
+													<td><strong>Item</strong></td>
+													<td class="text-center"><strong>Price</strong></td>
+													<td class="text-center"><strong>Quantity</strong></td>
+													<td class="text-right"><strong>Totals</strong></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Superior</td>
+													<td class="text-center">$10.99</td>
+													<td class="text-center">1</td>
+													<td class="text-right">$10.99</td>
+												</tr>
+												<tr>
+													<td>Deluxe</td>
+													<td class="text-center">$20.00</td>
+													<td class="text-center">3</td>
+													<td class="text-right">$60.00</td>
+												</tr>
+												<tr>
+													<td>Saigon Suite</td>
+													<td class="text-center">$600.00</td>
+													<td class="text-center">1</td>
+													<td class="text-right">$600.00</td>
+												</tr>
+												<tr>
+													<td class="no-line"></td>
+													<td class="no-line"></td>
+													<td class="no-line text-center"><strong>Total</strong></td>
+													<td class="no-line text-right">$685.99</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" onclick="Print()" value="Print">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- PRINT INVOICE MODAL END -->
 	<!-- HANDLE LISTDATA -->
@@ -1061,7 +1230,6 @@ require('../../controllers/AdminController.php');
 		fetchData('listroom', '#room_data');
 		fetchData('listmessage', '#message_data');
 		fetchData('listinvoice', '#invoice_data');
-
 	</script>
 	<!-- END HANDLE LISTDATA -->
 	<script>
@@ -1370,11 +1538,11 @@ require('../../controllers/AdminController.php');
 			})
 		}
 		// Sorting
-		$jq(document).on('click', '.column_sortcustomer', function () {
+		$jq(document).on('click', '.column_sortcustomer', function() {
 			var column_name = $jq(this).attr("id");
 			var order = $jq(this).data("order");
 			var parameters = "column_name=" + column_name + "&order=" + order;
-			var arrow ='';
+			var arrow = '';
 
 			// if (order == 'desc') {
 			// 	arrow = '<i class="bx bx-arrow-down"></i>';
@@ -1386,16 +1554,16 @@ require('../../controllers/AdminController.php');
 			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
 			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
 				action: 'sortcustomer'
-			}, function (data, status) {
+			}, function(data, status) {
 				$jq('#sort_customer_data').html(data);
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
 		});
-		$jq(document).on('click', '.column_sortroom', function () {
+		$jq(document).on('click', '.column_sortroom', function() {
 			var column_name = $jq(this).attr("id");
 			var order = $jq(this).data("order");
 			var parameters = "column_name=" + column_name + "&order=" + order;
-			var arrow ='';
+			var arrow = '';
 
 			// if (order == 'desc') {
 			// 	arrow = '<i class="bx bx-arrow-down"></i>';
@@ -1407,16 +1575,16 @@ require('../../controllers/AdminController.php');
 			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
 			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
 				action: 'sortroom'
-			}, function (data, status) {
+			}, function(data, status) {
 				$jq('#sort_room_data').html(data);
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
 		});
-		$jq(document).on('click', '.column_sortbooking', function () {
+		$jq(document).on('click', '.column_sortbooking', function() {
 			var column_name = $jq(this).attr("id");
 			var order = $jq(this).data("order");
 			var parameters = "column_name=" + column_name + "&order=" + order;
-			var arrow ='';
+			var arrow = '';
 
 			// if (order == 'desc') {
 			// 	arrow = '<i class="bx bx-arrow-down"></i>';
@@ -1428,56 +1596,168 @@ require('../../controllers/AdminController.php');
 			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
 			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
 				action: 'sortbooking'
-			}, function (data, status) {
+			}, function(data, status) {
 				$jq('#sort_booking_data').html(data);
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
 		});
 	</script>
 
-
+	<!-- HANDLE SETTINGS -->
 	<script>
-		let general_data;
+		function alert(type, msg) {
+			let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
+			let element = document.createElement('div');
+			element.innerHTML = `
+                <div class="alert ${bs_class} alert-dismissible fade show custom-alert" role="alert">
+                    <strong> ${msg}</strong> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `;
+			document.body.append(element);
+		}
+
+		let general_data, contacts_data;
+		let general_s_form = document.getElementById("general_s_form");
+		let side_title_inp = document.getElementById("side_title_inp");
+		let side_about_inp = document.getElementById("side_about_inp");
+		let contacts_s_form = document.getElementById("contacts_s_form");
 
 		function get_general() {
 			let side_title = document.getElementById("side_title");
 			let side_about = document.getElementById("side_about");
 
-			let side_title_inp = document.getElementById("side_title_inp");
-			let side_about_inp = document.getElementById("side_about_inp");
+			let shudown_toggle = document.getElementById("shutdown-toogle");
+
 			let xhr = new XMLHttpRequest();
 			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
 				general_data = JSON.parse(this.responseText);
-
 				side_title.innerText = general_data.side_title;
 				side_about.innerText = general_data.side_about;
-
 				side_title_inp.value = general_data.side_title;
 				side_about_inp.value = general_data.side_about;
+				if (general_data.shutdown == 0) {
+					shudown_toggle.checked = false;
+					shudown_toggle.value = 0;
+				} else {
+					shudown_toggle.checked = true;
+					shudown_toggle.value = 1;
+				}
 			}
 			xhr.send('get_general');
 		}
+
+		general_s_form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			upd_general(side_title_inp.value, side_about_inp.value);
+
+		})
 
 		function upd_general(side_title_val, side_about_val) {
 			let xhr = new XMLHttpRequest();
 			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
-				console.log(this.responseText);
 				var myModal = document.getElementById('general-s');
-				var modal = document.Modal.getInstance(myModal);
+				var modal = bootstrap.Modal.getInstance(myModal);
 				modal.hide();
+				if (this.responseText == 1) {
+					alert('success', "Changes saved!");
+					get_general();
+				} else {
+					alert('error', "No Changes made!");
+				}
 			}
-			xhr.send('site_title = ' + side_title_val + '&site_about = ' + side_about_val + '&upd_general');
+			xhr.send('side_title=' + side_title_val + '&side_about=' + side_about_val + '&upd_general');
 		}
+
+		function upd_shutdown(val) {
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				console.log(this.responseText);
+				if (this.responseText == 1 && general_data.shutdown == 0) {
+					alert('success', "Site has been shutdown!");
+				} else {
+					alert('success', "Shutdown made off!");
+				}
+				get_general();
+
+			}
+			xhr.send('&upd_shutdown=' + val);
+		}
+
+		function get_contacts() {
+			let contacts_p_id = ['address', 'website', 'pn1', 'pn2', 'email', 'fb', 'tpv'];
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				contacts_data = JSON.parse(this.responseText);
+				contacts_data = Object.values(contacts_data);
+				for (let i = 0; i < contacts_p_id.length; i++) {
+					document.getElementById(contacts_p_id[i]).innerText = contacts_data[i + 1];
+				}
+				contacts_inp(contacts_data);
+			}
+			xhr.send('get_contacts');
+		}
+
+		function contacts_inp(data) {
+			let contacts_inp_id = ['address_inp', 'website_inp', 'pn1_inp', 'pn2_inp', 'email_inp', 'fb_inp', 'tpv_inp'];
+			for (let i = 0; i < contacts_inp_id.length; i++) {
+				document.getElementById(contacts_inp_id[i]).value = data[i + 1];
+
+			}
+		}
+
+		function upd_contacts() {
+			let xhr = new XMLHttpRequest();
+			let index = ['address', 'website', 'pn1', 'pn2', 'email', 'fb', 'tpv'];
+			let contacts_inp_id = ['address_inp', 'website_inp', 'pn1_inp', 'pn2_inp', 'email_inp', 'fb_inp', 'tpv_inp'];
+
+			let data_str = "";
+			for (let i = 0; i < index.length; i++) {
+				data_str += index[i] + "=" + document.getElementById(contacts_inp_id[i]).value + '&';
+			}
+
+			data_str += "upd_contacts";
+			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				console.log(this.responseText);
+				var myModal = document.getElementById('contacts-s');
+				var modal = bootstrap.Modal.getInstance(myModal);
+				modal.hide();
+				if (this.responseText == 1) {
+					alert('success', "Changes saved!");
+					get_contacts();
+				} else {
+					alert('error', "No Changes made!");
+				}
+			}
+			xhr.send(data_str);
+
+		}
+
+		contacts_s_form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			upd_contacts();
+		})
 
 		window.onload = function() {
 			get_general();
+			get_contacts();
 		}
 	</script>
-
+	<?php
+	require('./inc/scripts.php');
+	?>
 </body>
 
 </html>
