@@ -22,6 +22,7 @@ require('../../controllers/AdminController.php');
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://unpkg.com/phosphor-icons"></script>
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
 	<!-- End Of Boostrap  -->
@@ -145,17 +146,17 @@ require('../../controllers/AdminController.php');
 					<ul class="main__body__box-info">
 						<li>
 							<i class='bx bxs-wallet'></i>
-							<h5>$823</h5>
+							<h5 id="db_revenue">$823</h5>
 							<p>Revenue</p>
 						</li>
 						<li>
 							<i class='bx bxs-calendar-check'></i>
-							<h5>23</h5>
+							<h5 id="db_booking">23</h5>
 							<p>Booking</p>
 						</li>
 						<li>
 							<i class="ph-users-fill"></i>
-							<h5>55</h5>
+							<h5 id="db_customer">55</h5>
 							<p>Customers</p>
 						</li>
 					</ul>
@@ -178,19 +179,19 @@ require('../../controllers/AdminController.php');
 							<ul class="sales-summary__info">
 								<li>
 									<p>Avg. Room</p>
-									<h5>$76</h5>
+									<h5 id="db_room">$76</h5>
 								</li>
 								<li>
-									<p>Avg.Meeting&Event </p>
-									<h5>$76</h5>
+									<p>Avg.Meeting & Event </p>
+									<h5 id="db_meetingevn">$76</h5>
 								</li>
 								<li>
-									<p>Avg. Revenue</p>
-									<h5>$76</h5>
+									<p>Avg. Restaurant & Bar</p>
+									<h5 id="db_resandbar">$76</h5>
 								</li>
 								<li>
-									<p>Avg. customer</p>
-									<h5>$76</h5>
+									<p>Avg. Customer</p>
+									<h5 id="db_avgcustomer">$76</h5>
 								</li>
 							</ul>
 							<div id="chart"></div>
@@ -664,11 +665,11 @@ require('../../controllers/AdminController.php');
 					</div>
 					<div class="form-group">
 						<label>Check In Date</label>
-						<input type="text" id="checkout_input" class="form-control">
+						<input type="date" id="checkin_input" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Check Out Date</label>
-						<input type="text" id="checkin_input" class="form-control">
+						<input type="date" id="checkout_input" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Payment Status</label>
@@ -677,6 +678,14 @@ require('../../controllers/AdminController.php');
 					<div class="form-group">
 						<label>Number of Guest</label>
 						<input type="text" id="guests_input" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Room Status</label>
+						<select id="roomsta_input" class="form-control">
+							<option value="Reserved">Reserved</option>
+							<option value="Occupied">Occupied</option>
+							<option value="Available">Available</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label>Total Amount</label>
@@ -816,11 +825,11 @@ require('../../controllers/AdminController.php');
 					</div>
 					<div class="form-group">
 						<label>Check In Date</label>
-						<input type="text" id="checkout_input" class="form-control" readonly>
+						<input type="date" id="checkin_input" class="form-control" readonly>
 					</div>
 					<div class="form-group">
 						<label>Check Out Date</label>
-						<input type="text" id="checkin_input" class="form-control" readonly>
+						<input type="date" id="checkout_input" class="form-control" readonly>
 					</div>
 					<div class="form-group">
 						<label>Payment Status</label>
@@ -1024,6 +1033,21 @@ require('../../controllers/AdminController.php');
 		fetchData('listmessage', '#message_data');
 		fetchData('listinvoice', '#invoice_data');
 
+		$j.get('http://localhost/hotel/src/models/Admin.php', {
+			action: 'dashboard'
+		}, function(data, status) {
+			var dashboardData = JSON.parse(data);
+			console.log(dashboardData);
+
+			$j('#db_revenue').text(dashboardData.TotalRevenue + " $");
+			$j('#db_booking').text(dashboardData.TotalBooking);
+			$j('#db_customer').text(dashboardData.TotalCustomer);
+			$j('#db_room').text(dashboardData.AvgRoom + " $");
+			$j('#db_meetingevn').text(dashboardData.AvgMeetingEvent + " $");
+			$j('#db_resandbar').text(dashboardData.AvgResBar + " $");
+			$j('#db_avgcustomer').text(dashboardData.AvgCustomer + " $");
+		})
+		
 	</script>
 	<!-- END HANDLE LISTDATA -->
 	<script>
@@ -1109,6 +1133,7 @@ require('../../controllers/AdminController.php');
 				$jq('.edit_employee #lastname_input').val(bookingData.customerLastName);
 				$jq('.edit_employee #roomid_input').val(bookingData.roomID);
 				$jq('.edit_employee #checkout_input').val(bookingData.checkOutDate);
+				$jq('.edit_employee #roomsta_input').val(bookingData.roomStatus);
 				$jq('.edit_employee #checkin_input').val(bookingData.checkinDate);
 				$jq('.edit_employee #paymentstatus_input').val(bookingData.paymentStatus);
 				$jq('.edit_employee #guests_input').val(bookingData.numberOfCustomer);
@@ -1273,10 +1298,13 @@ require('../../controllers/AdminController.php');
 		function editBooking() {
 			var bookingid = $jq('.edit_employee #booking_id').val();
 			var roomid = $jq('.edit_employee #roomid_input').val();
-			var checkoutdate = $jq('.edit_employee #checkout_input').val();
-			var checkindate = $jq('.edit_employee #checkin_input').val();
+			var formattedCheckoutDate  = $jq('.edit_employee #checkout_input').val();
+			var formattedCheckinDate = $jq('.edit_employee #checkin_input').val();
+			var checkoutdate= moment(checkoutdate).format("YY-MM-DD");
+			var checkindate= moment(checkindate).format("YY-MM-DD");
 			var paymentstatus = $jq('.edit_employee #paymentstatus_input').val();
 			var guests = $jq('.edit_employee #guests_input').val();
+			var roomstatus = $jq('.edit_employee #roomsta_input').val();
 			var message = $jq('.edit_employee #message_input').val();
 			// Create parameters string
 			var parameters = "bookingid=" + bookingid +
@@ -1285,6 +1313,7 @@ require('../../controllers/AdminController.php');
 				"&checkindate=" + checkindate +
 				"&paymentstatus=" + paymentstatus +
 				"&guests=" + guests +
+				"&roomstatus=" +roomstatus +
 				"&message=" + message;
 
 			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
@@ -1295,6 +1324,8 @@ require('../../controllers/AdminController.php');
 			}, function(data, status) {
 				// Handle the response if needed
 				fetchData('listbooking', '#booking_data');
+				fetchData('listroom', '#room_data');
+				fetchData('listinvoice', '#invoice_data');
 				$jq('#editBookingModal').modal('hide');
 			});
 
@@ -1541,8 +1572,6 @@ require('../../controllers/AdminController.php');
 			get_general();
 		}
 	</script>
-
-
 </body>
 
 </html>

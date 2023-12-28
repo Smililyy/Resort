@@ -167,29 +167,61 @@ switch ($action) {
         }
     break;
     case 'listbill':
-        $id =$_GET['idinvoice'];  
+        // Execute the SELECT query
+        $id = $_GET['idinvoice'];
+        $currentDate = date('Y-m-d');
+        $nextDay = date('Y-m-d', strtotime($currentDate . ' + 1 day'));
+
         $sql = "SELECT
+                    rooms.roomID,
+                    bookings.bookingID,
                     rooms.roomName,
                     rooms.roomRate,
-                    TIMESTAMPDIFF(DAY, bookings.checkinDate, bookings.checkOutDate) AS duration,
+                    TIMESTAMPDIFF(DAY, bookings.checkinDate, '$nextDay') AS duration,
                     invoices.amount
-                    FROM
-                        rooms
-                    JOIN bookings ON rooms.roomID = bookings.roomID
-                    JOIN invoices ON bookings.bookingID = invoices.bookingID
+                FROM
+                    rooms
+                JOIN bookings ON rooms.roomID = bookings.roomID
+                JOIN invoices ON bookings.bookingID = invoices.bookingID
                 WHERE invoices.invoicelD = '$id';";
 
         $result = mysqli_query($con, $sql);
+
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
+                // Update records in the invoices table
+                $updateInvoiceSql = "UPDATE invoices 
+                                    SET paymentDate = '$currentDate',
+                                        amount = " . $row['amount'] . "
+                                    WHERE invoicelD = '$id';";
+
+                mysqli_query($con, $updateInvoiceSql);
+
+                // Update records in the bookings table
+                $bookingID = $row['bookingID'];
+                $updateBookingSql = "UPDATE bookings 
+                                    SET checkOutDate = '$nextDay',
+                                        paymentStatus = 'Paid'
+                                    WHERE bookingID = '$bookingID';";
+
+                mysqli_query($con, $updateBookingSql);
+
+                // Update records in the rooms table
+                $roomID = $row['roomID'];
+                $updateRoomSql = "UPDATE rooms 
+                                SET roomStatus = 'Available'
+                                WHERE roomID = '$roomID';";
+
+                mysqli_query($con, $updateRoomSql);
+
+                // Display information in HTML if needed
                 echo '<tr>';
                 echo '<td>' . $row['roomName'] . '</td>';
-                echo '<td class="text-center">' . $row['roomRate'] . '</td>';
-                echo '<td class="text-center">' . $row['duration'] . '</td>';
-                echo '<td>' . $row['amount'] . '</td>';
+                echo '<td class="text-center">' . $row['roomRate'] . ' $</td>';
+                echo '<td class="text-center">' . $row['duration'] . ' days</td>';
+                echo '<td>' . $row['amount'] . ' $</td>';
                 echo '</tr>';
             }
-            
         } else {
             echo 'Error executing SQL query: ' . mysqli_error($con);
         }
@@ -268,7 +300,7 @@ switch ($action) {
     break;
     case 'viewBooking':
         $id =$_GET['idbooking'];  
-        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus,  bookings.totalAmount, bookings.numberOfCustomer, bookings.message
+        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus,  bookings.totalAmount, bookings.numberOfCustomer, bookings.message, rooms.roomStatus
         FROM bookings
         JOIN rooms ON bookings.roomID = rooms.roomID
         JOIN customers ON bookings.customerID = customers.customerID
@@ -321,6 +353,57 @@ switch ($action) {
             echo 'Error executing SQL query: ' . mysqli_error($con);
         }
         
+    break;
+    case 'dashboard':
+        // Query to get Total Revenue
+        $sqlTotalRevenue = "SELECT FORMAT(SUM(amount), 0) AS TotalRevenue FROM invoices";
+        $resultTotalRevenue = mysqli_query($con, $sqlTotalRevenue);
+        $dashboardData['TotalRevenue'] = mysqli_fetch_assoc($resultTotalRevenue)['TotalRevenue'];
+
+        // Query to get Total Booking
+        $sqlTotalBooking = "SELECT FORMAT(COUNT(*), 0) AS TotalBooking FROM bookings";
+        $resultTotalBooking = mysqli_query($con, $sqlTotalBooking);
+        $dashboardData['TotalBooking'] = mysqli_fetch_assoc($resultTotalBooking)['TotalBooking'];
+
+        // Query to get Total Customer
+        $sqlTotalCustomer = "SELECT FORMAT(COUNT(*), 0) AS TotalCustomer FROM customers";
+        $resultTotalCustomer = mysqli_query($con, $sqlTotalCustomer);
+        $dashboardData['TotalCustomer'] = mysqli_fetch_assoc($resultTotalCustomer)['TotalCustomer'];
+
+        // Query to get Avg Room
+        $sqlAvgRoom = "SELECT FORMAT(AVG(invoices.amount), 0) AS AvgRoom
+                        FROM invoices
+                        JOIN bookings ON invoices.bookingID = bookings.bookingID
+                        JOIN rooms ON bookings.roomID = rooms.roomID
+                        WHERE rooms.roomType = 'Suite Room'";
+        $resultAvgRoom = mysqli_query($con, $sqlAvgRoom);
+        $dashboardData['AvgRoom'] = mysqli_fetch_assoc($resultAvgRoom)['AvgRoom'];
+
+        // Query to get Avg Meeting Event
+        $sqlAvgMeetingEvent = "SELECT FORMAT(AVG(invoices.amount), 0) AS AvgMeetingEvent
+                                FROM invoices
+                                JOIN bookings ON invoices.bookingID = bookings.bookingID
+                                JOIN rooms ON bookings.roomID = rooms.roomID
+                                WHERE rooms.roomType = 'Event Meeting'";
+        $resultAvgMeetingEvent = mysqli_query($con, $sqlAvgMeetingEvent);
+        $dashboardData['AvgMeetingEvent'] = mysqli_fetch_assoc($resultAvgMeetingEvent)['AvgMeetingEvent'];
+
+        // Query to get Avg ResBar
+        $sqlAvgResBar = "SELECT FORMAT(AVG(invoices.amount), 0) AS AvgResBar
+                            FROM invoices
+                            JOIN bookings ON invoices.bookingID = bookings.bookingID
+                            JOIN rooms ON bookings.roomID = rooms.roomID
+                            WHERE rooms.roomType = 'Restaurant and Bar'";
+        $resultAvgResBar = mysqli_query($con, $sqlAvgResBar);
+        $dashboardData['AvgResBar'] = mysqli_fetch_assoc($resultAvgResBar)['AvgResBar'];
+
+        // Query to get Avg Customer
+        $sqlAvgCustomer = "SELECT FORMAT(AVG(amount), 0) AS AvgCustomer FROM invoices";
+        $resultAvgCustomer = mysqli_query($con, $sqlAvgCustomer);
+        $dashboardData['AvgCustomer'] = mysqli_fetch_assoc($resultAvgCustomer)['AvgCustomer'];
+
+        // Return dashboard data as JSON
+        echo json_encode($dashboardData);
     break;
     case 'addCustomer':
         $firstName = $_GET['firstName'];
@@ -415,7 +498,7 @@ switch ($action) {
         $paymentstatus = $_GET['paymentstatus'];
         $guests = $_GET['guests'];
         $message = $_GET['message'];
-        
+        $roomstatus = $_GET['roomstatus'];
         $sql = "UPDATE bookings 
                 JOIN rooms ON bookings.roomID = rooms.roomID
                 SET 
@@ -424,6 +507,7 @@ switch ($action) {
                 checkOutDate = '".$checkoutdate."', 
                 paymentStatus = '".$paymentstatus."', 
                 numberOfCustomer = '".$guests."', 
+                rooms.roomStatus = '".$roomstatus."', 
                 message = '".$message."' 
                 WHERE bookings.bookingID = '".$bookingid."'";
 
@@ -437,6 +521,29 @@ switch ($action) {
         } else {
             // Query failed
             echo "Error updating record: " . mysqli_error($con);
+        }
+        // Check if roomStatus is 'Occupied'
+        if ($roomstatus == 'Occupied') {
+            // Get room rate (amount) from the rooms table based on roomid
+            $getRoomRateQuery = "SELECT roomRate FROM rooms WHERE roomID = '$roomid'";
+            $result = mysqli_query($con, $getRoomRateQuery);
+
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+                $amount = $row['roomRate'];
+
+                // Insert data into the invoices table with bookingID and amount
+                $insertInvoiceQuery = "INSERT INTO `invoices`(`bookingID`, `amount`) VALUES ('".$bookingid."', '".$amount."')";
+                $insertResult = mysqli_query($con, $insertInvoiceQuery);
+
+                if (!$insertResult) {
+                    // Handle error if needed
+                    echo 'Error inserting into invoices table: ' . mysqli_error($con);
+                }
+            } else {
+                // Handle error if needed
+                echo 'Error fetching roomRate: ' . mysqli_error($con);
+            }
         }
     break;
     case 'editCustomer':
@@ -757,9 +864,6 @@ switch ($action) {
     case 'booking':
         // Get values from the GET parameters
         $searchQuery = $_GET['searchQuery'];
-        
-        $sql = "SELECT * FROM bookings 
-                WHERE roomName LIKE '%" .$searchQuery. "%'";
 
         $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
         FROM bookings
@@ -793,6 +897,39 @@ switch ($action) {
                 echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'invoice':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+
+        $sql = "SELECT *
+        FROM invoices
+          WHERE invoicelD LIKE '%" .$searchQuery. "%'
+            OR bookingID LIKE '%" .$searchQuery. "%'
+            OR paymentDate LIKE '%" .$searchQuery. "%'
+            OR amount LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['invoicelD'] . '</td>';
+                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['paymentDate'] . '</td>';
+                echo '<td>' . $row['amount'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">'; 
+                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
+                    </a>';                     
                 echo '</div>';
                 echo '</td>';
                 echo '</tr>';

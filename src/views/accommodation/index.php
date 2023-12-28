@@ -102,7 +102,7 @@
                                     <br>
                                 </div>
                                 <p class="view-details-button-wrapper">
-                                    <a class="button view-details-button heading-font-family" href="http://localhost:3000/src/views/accommodation/saigon-suit.php">READ DETAIL</a>
+                                    <a class="button view-details-button heading-font-family" href="http://localhost/hotel/src/views/accommodation/saigon-suit.php">READ DETAIL</a>
                                 </p>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                                     <br>
                                 </div>
                                 <p class="view-details-button-wrapper">
-                                    <a class="button view-details-button heading-font-family" href="http://localhost:3000/src/views/accommodation/suit.php">READ DETAIL</a>
+                                    <a class="button view-details-button heading-font-family" href="http://localhost/hotel/src/views/accommodation/suit.php">READ DETAIL</a>
                                 </p>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                                     <br>
                                 </div>
                                 <p class="view-details-button-wrapper">
-                                    <a class="button view-details-button heading-font-family" href="http://localhost:3000/src/views/accommodation/executive.php">READ DETAIL</a>
+                                    <a class="button view-details-button heading-font-family" href="http://localhost/hotel/src/views/accommodation/executive.php">READ DETAIL</a>
                                 </p>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                                     <br>
                                 </div>
                                 <p class="view-details-button-wrapper">
-                                    <a class="button view-details-button heading-font-family" href="http://localhost:3000/src/views/accommodation/senior-deluxe.php">READ DETAIL</a>
+                                    <a class="button view-details-button heading-font-family" href="http://localhost/hotel/src/views/accommodation/senior-deluxe.php">READ DETAIL</a>
                                 </p>
                             </div>
                         </div>
@@ -302,7 +302,7 @@
                                     <br>
                                 </div>
                                 <p class="view-details-button-wrapper">
-                                    <a class="button view-details-button heading-font-family" href="http://localhost:3000/src/views/accommodation/deluxe.php">READ DETAIL</a>
+                                    <a class="button view-details-button heading-font-family" href="http://localhost/hotel/src/views/accommodation/deluxe.php">READ DETAIL</a>
                                 </p>
                             </div>
                         </div>
@@ -352,7 +352,7 @@
                                     <br>
                                 </div>
                                 <p class="view-details-button-wrapper">
-                                    <a class="button view-details-button heading-font-family" href="http://localhost:3000/src/views/accommodation/superior.php">READ DETAIL</a>
+                                    <a class="button view-details-button heading-font-family" href="http://localhost/hotel/src/views/accommodation/superior.php">READ DETAIL</a>
                                 </p>
                             </div>
                         </div>
