@@ -154,15 +154,40 @@ switch ($action) {
                 echo '<td>' . $row['paymentDate'] . '</td>';
                 echo '<td>' . $row['amount'] . '</td>';
                 echo '<td>';
-                echo '<div class="d-flex">';
-                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' .$row['invoicelD'] . ')">
-                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
-                    </a>';            
-                echo '<a href="#viewInvoice" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['invoicelD'] . ')">
+                echo '<div class="d-flex">'; 
+                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
-                    </a>';
+                    </a>';                     
                 echo '</div>';
                 echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'listbill':
+        $id =$_GET['idinvoice'];  
+        $sql = "SELECT
+                    rooms.roomName,
+                    rooms.roomRate,
+                    TIMESTAMPDIFF(DAY, bookings.checkinDate, bookings.checkOutDate) AS duration,
+                    invoices.amount
+                    FROM
+                        rooms
+                    JOIN bookings ON rooms.roomID = bookings.roomID
+                    JOIN invoices ON bookings.bookingID = invoices.bookingID
+                WHERE invoices.invoicelD = '$id';";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td class="text-center">' . $row['roomRate'] . '</td>';
+                echo '<td class="text-center">' . $row['duration'] . '</td>';
+                echo '<td>' . $row['amount'] . '</td>';
                 echo '</tr>';
             }
             
@@ -272,6 +297,26 @@ switch ($action) {
     
             // Return customer data as JSON
             echo json_encode($messageData);
+        } else {
+            // Handle the error if needed
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+        
+    break;
+    case 'viewInvoice':
+        $id =$_GET['idinvoice'];  
+        $sql = "SELECT invoices.invoicelD, customers.customerAddress, customers.customerFirstName, customers.customerLastName
+                FROM invoices
+                JOIN bookings ON invoices.bookingID = bookings.bookingID
+                JOIN customers ON bookings.customerID = customers.customerID
+                WHERE invoicelD = '$id'";
+        $result = mysqli_query($con, $sql);
+    
+        if ($result) {
+            $invoiceData = mysqli_fetch_assoc($result);
+    
+            // Return customer data as JSON
+            echo json_encode($invoiceData);
         } else {
             // Handle the error if needed
             echo 'Error executing SQL query: ' . mysqli_error($con);

@@ -846,37 +846,6 @@ require('../../controllers/AdminController.php');
 			</div>
 		</div>
 	</div>
-	<div id="viewInvoiceModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">View Invoice</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body view_employee">
-					<div class="form-group">
-						<label>ID</label>
-						<input type="text" id="invoiceid_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Booking ID</label>
-						<input type="text" id="bookingid_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Payment Date</label>
-						<input type="text" id="paymentdate_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Ammount</label>
-						<input type="email" id="ammount_input" class="form-control" readonly>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- Delete Modal HTML -->
 	<div id="deleteCustomerModal" class="modal fade">
 		<div class="modal-dialog">
@@ -958,108 +927,83 @@ require('../../controllers/AdminController.php');
 	require('./inc/scripts.php');
 	?>
 	<!-- PRINT INVOICE MODAL HTML -->
-	<div id="viewInvoice" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Invoice</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="invoice-title">
-                            <h3 class="pull-right">Order # 12345</h3>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <address>
-                                    <strong>Billed To:</strong><br>
-                                    John Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <address>
-                                    <strong>Shipped To:</strong><br>
-                                    Jane Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 text-right">
-                                <address>
-                                    <strong>Order Date:</strong><br>
-                                    March 7, 2014<br><br>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+	<div id="viewInvoiceModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Invoice</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="invoice-title">
+								<h3 class="pull-right" id="id_order"></h3>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-xs-6">
+									<address>
+										<strong>Bill From:</strong><br>
+										SaiGon Hotel<br>
+										41-47 Dong Du Street<br>
+										District 1<br>
+										Ho Chi Minh City, Viet Nam
+									</address>
+								</div>
+								<div class="col-xs-6 text-right">
+									<address>
+										<strong>Billed From:</strong><br>
+										<span id="cus_name"></span><br>
+										<span id="cus_address"></span>
+									</address>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 text-right">
+									<address>
+										<strong>Order Date:</strong><br>
+										<span id="time_export"><?php $t=time(); echo(date("Y-m-d",$t));?></span><br><br>
+									</address>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><strong>Order summary</strong></h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <td><strong>Item</strong></td>
-                                                <td class="text-center"><strong>Price</strong></td>
-                                                <td class="text-center"><strong>Quantity</strong></td>
-                                                <td class="text-right"><strong>Totals</strong></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Superior</td>
-                                                <td class="text-center">$10.99</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$10.99</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Deluxe</td>
-                                                <td class="text-center">$20.00</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-right">$60.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Saigon Suite</td>
-                                                <td class="text-center">$600.00</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$600.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="no-line"></td>
-                                                <td class="no-line"></td>
-                                                <td class="no-line text-center"><strong>Total</strong></td>
-                                                <td class="no-line text-right">$685.99</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                <input type="submit" class="btn btn-danger" onclick="Print()" value="Print">
-            </div>
-        </div>
-    </div>
-</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title"><strong>Order summary</strong></h3>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-condensed">
+											<thead>
+												<tr>
+													<td><strong>Item</strong></td>
+													<td class="text-center"><strong>Price</strong></td>
+													<td class="text-center"><strong>Quantity</strong></td>
+													<td class="text-right"><strong>Totals</strong></td>
+												</tr>
+											</thead>
+											<tbody id="bill_data">
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" onclick="Print()" value="Print">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- PRINT INVOICE MODAL END -->
 	<!-- HANDLE LISTDATA -->
@@ -1182,6 +1126,26 @@ require('../../controllers/AdminController.php');
 				$jq('.view_employee #total_input').val(bookingData.totalAmount);
 			});
 		}
+		function viewInvoice(invoicelD) {
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'viewInvoice',
+				idinvoice: invoicelD
+			}, function(data, status) {
+				var invoiceData = JSON.parse(data);
+				$jq('#cus_name').text(invoiceData.customerFirstName +' ' + invoiceData.customerLastName);
+				$jq('#cus_address').text(invoiceData.customerAddress);
+				$jq('#id_order').text('Order #' + invoiceData.invoicelD);
+			});
+			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+				action: 'listbill',
+				idinvoice: invoicelD
+			}, function(data, status) {
+				$jq('#bill_data').html(data);
+				
+			});
+		}
+
+
 		// send
 		function sendMessage() {
 			var sender = $jq('#sender_input').val();
@@ -1506,6 +1470,33 @@ require('../../controllers/AdminController.php');
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
         });
+		// print 
+		function Print() {
+			// Create a new window
+			var printWindow = window.open('', '_blank');
+
+			// Write the HTML content to the new window
+			printWindow.document.write('<html><head><title>Print</title>');
+			printWindow.document.write('<link rel="stylesheet" href="path/to/your/style.css" type="text/css">'); // Add your CSS file
+			printWindow.document.write('</head><body>');
+
+			// Append the modal content to the new window
+			printWindow.document.write(document.getElementById('viewInvoiceModal').innerHTML);
+
+			// Remove unnecessary elements (e.g., close button, cancel button)
+			var closeButton = printWindow.document.querySelector('.close');
+			var cancelButton = printWindow.document.querySelector('.btn-default');
+			var printButton = printWindow.document.querySelector('.btn-danger');
+			if (closeButton) closeButton.remove();
+			if (cancelButton) cancelButton.remove();
+			if (printButton) printButton.remove();  // Fix the typo here, replace cancelButton with printButton
+
+			printWindow.document.write('</body></html>');
+			printWindow.document.close();
+
+			// Print the new window
+			printWindow.print();
+		}
 
 	</script>
 
