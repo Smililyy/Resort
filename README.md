@@ -22,6 +22,7 @@ The project utilizes the following technologies:
 
 - **Backend:**
   - Node.js
+  - PHP
 
 - **Database:**
   - MySQL
