@@ -195,12 +195,6 @@ img {
   margin: 0 1.5rem;
 }
 
-.custom-alert {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-}
-
 /*Show login*/
 .block {
   display: block;

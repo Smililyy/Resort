@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-class BookingModel {
+class bookingModel {
     private $con;
     private $db_server = 'localhost';
     private $db_username = 'root';
@@ -59,8 +59,7 @@ class BookingModel {
     }
 
 
-    public function processBookingEvent($existingCustomer, $roomchoosen, $checkindate, $roomname, $numberofguest, $message, $email, $fname, $lname) {
-        
+    public function processBooking($existingCustomer, $roomchoosen, $checkindate, $roomname, $numberofguest, $message, $email, $fname, $lname) {
             $sqlInsertBooking = "INSERT INTO bookings (customerID, roomID, checkinDate, totalAmount, paymentStatus, numberOfCustomer, message) 
                                 VALUES ('".$existingCustomer."','".$roomchoosen."','".$eventdate."','".$room_rate."','Unpaid','".$numberofguest."','".$message."')";
 

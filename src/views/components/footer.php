@@ -27,17 +27,19 @@
                                     <div class="wpcf7-response-output wpcf7-display-none"></div>
                                 </form>
                             </div>
-                            <p>By submitting this form, I agree to having my personal and contact information processed and used for the purpose of marketing communications.</p>
+                            <p class="ft-text" id="side_about"></p>
                             <p>FOLLOW OUR SOCIAL MEDIA CHANNELS</p>
-                            <p><a href="https://www.facebook.com/saigonhotelhcmc" target="_blank" rel="noopener noreferrer"><img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" class="alignnone wp-image-3205 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" alt="" width="27" height="27" data-was-processed="true"><noscript><img class="alignnone wp-image-3205 size-full" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" alt="" width="27" height="27" /></noscript></a>&nbsp; &nbsp;<a href="https://www.tripadvisor.com/Hotel_Review-g293925-d309891-Reviews-Saigon_Hotel-Ho_Chi_Minh_City.html" target="_blank" rel="noopener noreferrer"><img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" class="alignnone wp-image-3204 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" alt="" width="30" height="30" data-was-processed="true"><noscript><img class="alignnone wp-image-3204 size-full" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" alt="" width="30" height="30" /></noscript></a></p>
-                            <div>Website: http://saigonhotel.com.vn</div>
-                            <div>Email: info@saigonhotel.com.vn
+                            <p><a target="_blank" rel="noopener noreferrer" id="fb"><img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" class="alignnone wp-image-3205 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" alt="" width="27" height="27" data-was-processed="true"><noscript><img class="alignnone wp-image-3205 size-full" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/facebook.png" alt="" width="27" height="27" /></noscript></a>&nbsp; &nbsp;<a id="tpv" target="_blank" rel="noopener noreferrer"><img data-lazyloaded="1" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" class="alignnone wp-image-3204 size-full litespeed-loaded" data-src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" alt="" width="30" height="30" data-was-processed="true"><noscript><img class="alignnone wp-image-3204 size-full" src="https://saigonhotel.com.vn/wp-content/uploads/2019/05/tripadvisor-ico.png" alt="" width="30" height="30" /></noscript></a></p>
+                            <div class="ft-social">Website: <p class="ft-text" id="website"></p>
                             </div>
-                            <div>Address: 41-47 Dong Du Street, District 1,</div>
-                            <div>Ho Chi Minh City, Vietnam
-                                Hotline: <a href="tel:0938 988 774">0938 988 774</a></div>
-                            <div>Tel: (84-28) 38 299 734</div>
-                            <div>Fax: (84-28) 38 291 466</div>
+                            <div class="ft-social">Email: <p class="ft-text" id="email"> </p>
+                            </div>
+                            <div class="ft-social">Address: <p class="ft-text" id="address"></p>
+                            </div>
+                            <div class="ft-social">Hotline: <p id="pn1"></p>
+                            </div>
+                            <div class="ft-social">Tel: <p id="pn2"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
