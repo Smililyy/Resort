@@ -10,6 +10,25 @@
     <link rel="stylesheet" href="../../assets/css/base.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>Checkout</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#btnSubmit").click(function(){
+          //Get data entered by user
+          var  data = {
+            firstname : $("#firstname").val(),
+            lastname : $("#lastname").val(),
+            email : $("#email").val(),
+            phone : $("#phone").val(),
+          }
+          //Send data post request to web server
+          $.post("http://localhost/Resort/src/controllers/BookingController.php", data, function(data, respond){
+            alert(data);
+            //handle response
+          });
+        });
+      });
+    </script>
 </head>
 
 <body>
@@ -371,15 +390,15 @@
                                                                     <option value="Miss" class="ng-binding">Ms.</option>
                                                                     <option value="Dr" class="ng-binding">Dr.</option>
                                                                 </select></div>
-                                                            <div class="bws-column bws-large-4 bws-medium-4 bws-small-12 text-field"><label class="ng-binding">First name<span> *</span></label><input type="text" name="guest_first_name" id="guest_first_name" maxlength="100" ng-blur="checkRequireField('guest_first_name');traveller_change_info()" required="" ng-model="form.data.guest.guest_first_name" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_first_name || (checkout.guest_first_name.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_first_name">Invalid first name</label></div>
-                                                            <div class="bws-column bws-large-6 bws-medium-6 bws-small-12"><label class="ng-binding">Last name<span> *</span></label><input type="text" name="guest_last_name" required="" id="guest_last_name" maxlength="100" ng-model="form.data.guest.guest_last_name" ng-blur="checkRequireField('guest_last_name');traveller_change_info()" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_last_name || (checkout.guest_last_name.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_last_name">Invalid last name</label></div>
+                                                            <div class="bws-column bws-large-4 bws-medium-4 bws-small-12 text-field" id="firstname"><label class="ng-binding">First name<span> *</span></label><input type="text" name="guest_first_name" id="guest_first_name" maxlength="100" ng-blur="checkRequireField('guest_first_name');traveller_change_info()" required="" ng-model="form.data.guest.guest_first_name" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_first_name || (checkout.guest_first_name.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_first_name">Invalid first name</label></div>
+                                                            <div class="bws-column bws-large-6 bws-medium-6 bws-small-12" id="lastname"><label class="ng-binding">Last name<span> *</span></label><input type="text" name="guest_last_name" required="" id="guest_last_name" maxlength="100" ng-model="form.data.guest.guest_last_name" ng-blur="checkRequireField('guest_last_name');traveller_change_info()" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_last_name || (checkout.guest_last_name.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_last_name">Invalid last name</label></div>
                                                         </div>
                                                         <div class="bws-row">
-                                                            <div class="bws-column bws-large-6 bws-medium-6 bws-small-12 text-field"><label class="ng-binding">Email<span> *</span></label><input type="text" name="guest_email" id="guest_email" required="" ng-model="form.data.guest.guest_email" ng-blur="checkRequireField('guest_email');traveller_change_info()" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_email || (checkout.guest_email.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_email">Invalid email</label></div>
+                                                            <div class="bws-column bws-large-6 bws-medium-6 bws-small-12 text-field" id="email"><label class="ng-binding">Email<span> *</span></label><input type="text" name="guest_email" id="guest_email" required="" ng-model="form.data.guest.guest_email" ng-blur="checkRequireField('guest_email');traveller_change_info()" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_email || (checkout.guest_email.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_email">Invalid email</label></div>
                                                             <div class="bws-column bws-large-6 bws-medium-6 bws-small-12"><label class="ng-binding">Retype email<span> *</span></label><input type="text" name="guest_confirm" id="guest_confirm" required="" ng-model="form.data.guest.guest_confirm" ng-blur="checkRequireField('guest_confirm')" class="ng-pristine ng-invalid ng-invalid-required"><label class="error ng-binding ng-hide" style="color:red" ng-show="form.errors.guest_confirm || (checkout.guest_confirm.$error.required &amp;&amp; isSubmitFrom) || traveller_error.guest_confirm">Invalid email</label></div>
                                                         </div>
                                                         <div class="bws-row">
-                                                            <div class="bws-column bws-large-6 bws-medium-6 bws-small-12 text-field"><label class="ng-binding">Contact phone<span ng-show="form.data.hotel_info.CollectGuestPhone == 1" class=""> *</span><small ng-show="form.data.hotel_info.CollectGuestPhone == 0" class="ng-binding ng-hide"> (optional)</small></label>
+                                                            <div class="bws-column bws-large-6 bws-medium-6 bws-small-12 text-field" id="phone"><label class="ng-binding">Contact phone<span ng-show="form.data.hotel_info.CollectGuestPhone == 1" class=""> *</span><small ng-show="form.data.hotel_info.CollectGuestPhone == 0" class="ng-binding ng-hide"> (optional)</small></label>
                                                                 <div class="iti iti--allow-dropdown iti--show-flags">
                                                                     <div class="iti__flag-container">
                                                                         <div class="iti__selected-flag" role="combobox" aria-haspopup="listbox" aria-controls="iti-0__country-listbox" aria-expanded="false" aria-label="Telephone country code" tabindex="0" title="United States: +1">
@@ -1874,6 +1893,7 @@
                                                         <div class="bws-row">
                                                             <div class="bws-column bws-large-12 bws-medium-12 bws-small-12"><textarea class="txtarea_checkout ng-pristine ng-valid" name="guest_comment" id="guest_comment" ng-model="form.data.guest.guest_comment"></textarea></div>
                                                         </div><!-- ngRepeat: question in form.data.list_question -->
+                                                        <button type="button" id="btnSubmit">Confirm and book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2001,6 +2021,8 @@
                 }
 
                 button {
+                    margin-top:50px;
+                    height:100px;
                     border: none;
                     background-color: #06bd6e;
                     color: white;

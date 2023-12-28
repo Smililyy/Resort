@@ -172,7 +172,7 @@
                 </div>
 
 
-                <form id="reservationForm" action="#" method="post">
+                <form id="reservationForm" action="../controllers/RestaurantandBarsController.php" method="post">
                     <label for="name">Name (required):</label>
                     <input type="text" id="name" name="name" placeholder="Name (required)" required>
 
@@ -226,12 +226,14 @@
                         <option value="100 - 150">100 - 150</option>
                         <option value="150 - 200">150 - 200</option>
                         <option value="> 200">&gt; 200</option>
+                    </select>
 
-                        <label for="message">Other Message:</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Other Message"></textarea>
-                        <button type="submit">Submit Reservation</button>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email (required)" required>
 
+                    <button type="submit">Submit Reservation</button>
                 </form>
+
 
             </div>
             <script>
