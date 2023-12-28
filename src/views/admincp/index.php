@@ -20,8 +20,6 @@ require('../../controllers/AdminController.php');
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://unpkg.com/phosphor-icons"></script>
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 	<!-- End Of Boostrap  -->
@@ -65,18 +63,6 @@ require('../../controllers/AdminController.php');
 					<span class="text">Booking</span>
 				</a>
 			</li>
-			<li class="menu-item" data-content="invoice">
-				<a href="#">
-					<i class='bx bxs-receipt'></i>
-					<span class="text">Invoice</span>
-				</a>
-			</li>
-			<li class="menu-item" data-content="message">
-				<a href="#">
-					<i class='bx bxs-chat'></i>					
-					<span class="text">Message</span>
-				</a>
-			</li>
 		</ul>
 
 		<ul class="side-menu">
@@ -104,8 +90,8 @@ require('../../controllers/AdminController.php');
 			<a href="#" class="nav-link">Categories</a>
 			<form action="#">
 				<div class="form-input">
-					<input type="search" placeholder="Search..." id="searchInput">
-					<button type="submit" class="search-btn" id="searchBtn"><i class='bx bx-search'></i></button>
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 				</div>
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
@@ -136,66 +122,17 @@ require('../../controllers/AdminController.php');
 							</li>
 						</ul>
 					</div>
-					<a href="#" class="btn-download">
+					<a href="#" class="btn-download" style="margin-bottom: 10px">
 						<i class='bx bxs-cloud-download'></i>
 						<span class="text">Download PDF</span>
 					</a>
 				</div>
-				<div class="main__body">
-					<ul class="main__body__box-info">
-						<li>
-							<i class='bx bxs-wallet'></i>
-							<h5>$823</h5>
-							<p>Revenue</p>
-						</li>
-						<li>
-							<i class='bx bxs-calendar-check'></i>
-							<h5>23</h5>
-							<p>Booking</p>
-						</li>
-						<li>
-							<i class="ph-users-fill"></i>
-							<h5>55</h5>
-							<p>Customers</p>
-						</li>
-					</ul>
-					<div class="main__body__data">
-						<div class="sales-summary">
-							<div class="sales-summary__top">
-								<h4>Revenue Summary</h4>
-								<div class="sales-summary__menu">
-									<i class="ph-dots-three-outline-vertical-fill"></i>
-									<ul class="menu">
-										<li>
-											<a href="#">Edit</a>
-										</li>
-										<li>
-											<a href="#">Remove</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<ul class="sales-summary__info">
-								<li>
-									<p>Avg. Room</p>
-									<h5>$76</h5>
-								</li>
-								<li>
-									<p>Avg.Meeting&Event </p>
-									<h5>$76</h5>
-								</li>
-								<li>
-									<p>Avg. Revenue</p>
-									<h5>$76</h5>
-								</li>
-								<li>
-									<p>Avg. customer</p>
-									<h5>$76</h5>
-								</li>
-							</ul>
-							<div id="chart"></div>
-						</div>
-					</div>
+				<div class="status-container" style="display: flex; align-items: center; width: 90%; height: 100px; margin-left: 10px;margin-top: 10px">
+					<div id="totalBookings" style="width:40%;height:100%"></div>
+					<div id="totalAmount"style="width:40%;height:100%"></div>
+				</div>
+				<div class="chart">
+					<canvas id="myChart" width="400" height="400"></canvas>
 				</div>
 			</div>
 			<div id="customer" class="content-item">
@@ -219,11 +156,10 @@ require('../../controllers/AdminController.php');
 								<th>Email</th>
 								<th>Phone Number</th>
 								<th>Address</th>
-								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody id="customer_data">
-							<!-- Data will be dynamically populated here -->
+						
 						</tbody>
 
 					</table>
@@ -249,10 +185,10 @@ require('../../controllers/AdminController.php');
 								<th><a class="column_sortroom" id="roomType" data-order="desc" href="#">Room Type<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortroom" id="roomRate" data-order="desc" href="#">Room Rate<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortroom" id="roomStatus" data-order="desc" href="#">Room Status<i class='bx bx-sort-alt-2'></i></a></th>
-								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody id="room_data">
+							
 						</tbody>
 					</table>
 				</div>
@@ -275,93 +211,20 @@ require('../../controllers/AdminController.php');
 								<th>First Name</th>
 								<th>Last Name</th>
 								<th><a class="column_sortbooking" id="roomID" data-order="desc" href="#">Room ID<i class='bx bx-sort-alt-2'></i></a></th>
-								<th><a class="column_sortbooking" id="roomName" data-order="desc" href="#">Room Name<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="checkinDate" data-order="desc" href="#">Check In Date<i class='bx bx-sort-alt-2'></i></a></th>
-								<!-- <th><a class="column_sortbooking" id="checkOutDate" data-order="desc" href="#">Check Out Date<i class='bx bx-sort-alt-2'></i></a></th> -->
+								<th><a class="column_sortbooking" id="checkOutDate" data-order="desc" href="#">Check Out Date<i class='bx bx-sort-alt-2'></i></a></th>
+								<th><a class="column_sortbooking" id="totalamount" data-order="desc" href="#">Total Amount<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="paymentStatus" data-order="desc" href="#">Payment Status<i class='bx bx-sort-alt-2'></i></a></th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody id="booking_data">
+							
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div id="invoice" class="content-item">
-				<div class="head-title">
-					<div class="left">
-						<h1>Invoice</h1>
-					</div>
-					<a href="#addInvoiceModal" class="btn-download" data-toggle="modal">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Print Invoice</span>
-					</a>
-					<!-- <a href="#addEmployeeModal" class="btn-download" data-toggle="modal">
-						<i class="material-icons">&#xE147;</i>
-						<span>Add New Customer</span>
-					</a> -->
-				</div>
-				<div id="sort_invoice_data">
-					<table class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>Check</th>
-							    <th>ID</th>
-								<th><a class="column_sortbooking" id="bookingID" data-order="desc" href="#">Booking ID<i class='bx bx-sort-alt-2'></i></a></th>
-								<th><a class="column_sortbooking" id="paymentDate" data-order="desc" href="#">Payment Date<i class='bx bx-sort-alt-2'></i></a></th>
-								<th><a class="column_sortbooking" id="ammount" data-order="desc" href="#">Ammount<i class='bx bx-sort-alt-2'></i></a></th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody id="invoice_data">
-						</tbody>
-					</table>
-				</div>
-				<!-- <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-							<th>ID</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Date of Birth</th>
-							<th>Address</th>
-							<th>Email</th>
-							<th>Phone Number</th>
-							<th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="employee_data">
-                    </tbody>
-                </table> -->
-
-			</div>
-			<div id="message" class="content-item">
-				<div class="head-title">
-					<div class="left">
-						<h1>Message Management</h1>
-					</div>
-					<!-- <a href="#addBookingModal" class="btn-download" data-toggle="modal">
-						<i class="material-icons">&#xE147;</i>
-						<span>Add New Booking</span>
-					</a> -->
-				</div>
-				<div id="sort_message_data">
-					<table class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Sender</th>
-								<th>Subject</th>
-								<th>Content</th>
-								<th>Timestamp</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody id="message_data">
-						</tbody>
-					</table>
-				</div>
-			</div>
+			
 			<div id="setting" class="content-item">
 				<div class="head-title">
 					<div class="left">
@@ -535,34 +398,6 @@ require('../../controllers/AdminController.php');
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add" onclick="addBooking()">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="sendModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Send message</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body send_message">
-					<div class="form-group">
-						<label>Recipient</label>
-						<input type="text" id="sender_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Subject</label>
-						<input type="text" id="subject_input" class="form-control" require>
-					</div>
-					<div class="form-group">
-						<label>Content</label>
-						<textarea class="form-control" id="content_input" require></textarea>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Send" onclick="sendMessage()">
 				</div>
 			</div>
 		</div>
@@ -764,37 +599,6 @@ require('../../controllers/AdminController.php');
 			</div>
 		</div>
 	</div>
-	<div id="viewMessageModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">View Message</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body view_message">
-					<div class="form-group">
-						<label>Timestamp</label>
-						<input type="date" id="timestamp_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Sender</label>
-						<input type="text" id="sender_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Subject</label>
-						<input type="text" id="subject_input" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label>Content</label>
-						<textarea class="form-control" id="content_input" readonly></textarea>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-				</div>
-			</div>
-		</div>
-	</div>
 	<div id="viewBookingModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -904,646 +708,158 @@ require('../../controllers/AdminController.php');
 			</div>
 		</div>
 	</div>
-	<div id="deleteMessageModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Delete 	Message</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<input type="hidden" id="delete_id">
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" onclick="deleteMessage()" value="Delete">
-				</div>
-			</div>
-		</div>
-	</div>
 	<?php
 	require('./inc/scripts.php');
 	?>
-	<!-- PRINT INVOICE MODAL HTML -->
-	<div id="viewInvoiceModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2>Invoice</h2>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="invoice-title">
-								<h3 class="pull-right" id="id_order"></h3>
-							</div>
-							<hr>
-							<div class="row">
-								<div class="col-xs-6">
-									<address>
-										<strong>Bill From:</strong><br>
-										SaiGon Hotel<br>
-										41-47 Dong Du Street<br>
-										District 1<br>
-										Ho Chi Minh City, Viet Nam
-									</address>
-								</div>
-								<div class="col-xs-6 text-right">
-									<address>
-										<strong>Billed From:</strong><br>
-										<span id="cus_name"></span><br>
-										<span id="cus_address"></span>
-									</address>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6 text-right">
-									<address>
-										<strong>Order Date:</strong><br>
-										<span id="time_export"><?php $t=time(); echo(date("Y-m-d",$t));?></span><br><br>
-									</address>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-12">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h3 class="panel-title"><strong>Order summary</strong></h3>
-								</div>
-								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-condensed">
-											<thead>
-												<tr>
-													<td><strong>Item</strong></td>
-													<td class="text-center"><strong>Price</strong></td>
-													<td class="text-center"><strong>Quantity</strong></td>
-													<td class="text-right"><strong>Totals</strong></td>
-												</tr>
-											</thead>
-											<tbody id="bill_data">
-												
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" onclick="Print()" value="Print">
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- PRINT INVOICE MODAL END -->
-	<!-- HANDLE LISTDATA -->
-	<script>
-		var $j = jQuery.noConflict();
-
-		function fetchData(action, targetId) {
-			$j.get('http://localhost/hotel/src/models/Admin.php?action=' + action, function(data, status) {
-				$j(targetId).html(data);
-				$j('.loading').hide();
-			});
-		}
-
-		// Call the function for each data source
-
-		fetchData('listcustomer', '#customer_data');
-		fetchData('listbooking', '#booking_data');
-		fetchData('listroom', '#room_data');
-		fetchData('listmessage', '#message_data');
-		fetchData('listinvoice', '#invoice_data');
-
-	</script>
-	<!-- END HANDLE LISTDATA -->
-	<script>
-		var $jq = jQuery.noConflict();
-
-		function viewCustomer(id) {
-			$jq('.edit_employee #customer_id').val(id);
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'viewCustomer',
-				idcustomer: id
-			}, function(data, status) {
-				// Parse the JSON data received from the server
-				var customerData = JSON.parse(data);
-				// Update modal content with customer data
-				$jq('.edit_employee #firstname_input').val(customerData.customerFirstName);
-				$jq('.edit_employee #lastname_input').val(customerData.customerLastName);
-				$jq('.edit_employee #dob_input').val(customerData.customerDob);
-				$jq('.edit_employee #email_input').val(customerData.customerEmail);
-				$jq('.edit_employee #phone_input').val(customerData.customerPhoneNumber);
-				$jq('.edit_employee #address_input').val(customerData.customerAddress);
-				$jq('.view_employee #firstname_input').val(customerData.customerFirstName);
-				$jq('.view_employee #lastname_input').val(customerData.customerLastName);
-				$jq('.view_employee #dob_input').val(customerData.customerDob);
-				$jq('.view_employee #email_input').val(customerData.customerEmail);
-				$jq('.view_employee #phone_input').val(customerData.customerPhoneNumber);
-				$jq('.view_employee #address_input').val(customerData.customerAddress);
-
-			});
-		}
-
-		function viewRoom(id) {
-			$jq('.edit_employee #room_id').val(id);
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'viewRoom',
-				idroom: id
-			}, function(data, status) {
-				// Parse the JSON data received from the server
-				var roomData = JSON.parse(data);
-
-				// Update modal content with room data
-				$jq('.edit_employee #roomname_input').val(roomData.roomName);
-				$jq('.edit_employee #roomtype_input').val(roomData.roomType);
-				$jq('.edit_employee #rate_input').val(roomData.roomRate);
-				$jq('.edit_employee #roomstatus_input').val(roomData.roomStatus);
-				$jq('.view_employee #roomname_input').val(roomData.roomName);
-				$jq('.view_employee #roomtype_input').val(roomData.roomType);
-				$jq('.view_employee #rate_input').val(roomData.roomRate);
-				$jq('.view_employee #roomstatus_input').val(roomData.roomStatus);
-			});
-		}
-		function viewMessage(id) {
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'viewMessage',
-				idmessage: id
-			}, function(data, status) {
-				// Parse the JSON data received from the server
-				var messageData = JSON.parse(data);
-
-				// Update modal content with message data
-				$jq('.send_message #sender_input').val(messageData.sender);
-				$jq('.view_message #timestamp_input').val(messageData.timestamp);
-				$jq('.view_message #sender_input').val(messageData.sender);
-				$jq('.view_message #subject_input').val(messageData.subject);
-				$jq('.view_message #content_input').val(messageData.content);
-			});
-		}
-
-
-		function viewBooking(id) {
-			$jq('.edit_employee #booking_id').val(id);
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'viewBooking',
-				idbooking: id
-			}, function(data, status) {
-				// Parse the JSON data received from the server
-				var bookingData = JSON.parse(data);
-
-				// Update modal content with booking data
-				$jq('.edit_employee #firstname_input').val(bookingData.customerFirstName);
-				$jq('.edit_employee #lastname_input').val(bookingData.customerLastName);
-				$jq('.edit_employee #roomid_input').val(bookingData.roomID);
-				$jq('.edit_employee #checkout_input').val(bookingData.checkOutDate);
-				$jq('.edit_employee #checkin_input').val(bookingData.checkinDate);
-				$jq('.edit_employee #paymentstatus_input').val(bookingData.paymentStatus);
-				$jq('.edit_employee #guests_input').val(bookingData.numberOfCustomer);
-				$jq('.edit_employee #message_input').val(bookingData.message);
-				$jq('.edit_employee #total_input').val(bookingData.totalAmount);
-				$jq('.view_employee #firstname_input').val(bookingData.customerFirstName);
-				$jq('.view_employee #lastname_input').val(bookingData.customerLastName);
-				$jq('.view_employee #roomid_input').val(bookingData.roomID);
-				$jq('.view_employee #checkout_input').val(bookingData.checkOutDate);
-				$jq('.view_employee #checkin_input').val(bookingData.checkinDate);
-				$jq('.view_employee #paymentstatus_input').val(bookingData.paymentStatus);
-				$jq('.view_employee #guests_input').val(bookingData.numberOfCustomer);
-				$jq('.view_employee #message_input').val(bookingData.message);
-				$jq('.view_employee #total_input').val(bookingData.totalAmount);
-			});
-		}
-		function viewInvoice(invoicelD) {
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'viewInvoice',
-				idinvoice: invoicelD
-			}, function(data, status) {
-				var invoiceData = JSON.parse(data);
-				$jq('#cus_name').text(invoiceData.customerFirstName +' ' + invoiceData.customerLastName);
-				$jq('#cus_address').text(invoiceData.customerAddress);
-				$jq('#id_order').text('Order #' + invoiceData.invoicelD);
-			});
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'listbill',
-				idinvoice: invoicelD
-			}, function(data, status) {
-				$jq('#bill_data').html(data);
-				
-			});
-		}
-
-
-		// send
-		function sendMessage() {
-			var sender = $jq('#sender_input').val();
-			var subject = $jq('#subject_input').val();
-			var content = $jq('#content_input').val();
-			var parameters = "sender=" + sender + "&subject="+subject+"&content="+content;
-			$jq.get('http://localhost/hotel/src/models/Admin.php?'+parameters, {
-				action: 'sendMessage',
-			}, function(data, status) {
-				// Handle the response if needed
-			});
-		}
-		// delete
-		function prepareAction(ID) {
-			$jq('#delete_id').val(ID);
-		}
-
-		function deleteCustomer() {
-			var customerID = $jq('#delete_id').val();
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'deleteCustomer',
-				idcustomer: customerID
-			}, function(data, status) {
-				$jq('#deleteCustomerModal').modal('hide');
-				fetchData('listcustomer', '#customer_data');
-			});
-		}
-
-		function deleteBooking() {
-			var bookingID = $jq('#delete_id').val();
-
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'deleteBooking',
-				idbooking: bookingID
-			}, function(data, status) {
-				// Handle the response if needed
-				fetchData('listbooking', '#booking_data');
-				$jq('#deleteBookingModal').modal('hide');
-
-			});
-		}
-
-		function deleteRoom() {
-			var roomID = $jq('#delete_id').val();
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'deleteRoom',
-				idroom: roomID
-			}, function(data, status) {
-				// Handle the response if needed
-				fetchData('listroom', '#room_data');
-				$jq('#deleteRoomModal').modal('hide');
-			});
-		}
-		function deleteMessage() {
-			var messageID = $jq('#delete_id').val();
-
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
-				action: 'deleteMessage',
-				idmessage: messageID
-			}, function(data, status) {
-				// Handle the response if needed
-				fetchData('listmessage', '#message_data');
-				$jq('#deleteMessageModal').modal('hide');
-			});
-		}
-
-		function editCustomer() {
-			var customerid = $jq('.edit_employee #customer_id').val();
-			var firstname = $jq('.edit_employee #firstname_input').val();
-			var lastname = $jq('.edit_employee #lastname_input').val();
-			var dob = $jq('.edit_employee #dob_input').val();
-			var email = $jq('.edit_employee #email_input').val();
-			var phone = $jq('.edit_employee #phone_input').val();
-			var address = $jq('.edit_employee #address_input').val();
-			// Create parameters string
-			var parameters = "customerid=" + customerid +
-				"&firstname=" + firstname +
-				"&lastname=" + lastname +
-				"&dob=" + dob +
-				"&email=" + email +
-				"&phone=" + phone +
-				"&address=" + address;
-
-			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
-			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
-			// Use parameters in a GET request
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'editCustomer'
-			}, function(data, status) {
-				// Handle the response if needed
-				fetchData('listcustomer', '#customer_data');
-				$jq('#editCustomerModal').modal('hide');
-			});
-
-		}
-
-		function editRoom() {
-			var roomid = $jq('.edit_employee #room_id').val();
-			var roomname = $jq('.edit_employee #roomname_input').val();
-			var roomtype = $jq('.edit_employee #roomtype_input').val();
-			var roomrate = $jq('.edit_employee #rate_input').val();
-			var roomstatus = $jq('.edit_employee #roomstatus_input').val();
-			// Create parameters string
-			var parameters = "roomid=" + roomid +
-				"&roomname=" + roomname +
-				"&roomtype=" + roomtype +
-				"&roomrate=" + roomrate +
-				"&roomstatus=" + roomstatus;
-
-			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
-			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
-			// Use parameters in a GET request
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'editRoom'
-			}, function(data, status) {
-				// Handle the response if needed
-				fetchData('listroom', '#room_data');
-				$jq('#editRoomModal').modal('hide');
-			});
-
-		}
-
-		function editBooking() {
-			var bookingid = $jq('.edit_employee #booking_id').val();
-			var roomid = $jq('.edit_employee #roomid_input').val();
-			var checkoutdate = $jq('.edit_employee #checkout_input').val();
-			var checkindate = $jq('.edit_employee #checkin_input').val();
-			var paymentstatus = $jq('.edit_employee #paymentstatus_input').val();
-			var guests = $jq('.edit_employee #guests_input').val();
-			var message = $jq('.edit_employee #message_input').val();
-			// Create parameters string
-			var parameters = "bookingid=" + bookingid +
-				"&roomid=" + roomid +
-				"&checkoutdate=" + checkoutdate +
-				"&checkindate=" + checkindate +
-				"&paymentstatus=" + paymentstatus +
-				"&guests=" + guests +
-				"&message=" + message;
-
-			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
-			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
-			// Use parameters in a GET request
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'editBooking'
-			}, function(data, status) {
-				// Handle the response if needed
-				fetchData('listbooking', '#booking_data');
-				$jq('#editBookingModal').modal('hide');
-			});
-
-		}
-		// Add new data
-		function addCustomer() {
-			// Collect data from the form
-			var firstName = $jq('.add_customer #firstname_input').val();
-			var lastName = $jq('.add_customer #lastname_input').val();
-			var dob = $jq('.add_customer #dob_input').val();
-			var email = $jq('.add_customer #email_input').val();
-			var phoneNumber = $jq('.add_customer #phone_input').val();
-			var address = $jq('.add_customer #address_input').val();
-
-			// Simple client-side validation
-			if (!firstName || !lastName || !email || !phoneNumber || !address) {
-				alert('Please fill in all required fields.');
-				return;
-			}
-
-			// Create a URL-encoded string
-			var parameters = "firstName=" + firstName +
-				"&lastName=" + lastName +
-				"&dob=" + dob +
-				"&email=" + email +
-				"&phoneNumber=" + phoneNumber +
-				"&address=" + address;
-			// alert('http://localhost/hotel/src/models/Admin.php?action=addCustomer?'+ parameters);
-			// debugger;
-			// Perform any additional client-side logic if needed
-
-			// Add logic to send the data to the server via AJAX
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'addCustomer'
-			}, function(data, status) {
-				// Handle the response from the server if needed
-				$jq('#addCustomerModal').modal('hide');
-				// Update and perform additional actions
-				fetchData('listcustomer', '#customer_data');
-			})
-		}
-
-		function addRoom() {
-			// Collect data from the form
-			var roomname = $jq('.add_room #roomname_input').val();
-			var roomtype = $jq('.add_room #roomtype_input').val();
-			var roomrate = $jq('.add_room #rate_input').val();
-			var roomstatus = $jq('.add_room #roomstatus_input').val();
-
-			// Create a URL-encoded string
-			var parameters = "roomname=" + roomname +
-				"&roomtype=" + roomtype +
-				"&roomrate=" + roomrate +
-				"&roomstatus=" + roomstatus;
-
-			// Perform any additional client-side logic if needed
-
-			// Add logic to send the data to the server via AJAX
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'addRoom'
-			}, function(data, status) {
-				// Handle the response from the server if needed
-				$jq('#addRoomModal').modal('hide');
-				// Update and perform additional actions
-				fetchData('listroom', '#room_data');
-			})
-		}
-
-		function addBooking() {
-			var customerID = $jq('.add_booking #customerID_input').val();
-			var roomid = $jq('.add_booking #roomid_input').val();
-			var checkoutdate = $jq('.add_booking #checkout_input').val();
-			var checkindate = $jq('.add_booking #checkin_input').val();
-			var paymentstatus = $jq('.add_booking #paymentstatus_input').val();
-			var guests = $jq('.add_booking #guests_input').val();
-
-			// Create a URL-encoded string
-			var parameters = "customerID=" + customerID +
-				"&roomid=" + roomid +
-				"&checkoutdate=" + checkoutdate +
-				"&checkindate=" + checkindate +
-				"&paymentstatus=" + paymentstatus +
-				"&guests=" + guests;
-
-			// // Debugging: Alert parameters and stop code execution
-			// alert(parameters);
-			// debugger;
-
-			// Add logic to send the data to the server via AJAX
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'addBooking'
-			}, function(data, status) {
-				// Handle the response from the server if needed
-				$jq('#addBookingModal').modal('hide');
-				// Update and perform additional actions
-				fetchData('listbooking', '#booking_data');
-			})
-		}
-		// Sorting
-		$jq(document).on('click', '.column_sortcustomer', function () {
-			var column_name = $jq(this).attr("id");
-			var order = $jq(this).data("order");
-			var parameters = "column_name=" + column_name + "&order=" + order;
-			var arrow ='';
-
-			// if (order == 'desc') {
-			// 	arrow = '<i class="bx bx-arrow-down"></i>';
-			// } else {
-			// 	arrow = '<i class="bx bx-arrow-up"></i>';
-			// }
-
-
-			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'sortcustomer'
-			}, function (data, status) {
-				$jq('#sort_customer_data').html(data);
-				// $jq('.column_sortcustomer i').html(arrow);
-			});
-		});
-		$jq(document).on('click', '.column_sortroom', function () {
-			var column_name = $jq(this).attr("id");
-			var order = $jq(this).data("order");
-			var parameters = "column_name=" + column_name + "&order=" + order;
-			var arrow ='';
-
-			// if (order == 'desc') {
-			// 	arrow = '<i class="bx bx-arrow-down"></i>';
-			// } else {
-			// 	arrow = '<i class="bx bx-arrow-up"></i>';
-			// }
-
-
-			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'sortroom'
-			}, function (data, status) {
-				$jq('#sort_room_data').html(data);
-				// $jq('.column_sortcustomer i').html(arrow);
-			});
-		});
-		$jq(document).on('click', '.column_sortbooking', function () {
-			var column_name = $jq(this).attr("id");
-			var order = $jq(this).data("order");
-			var parameters = "column_name=" + column_name + "&order=" + order;
-			var arrow ='';
-
-			// if (order == 'desc') {
-			// 	arrow = '<i class="bx bx-arrow-down"></i>';
-			// } else {
-			// 	arrow = '<i class="bx bx-arrow-up"></i>';
-			// }
-
-
-			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
-				action: 'sortbooking'
-			}, function (data, status) {
-				$jq('#sort_booking_data').html(data);
-				// $jq('.column_sortcustomer i').html(arrow);
-			});
-		});
-		$jq(document).on('click', '#searchBtn', function () {
-            // Get the search query and current content type
-            var searchQuery = $jq('#searchInput').val();
-            var contentType = $jq('.content-item.active').attr('id');
-            // Make an AJAX request to your PHP endpoint
-			$jq.get('http://localhost/hotel/src/models/Admin.php?searchQuery=' + searchQuery, {
-				action: contentType
-			}, function (data, status) {
-				$jq('#' + contentType + '_data').html(data);
-				// $jq('.column_sortcustomer i').html(arrow);
-			});
-        });
-		// print 
-		function Print() {
-			// Create a new window
-			var printWindow = window.open('', '_blank');
-
-			// Write the HTML content to the new window
-			printWindow.document.write('<html><head><title>Print</title>');
-			printWindow.document.write('<link rel="stylesheet" href="path/to/your/style.css" type="text/css">'); // Add your CSS file
-			printWindow.document.write('</head><body>');
-
-			// Append the modal content to the new window
-			printWindow.document.write(document.getElementById('viewInvoiceModal').innerHTML);
-
-			// Remove unnecessary elements (e.g., close button, cancel button)
-			var closeButton = printWindow.document.querySelector('.close');
-			var cancelButton = printWindow.document.querySelector('.btn-default');
-			var printButton = printWindow.document.querySelector('.btn-danger');
-			if (closeButton) closeButton.remove();
-			if (cancelButton) cancelButton.remove();
-			if (printButton) printButton.remove();  // Fix the typo here, replace cancelButton with printButton
-
-			printWindow.document.write('</body></html>');
-			printWindow.document.close();
-
-			// Print the new window
-			printWindow.print();
-		}
-
-	</script>
-
-
-	<script>
-		let general_data;
-
-		function get_general() {
-			let side_title = document.getElementById("side_title");
-			let side_about = document.getElementById("side_about");
-
-			let side_title_inp = document.getElementById("side_title_inp");
-			let side_about_inp = document.getElementById("side_about_inp");
-			let xhr = new XMLHttpRequest();
-			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onload = function() {
-				general_data = JSON.parse(this.responseText);
-
-				side_title.innerText = general_data.side_title;
-				side_about.innerText = general_data.side_about;
-
-				side_title_inp.value = general_data.side_title;
-				side_about_inp.value = general_data.side_about;
-			}
-			xhr.send('get_general');
-		}
-
-		function upd_general(side_title_val, side_about_val) {
-			let xhr = new XMLHttpRequest();
-			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onload = function() {
-				console.log(this.responseText);
-				var myModal = document.getElementById('general-s');
-				var modal = document.Modal.getInstance(myModal);
-				modal.hide();
-			}
-			xhr.send('site_title = ' + side_title_val + '&site_about = ' + side_about_val + '&upd_general');
-		}
-
-		window.onload = function() {
-			get_general();
-		}
-	</script>
-
-
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch data from the server-side script
+        $.ajax({
+            url: '../models/Dashboard.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Display the total number of bookings and total amount
+                $('#totalBookings').text('Total Bookings: ' + data.totalBookings);
+                $('#totalAmount').text('Total Amount: $' + data.totalAmount.toFixed(2));
+            },
+            error: function (error) {
+                console.log('Error fetching data: ' + error);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Fetch data from the server-side script
+        $.ajax({
+            url: '../models/DashboardChart.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Use Chart.js to create a line chart
+                var months = data.map(item => item.month);
+                var bookings = data.map(item => item.totalBookings);
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Total Bookings per Month',
+                            data: bookings,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.log('Error fetching data: ' + error);
+            }
+        });
+    });
+</script>
+
+<?php
+include '../controllers/DashboardController.php';
+
+
+// Convert the data to JSON format
+$data = [
+    "bookings" => $bookingData,
+    "customers" => $customerData,
+    "rooms" => $roomData,
+];
+
+echo json_encode($data);
+?>
+
+	
+    <script>
+        // Use JavaScript to fetch data from the server and update the HTML
+        fetch('../controllers/DashboardController.php')
+            .then(response => response.json())
+            .then(data => {
+                // Handle booking data and update HTML
+                document.getElementById('booking_data').innerHTML = formatBookingData(data.bookings);
+                // Handle customer data and update HTML
+                document.getElementById('customer_data').innerHTML = formatCustomerData(data.customers);
+                // Handle room data and update HTML
+                document.getElementById('room_data').innerHTML = formatRoomData(data.rooms);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Function to format booking data as HTML
+        function formatBookingData(data) {
+            let output = '<h2>Booking Data</h2>';
+            data.forEach(row => {
+                output += '<div>';
+                output += `<p><strong>Booking ID:</strong> ${row.bookingID}</p>`;
+                output += `<p><strong>Customer ID:</strong> ${row.customerID}</p>`;
+                output += `<p><strong>Room ID:</strong> ${row.roomID}</p>`;
+                output += `<p><strong>Check-in Date:</strong> ${row.checkinDate}</p>`;
+                output += `<p><strong>Check-out Date:</strong> ${row.checkOutDate}</p>`;
+                output += `<p><strong>Total Amount:</strong> ${row.totalAmount}</p>`;
+                output += `<p><strong>Payment Status:</strong> ${row.paymentStatus}</p>`;
+                output += `<p><strong>Number of Customers:</strong> ${row.numberOfCustomer}</p>`;
+                output += `<p><strong>Message:</strong> ${row.message}</p>`;
+                // Add other fields as needed
+                output += '</div>';
+            });
+            return output;
+        }
+
+        // Function to format customer data as HTML
+        function formatCustomerData(data) {
+            let output = '<h2>Customer Data</h2>';
+            data.forEach(row => {
+                output += '<div>';
+                output += `<p><strong>Customer ID:</strong> ${row.customerID}</p>`;
+                output += `<p><strong>First Name:</strong> ${row.customerFirstName}</p>`;
+                output += `<p><strong>Last Name:</strong> ${row.customerLastName}</p>`;
+                output += `<p><strong>Date of Birth:</strong> ${row.customerDob}</p>`;
+                output += `<p><strong>Email:</strong> ${row.customerEmail}</p>`;
+                output += `<p><strong>Phone Number:</strong> ${row.customerPhoneNumber}</p>`;
+                output += `<p><strong>Address:</strong> ${row.customerAddress}</p>`;
+                // Add other fields as needed
+                output += '</div>';
+            });
+            return output;
+        }
+
+        // Function to format room data as HTML
+        function formatRoomData(data) {
+            let output = '<h2>Room Data</h2>';
+            data.forEach(row => {
+                output += '<div>';
+                output += `<p><strong>Room ID:</strong> ${row.roomID}</p>`;
+                output += `<p><strong>Room Name:</strong> ${row.roomName}</p>`;
+                output += `<p><strong>Room Type:</strong> ${row.roomType}</p>`;
+                output += `<p><strong>Room Rate:</strong> ${row.roomRate}</p>`;
+                output += `<p><strong>Room Status:</strong> ${row.roomStatus}</p>`;
+                // Add other fields as needed
+                output += '</div>';
+            });
+            return output;
+        }
+    </script>
+
