@@ -30,7 +30,8 @@
         }
 
         #img360 {
-            border-radius: 100px;
+            border-radius: 100px; font: 20px Helvetica, sans-serif;
+            color: #fff;
             margin-left: 0px;
             -webkit-animation: spin 4s linear infinite;
             -moz-animation: spin 4s linear infinite;

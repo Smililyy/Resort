@@ -1,19 +1,15 @@
 <?php
 
-$servername = "sql12.freesqldatabase.com";
-$username = "sql12670612";
-$password = "lrzZ8N6luY";
-$dbname = "sql12670612";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname="hotel";
 
-$con = mysqli_connect(
-    $servername,
-    $username,
-    $password,
-    $dbname
-);
+$con = new mysqli($servername, $username, $password, $dbname);
 
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
+// Check connection
+if ($con->connect_error) {
+die("Connection failed: " . $con->connect_error);
 }
 
 function filteration($data)

@@ -3,6 +3,13 @@ include "../controllers/inc/db_config.php";
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
+require '../../vendor/PHPMailer/src/Exception.php';
+require '../../vendor/PHPMailer/src/SMTP.php';
+require '../../vendor/PHPMailer/src/PHPMailer.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 switch ($action) {
     case 'listcustomer':
         $sql = "SELECT * FROM customers";
@@ -117,11 +124,14 @@ switch ($action) {
                 echo '<td>' . $row['timestamp'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['idMessage'] . ')">
+                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewMessage(' . $row['idMessage'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';            
                 echo '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['idMessage'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Send">forward_to_inbox</i>
+                    </a>';
+                echo '<a href="#deleteMessageModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' .$row['idMessage'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
                 echo '</td>';
@@ -138,21 +148,45 @@ switch ($action) {
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td><input type="checkbox" name="" id=""></td>';
                 echo '<td>' . $row['invoicelD'] . '</td>';
                 echo '<td>' . $row['bookingID'] . '</td>';
                 echo '<td>' . $row['paymentDate'] . '</td>';
                 echo '<td>' . $row['amount'] . '</td>';
                 echo '<td>';
-                echo '<div class="d-flex">';
-                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' .$row['invoicelD'] . ')">
-                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
-                    </a>';            
-                echo '<a href="#viewInvoice" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['invoicelD'] . ')">
+                echo '<div class="d-flex">'; 
+                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
-                    </a>';
+                    </a>';                     
                 echo '</div>';
                 echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'listbill':
+        $id =$_GET['idinvoice'];  
+        $sql = "SELECT
+                    rooms.roomName,
+                    rooms.roomRate,
+                    TIMESTAMPDIFF(DAY, bookings.checkinDate, bookings.checkOutDate) AS duration,
+                    invoices.amount
+                    FROM
+                        rooms
+                    JOIN bookings ON rooms.roomID = bookings.roomID
+                    JOIN invoices ON bookings.bookingID = invoices.bookingID
+                WHERE invoices.invoicelD = '$id';";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td class="text-center">' . $row['roomRate'] . '</td>';
+                echo '<td class="text-center">' . $row['duration'] . '</td>';
+                echo '<td>' . $row['amount'] . '</td>';
                 echo '</tr>';
             }
             
@@ -183,6 +217,16 @@ switch ($action) {
     case 'deleteRoom':
         $id =$_GET['idroom'];  
         $sql= "DELETE FROM  rooms WHERE roomID  = '$id' " ; 
+
+        if (mysqli_query($con, $sql)) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . mysqli_error($con);
+        }
+    break;
+    case 'deleteMessage':
+        $id =$_GET['idmessage'];  
+        $sql= "DELETE FROM  messages WHERE idMessage  = '$id' " ; 
 
         if (mysqli_query($con, $sql)) {
             echo "Record deleted successfully";
@@ -236,6 +280,42 @@ switch ($action) {
     
             // Return customer data as JSON
             echo json_encode($BookingData);
+        } else {
+            // Handle the error if needed
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+        
+    break;
+    case 'viewMessage':
+        $id =$_GET['idmessage'];  
+        $sql = "SELECT * FROM messages WHERE idMessage = '$id'";
+        $result = mysqli_query($con, $sql);
+    
+        if ($result) {
+            $messageData = mysqli_fetch_assoc($result);
+    
+            // Return customer data as JSON
+            echo json_encode($messageData);
+        } else {
+            // Handle the error if needed
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+        
+    break;
+    case 'viewInvoice':
+        $id =$_GET['idinvoice'];  
+        $sql = "SELECT invoices.invoicelD, customers.customerAddress, customers.customerFirstName, customers.customerLastName
+                FROM invoices
+                JOIN bookings ON invoices.bookingID = bookings.bookingID
+                JOIN customers ON bookings.customerID = customers.customerID
+                WHERE invoicelD = '$id'";
+        $result = mysqli_query($con, $sql);
+    
+        if ($result) {
+            $invoiceData = mysqli_fetch_assoc($result);
+    
+            // Return customer data as JSON
+            echo json_encode($invoiceData);
         } else {
             // Handle the error if needed
             echo 'Error executing SQL query: ' . mysqli_error($con);
@@ -593,6 +673,171 @@ switch ($action) {
         } else {
             echo 'Error executing SQL query: ' . mysqli_error($con);
         }   
+    break;
+    case 'customer':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+        
+        $sql = "SELECT * FROM customers 
+                WHERE customerFirstName LIKE '%" .$searchQuery. "%'
+                OR customerLastName LIKE '%" .$searchQuery. "%'
+                OR customerDob LIKE '%" .$searchQuery. "%'
+                OR customerEmail LIKE '%" .$searchQuery. "%'
+                OR customerPhoneNumber LIKE '%" .$searchQuery. "%'
+                OR customerAddress LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+
+        if ($result) {
+            $html = ''; // Variable to store the generated HTML
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= '<tr>';
+                $html .= '<td>' . $row['customerID'] . '</td>';
+                $html .= '<td>' . $row['customerFirstName'] . '</td>';
+                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['customerDob'] . '</td>';
+                $html .= '<td>' . $row['customerEmail'] . '</td>';
+                $html .= '<td>' . $row['customerPhoneNumber'] . '</td>';
+                $html .= '<td>' . $row['customerAddress'] . '</td>';
+                $html .= '<td><div class="d-flex">';
+                $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['customerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
+                $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['customerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
+                $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['customerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+                $html .= '</div></td>';
+                $html .= '</tr>';
+            }
+
+            // Echo the generated HTML
+            echo $html;
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'room':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+        
+        $sql = "SELECT * FROM rooms 
+                WHERE roomID LIKE '%" .$searchQuery. "%'
+                OR  roomName LIKE '%" .$searchQuery. "%'
+                OR  roomType LIKE '%" .$searchQuery. "%'
+                OR  roomRate LIKE '%" .$searchQuery. "%'
+                OR  roomStatus LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td>' . $row['roomType'] . '</td>';
+                echo '<td>' . $row['roomRate'] . '</td>';
+                echo '<td>' . $row['roomStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['roomID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'booking':
+        // Get values from the GET parameters
+        $searchQuery = $_GET['searchQuery'];
+        
+        $sql = "SELECT * FROM bookings 
+                WHERE roomName LIKE '%" .$searchQuery. "%'";
+
+        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
+        FROM bookings
+        JOIN rooms ON bookings.roomID = rooms.roomID
+        JOIN customers ON bookings.customerID = customers.customerID
+        WHERE customerFirstName LIKE '%" .$searchQuery. "%'
+            OR customerLastName LIKE '%" .$searchQuery. "%'
+            OR rooms.roomID LIKE '%" .$searchQuery. "%'
+            OR rooms.roomName LIKE '%" .$searchQuery. "%'";
+
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['customerFirstName'] . '</td>';
+                echo '<td>' . $row['customerLastName'] . '</td>';
+                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['roomName'] . '</td>';
+                echo '<td>' . $row['checkinDate'] . '</td>';
+                // echo '<td>' . $row['checkOutDate'] . '</td>';
+                echo '<td>' . $row['paymentStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';            
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            
+        } else {
+            echo 'Error executing SQL query: ' . mysqli_error($con);
+        }
+    break;
+    case 'sendMessage':
+        $sender = $_GET['sender'];
+        $subject = $_GET['subject'];
+        $content = $_GET['content'];
+        
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'santelacuisine@gmail.com';               // SMTP username
+            $mail->Password   = 'ifdknnejliqzbzqj';                    // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           // Enable implicit TLS encryption
+            $mail->Port       = 465;                                   // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+            // Recipients
+            $mail->setFrom('santelacuisine@gmail.com','SaiGon Hotel');
+            $mail->addAddress($sender);     // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = $subject;
+
+            // Email body
+            $mail->Body =  $content;
+
+            // Plain text version for non-HTML mail clients
+            $mail->AltBody = 'Thank you for choosing SaiGonHotel! Your meeting event has been confirmed.';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }  
     break;
     default:
         //  echo"can't reach";

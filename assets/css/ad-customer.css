@@ -944,3 +944,24 @@ table.table .avatar {
   background: var(--light);
   color: var(--blue);
 }
+/* css print paper */
+@media print {
+  /* Reset some default styles that may interfere with printing */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Set the paper size to A8 */
+  @page {
+    size: A6;
+  }
+
+  /* Set other print-specific styles as needed */
+  /* For example, you might want to hide some elements */
+  .no-print {
+    display: none;
+  }
+
+  /* You can also set additional styles specific to printing */
+}
