@@ -1821,9 +1821,6 @@ require('../../controllers/AdminController.php');
 			get_contacts();
 		}
 	</script>
-	<?php
-	require('./inc/scripts.php');
-	?>
 </body>
 
 </html>
