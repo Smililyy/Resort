@@ -52,7 +52,7 @@ foreach ($emails as $emailId) {
     $subject = $email->subject;
     $fromAddress = $email->fromAddress;
     $textPlain = $email->textPlain;
-    $timestamp = strtotime($email->date); // Convert date to timestamp
+    $timestamp = $email->date; // Convert date to timestamp
 
     // Execute the prepared statement
     $result = $stmt->execute();

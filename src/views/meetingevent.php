@@ -263,13 +263,13 @@
 
                 $options = array();
 
-                    $sql = "SELECT DISTINCT roomName FROM rooms WHERE roomType = 'Event Meeting '";
+                    $sql = "SELECT DISTINCT RoomName FROM ROOM WHERE RoomType = 'Event Meeting '";
                     $result = $con->query($sql);
 
                 // Lặp qua kết quả và thêm giá trị vào mảng options
                 if ($result !== false && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        $options[] = $row["roomName"];
+                        $options[] = $row["RoomName"];
                     }
                 }
             ?>

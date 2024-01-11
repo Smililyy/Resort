@@ -27,13 +27,13 @@ class MeetingeventModel {
     public function checkCustomer($phone) {
         // Check if the customer already exists
         $existingCustomer = null;
-        $sqlCheckCustomer = "SELECT customerID FROM customers WHERE customerPhoneNumber = '".$phone."'";
+        $sqlCheckCustomer = "SELECT CustomerID FROM CUSTOMER WHERE CustomerPhoneNumber = '".$phone."'";
         $resultCheckCustomer = mysqli_query($this->con, $sqlCheckCustomer);
 
         if ($resultCheckCustomer) {
             $row = mysqli_fetch_assoc($resultCheckCustomer);
             if ($row) {
-                $existingCustomer = $row['customerID'];
+                $existingCustomer = $row['CustomerID'];
             }
         }
 
@@ -43,7 +43,7 @@ class MeetingeventModel {
     public function addNewCustomer($fname, $lname, $phone, $email) {
         // If the customer does not exist, add a new one
         $existingCustomer = null;
-        $sqlInsertCustomer = "INSERT INTO customers (customerFirstName, customerLastName, customerPhoneNumber, customerEmail) 
+        $sqlInsertCustomer = "INSERT INTO CUSTOMER (CustomerFirstName, CustomerLastName, CustomerPhoneNumber, CustomerEmail) 
                             VALUES ('".$fname."','".$lname."','".$phone."','".$email."')";
         
         $resultInsertCustomer = mysqli_query($this->con, $sqlInsertCustomer);
@@ -61,8 +61,8 @@ class MeetingeventModel {
     public function selectBookableRoom($roomname) {
         // Randomly select a bookable room
         $roomchoosen = null;
-        $sqlSelectRoom = "SELECT roomID FROM rooms 
-                        WHERE roomName = '".$roomname."' AND roomStatus = 'Available' 
+        $sqlSelectRoom = "SELECT RoomID FROM ROOM 
+                        WHERE RoomName = '".$roomname."' AND RoomStatus = 'Available' 
                         ORDER BY RAND() LIMIT 1";
 
         $resultSelectRoom = mysqli_query($this->con, $sqlSelectRoom);
@@ -70,7 +70,7 @@ class MeetingeventModel {
         if ($resultSelectRoom) {
             $row = mysqli_fetch_assoc($resultSelectRoom);
             if ($row) {
-                $roomchoosen = $row['roomID'];
+                $roomchoosen = $row['RoomID'];
             }
         }
 
@@ -79,22 +79,22 @@ class MeetingeventModel {
 
     public function processMeetingEvent($existingCustomer, $roomchoosen, $eventdate, $roomname, $numberofguest, $message, $email, $fname, $lname) {
         // Select room rate
-        $sqlGetRoomRate = "SELECT roomRate FROM rooms WHERE roomName = '".$roomname."'";
+        $sqlGetRoomRate = "SELECT RoomRate FROM ROOM WHERE RoomName = '".$roomname."'";
         $resultGetRoomRate = mysqli_query($this->con, $sqlGetRoomRate);
 
         if ($resultGetRoomRate) {
             $row = mysqli_fetch_assoc($resultGetRoomRate);
-            $room_rate = $row['roomRate'];
+            $room_rate = $row['RoomRate'];
 
             // insert booking
-            $sqlInsertBooking = "INSERT INTO bookings (customerID, roomID, checkinDate, totalAmount, paymentStatus, numberOfCustomer, message) 
+            $sqlInsertBooking = "INSERT INTO BOOKING (CustomerID, RoomID, CheckInDate, TotalAmount, PaymentStatus, MumberOfCustomer, Message) 
                                 VALUES ('".$existingCustomer."','".$roomchoosen."','".$eventdate."','".$room_rate."','Unpaid','".$numberofguest."','".$message."')";
 
             $resultInsertBooking = mysqli_query($this->con, $sqlInsertBooking);
 
             if ($resultInsertBooking) {
                 // Reupdate room status to Reserved
-                $sqlUpdateRoomStatus = "UPDATE rooms SET roomStatus = 'Reserved' WHERE roomID = '".$roomchoosen."'";
+                $sqlUpdateRoomStatus = "UPDATE ROOM SET RoomStatus = 'Reserved' WHERE RoomID = '".$roomchoosen."'";
                 $resultUpdateRoomStatus = mysqli_query($this->con, $sqlUpdateRoomStatus);
 
                 if (!$resultUpdateRoomStatus) {

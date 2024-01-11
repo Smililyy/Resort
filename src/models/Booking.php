@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-class bookingModel {
+class MeetingeventModel {
     private $con;
     private $db_server = 'localhost';
     private $db_username = 'root';
@@ -58,8 +58,35 @@ class bookingModel {
         return $existingCustomer;
     }
 
+    public function selectBookableRoom($roomname) {
+        // Randomly select a bookable room
+        $roomchoosen = null;
+        $sqlSelectRoom = "SELECT roomID FROM rooms 
+                        WHERE roomName = '".$roomname."' AND roomStatus = 'Available' 
+                        ORDER BY RAND() LIMIT 1";
 
-    public function processBooking($existingCustomer, $roomchoosen, $checkindate, $roomname, $numberofguest, $message, $email, $fname, $lname) {
+        $resultSelectRoom = mysqli_query($this->con, $sqlSelectRoom);
+
+        if ($resultSelectRoom) {
+            $row = mysqli_fetch_assoc($resultSelectRoom);
+            if ($row) {
+                $roomchoosen = $row['roomID'];
+            }
+        }
+
+        return $roomchoosen;
+    }
+
+    public function processMeetingEvent($existingCustomer, $roomchoosen, $eventdate, $roomname, $numberofguest, $message, $email, $fname, $lname) {
+        // Select room rate
+        $sqlGetRoomRate = "SELECT roomRate FROM rooms WHERE roomName = '".$roomname."'";
+        $resultGetRoomRate = mysqli_query($this->con, $sqlGetRoomRate);
+
+        if ($resultGetRoomRate) {
+            $row = mysqli_fetch_assoc($resultGetRoomRate);
+            $room_rate = $row['roomRate'];
+
+            // insert booking
             $sqlInsertBooking = "INSERT INTO bookings (customerID, roomID, checkinDate, totalAmount, paymentStatus, numberOfCustomer, message) 
                                 VALUES ('".$existingCustomer."','".$roomchoosen."','".$eventdate."','".$room_rate."','Unpaid','".$numberofguest."','".$message."')";
 

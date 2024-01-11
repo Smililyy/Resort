@@ -11,7 +11,7 @@
                         <a href="http://localhost/hotel/src/views/home/">Home</a>
                     </div>
                     <div class='child-content'>
-                        <a href="http://localhost/hotel/src/views/accommodation/">Suits & rooms</a>
+                        <a href="http://localhost:3000/src/views/accommodation/index.php">Suits & rooms</a>
                     </div>
                     <div class='child-content'>
                         <a href="http://localhost/hotel/src/views/meetingevent.php">Meeting & events</a>
