@@ -1,19 +1,22 @@
 <?php
-function adminLogin()
-{
-    session_start();
-    if (!isset($_SESSION['adminLogin']) && ($_SESSION['adminLogin'] == true)) {
-        echo "<script>
-    window.location.href='auth.php';
-    </script>;";
-        exit;
-    }
-    // session_regenerate_id(true);
-}
+require '../../../vendor/php-imap-master/vendor/autoload.php';
+require __DIR__ . "/../inc/Database.php";
+require __DIR__ . "/./inc/essentials.php";
+
+// function adminLogin()
+// {
+//     session_start();
+//     if (!isset($_SESSION['adminLogin']) && ($_SESSION['adminLogin'] == true)) {
+//         echo "<script>
+//     window.location.href='auth.php';
+//     </script>;";
+//         exit;
+//     }
+//     // session_regenerate_id(true);
+// }
+
 use PhpImap\Mailbox;
 
-// Include the PHP-IMAP library
-require '../../../vendor/php-imap-master/vendor/autoload.php';
 
 // Gmail IMAP settings
 $server = '{imap.gmail.com:993/imap/ssl}INBOX';
@@ -27,20 +30,13 @@ $mailbox = new Mailbox($server, $username, $password, __DIR__, 'UTF-8', true, fa
 $emails = $mailbox->searchMailbox('ALL');
 
 // Connect to your database
-$mysqli = new mysqli("localhost", "root", "", "hotel");
 
-// Check connection
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$db = new Database();
+$db->connect();
 
 // Prepare the SQL statement
-$sql = "INSERT INTO messages (subject, sender, content, timestamp) VALUES (?, ?, ?,?)";
-$stmt = $mysqli->prepare($sql);
-
-if ($stmt === false) {
-    die("Error preparing statement: " . $mysqli->error);
-}
+$sql = "INSERT INTO messages VALUES (NULL, ?, ?, ?, ?)";
+$stmt = $db->prepare($sql);
 
 // Bind parameters
 $stmt->bind_param("ssss", $subject, $fromAddress, $textPlain, $timestamp);
@@ -66,7 +62,7 @@ foreach ($emails as $emailId) {
 
 // Close the statement and the database connection
 $stmt->close();
-$mysqli->close();
+$db->close();
 
 // Disconnect from the mailbox
 $mailbox->disconnect();

@@ -1,10 +1,13 @@
 <?php
-//include "./inc/db_config.php";
-include "./inc/essentials.php";
-include "../models/Meetingevent.php"; 
-
-class MeetingeventController {
-    public function processMeetingEvent($postData) {
+require __DIR__ . "/../inc/Database.php";
+require __DIR__ . "/./inc/essentials.php";
+require __DIR__ . "/../models/Booking.php";
+$db = new Database();
+$db->connect();
+class MeetingeventController
+{
+    public function processMeetingEvent($postData)
+    {
         $fname = $postData['firstname'];
         $lname = $postData['lastname'];
         $phone = $postData['phone'];
@@ -16,7 +19,7 @@ class MeetingeventController {
         $message = $postData['message'];
 
         // Create an instance of the model
-        $meetingeventModel = new MeetingeventModel();
+        $meetingeventModel = new Booking();
 
         // Check if the customer already exists
         $existingCustomer = $meetingeventModel->checkCustomer($phone);
@@ -45,6 +48,4 @@ class MeetingeventController {
 // Usage: Instantiate the controller and call the processMeetingEvent method
 $meetingeventController = new MeetingeventController();
 $meetingeventController->processMeetingEvent($_POST);
-mysqli_close($con);
-
-?>
+$db->close();

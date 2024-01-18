@@ -31,4 +31,30 @@ function redirect($url)
     </script>;
     ";
 }
-?>
+
+
+function filteration($data)
+{
+    foreach ($data as $key => $value) {
+        $data[$key] = trim($value);
+        $data[$key] = stripslashes($value);
+        $data[$key] = htmlspecialchars($value);
+        $data[$key] = strip_tags($value);
+    }
+    return $data;
+}
+
+function select($db, $sql, $values, $datatypes)
+{
+    // $db = new Database(); // Tạo đối tượng Database
+    $stmt = $db->prepare($sql);
+    mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+    if (mysqli_stmt_execute($stmt)) {
+        $res = $stmt->get_result();
+        $stmt->close();
+        return $res;
+    } else {
+        $stmt->close();
+        die("Query cannot be executed - Select");
+    }
+}

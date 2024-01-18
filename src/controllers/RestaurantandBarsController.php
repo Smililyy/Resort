@@ -1,6 +1,10 @@
 <?php
-include "./inc/essentials.php";
-require '../models/RestaurantandBars.php';
+
+require __DIR__ . "/../inc/Database.php";
+require __DIR__ . "/./inc/essentials.php";
+require __DIR__ . "/../models/Booking.php";
+$db = new Database();
+$db->connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -16,17 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Perform database operations - Insert into bookings table
     $sql = "INSERT INTO bookings (customerID, checkinDate, numberOfCustomer, message)
             VALUES (1, '$reservationDate', $partySize, 'Reservation')";
-
-    if (mysqli_query($conn, $sql)) {
+    $resultInserBooking = $this->db->queryNoStmt($sql);
+    if ($resultInserBooking) {
         // Insert successful, now you can send confirmation email
-        sendConfirmationEmail($name, $email);
+        // sendConfirmationEmail($name, $email);
 
         // Redirect or display success message as needed
         header("Location: success_page.php"); // Redirect to a success page
         exit();
     } else {
         // Insert failed, handle the error
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo "Error: " . $sql . "<br>" .  $this->db->getError();
     }
 }
-?>
+$db->close();

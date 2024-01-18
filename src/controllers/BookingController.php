@@ -1,10 +1,15 @@
 <?php
-//include "./inc/db_config.php";
-include "./inc/essentials.php";
-include "../models/Booking.php"; 
+include "../models/Booking.php";
+require __DIR__ . "/../models/Booking.php";
+require __DIR__ . "/./inc/essentials.php";
+require __DIR__ . "/../inc/Database.php";
+$db = new Database();
+$db->connect();
+class BookingController
+{
 
-class BookingController {
-    public function processBooking($postData) {
+    public function processBooking($postData)
+    {
         $fname = $postData['firstname'];
         $lname = $postData['lastname'];
         $phone = $postData['phone'];
@@ -15,7 +20,7 @@ class BookingController {
         //$message = $postData['message'];
 
         // Create an instance of the model
-        $bookingModel = new bookingModel();
+        $bookingModel = new Booking;
 
         // Check if the customer already exists
         $existingCustomer = $bookingModel->checkCustomer($phone);
@@ -36,6 +41,4 @@ class BookingController {
 // Usage: Instantiate the controller and call the processMeetingEvent method
 $meetingeventController = new BookingController();
 $meetingeventController->processBooking($_POST);
-mysqli_close($con);
-
-?>
+$db->close();
