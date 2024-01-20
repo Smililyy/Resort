@@ -1,30 +1,7 @@
 <?php
+require __DIR__ . "/../../inc/Database.php";
+require __DIR__ . "/../../inc/essentials.php";
 
-$servername = "sql12.freesqldatabase.com";
-$username = "sql12670612";
-$password = "lrzZ8N6luY";
-$dbname = "sql12670612";
-
-$con = mysqli_connect(
-    $servername,
-    $username,
-    $password,
-    $dbname
-);
-
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-function adminLogin()
-{
-    session_start();
-    if (!isset($_SESSION['adminLogin']) && ($_SESSION['adminLogin'] == true)) {
-        echo "<script>
-    window.location.href='auth.php';
-    </script>;
-    ";
-    }
-}
 
 function select($sql, $values, $datatypes)
 {
@@ -42,16 +19,7 @@ function select($sql, $values, $datatypes)
     } else {
         die("Query cannot be prepared - Select");
     }
-}
-function filteration($data)
-{
-    foreach ($data as $key => $value) {
-        $data[$key] = trim($value);
-        $data[$key] = stripslashes($value);
-        $data[$key] = htmlspecialchars($value);
-        $data[$key] = strip_tags($value);
-    }
-    return $data;
+    
 }
 
 if (isset($_POST['get_customer'])) {

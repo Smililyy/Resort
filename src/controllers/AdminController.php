@@ -3,18 +3,6 @@ require '../../../vendor/php-imap-master/vendor/autoload.php';
 require __DIR__ . "/../inc/Database.php";
 require __DIR__ . "/./inc/essentials.php";
 
-// function adminLogin()
-// {
-//     session_start();
-//     if (!isset($_SESSION['adminLogin']) && ($_SESSION['adminLogin'] == true)) {
-//         echo "<script>
-//     window.location.href='auth.php';
-//     </script>;";
-//         exit;
-//     }
-//     // session_regenerate_id(true);
-// }
-
 use PhpImap\Mailbox;
 
 
