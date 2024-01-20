@@ -1,26 +1,23 @@
 <?php
-
-require '../inc/Database.php';
-
-function listCustomers($db)
+function listcustomer($db)
 {
-    $sql = "SELECT * FROM customers";
+    $sql = "SELECT * FROM CUSTOMER";
     $result = $db->queryNoStmt($sql);
     if ($result) {
         $html = '';
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
-            $html .= '<td>' . $row['customerID'] . '</td>';
-            $html .= '<td>' . $row['customerFirstName'] . '</td>';
-            $html .= '<td>' . $row['customerLastName'] . '</td>';
-            $html .= '<td>' . $row['customerDob'] . '</td>';
-            $html .= '<td>' . $row['customerEmail'] . '</td>';
-            $html .= '<td>' . $row['customerPhoneNumber'] . '</td>';
-            $html .= '<td>' . $row['customerAddress'] . '</td>';
+            $html .= '<td>' . $row['CustomerID'] . '</td>';
+            $html .= '<td>' . $row['CustomerFirstName'] . '</td>';
+            $html .= '<td>' . $row['CustomerLastName'] . '</td>';
+            $html .= '<td>' . $row['CustomerDob'] . '</td>';
+            $html .= '<td>' . $row['CustomerEmail'] . '</td>';
+            $html .= '<td>' . $row['CustomerPhoneNumber'] . '</td>';
+            $html .= '<td>' . $row['CustomerAddress'] . '</td>';
             $html .= '<td><div class="d-flex">';
-            $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['customerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
-            $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['customerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
-            $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['customerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+            $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['CustomerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
+            $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['CustomerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
+            $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['CustomerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
             $html .= '</div></td>';
             $html .= '</tr>';
         }
@@ -33,7 +30,7 @@ function listCustomers($db)
 
 function deleteCustomer($db, $id)
 {
-    $sql = "DELETE FROM  customers WHERE customerID  = '$id' ";
+    $sql = "DELETE FROM  CUSTOMER WHERE CustomerID  = '$id' ";
     if ($db->queryNoStmt($sql)) {
         return "Record deleted successfully";
     } else {
@@ -44,12 +41,12 @@ function deleteCustomer($db, $id)
 
 function viewCustomer($db, $id)
 {
-    $sql = "SELECT * FROM customers WHERE customerID = '$id'";
+    $sql = "SELECT * FROM CUSTOMER WHERE CustomerID = '$id'";
     $result = $db->queryNoStmt($sql);
 
     if ($result) {
         $customerData = mysqli_fetch_assoc($result);
-        return json_encode($customerData);
+        echo json_encode($customerData);
     } else {
         // Handle the error if needed
         return 'Error executing SQL query: ' . $db->getError();
@@ -66,7 +63,7 @@ function addCustomer(
     $phoneNumber,
     $email
 ) {
-    $sql = "INSERT INTO customers (customerFirstName, customerLastName, customerDob, customerAddress, customerPhoneNumber, customerEmail) 
+    $sql = "INSERT INTO CUSTOMER (CustomerFirstName, CustomerLastName, CustomerDob, CustomerAddress, CustomerPhoneNumber, CustomerEmail) 
         VALUES ('" . $firstName . "', '" . $lastName . "', '" . $dob . "', '" . $address . "', '" . $phoneNumber . "', '" . $email . "')";
     $result = $db->queryNoStmt($sql);
 
@@ -81,7 +78,7 @@ function addCustomer(
 
 function editCustomer(
     $db,
-    $customerid,
+    $CustomerID,
     $firstname,
     $lastname,
     $dob,
@@ -89,15 +86,15 @@ function editCustomer(
     $phone,
     $address
 ) {
-    $sql = "UPDATE customers 
+    $sql = "UPDATE CUSTOMER 
         SET 
-            customerFirstName='" . $firstname . "',
-            customerLastName='" . $lastname . "',
-            customerDob='" . $dob . "',
-            customerAddress='" . $address . "',
-            customerPhoneNumber='" . $phone . "',
-            customerEmail='" . $email . "'
-        WHERE customerID = '" . $customerid . "'";
+            CustomerFirstName='" . $firstname . "',
+            CustomerLastName='" . $lastname . "',
+            CustomerDob='" . $dob . "',
+            CustomerAddress='" . $address . "',
+            CustomerPhoneNumber='" . $phone . "',
+            CustomerEmail='" . $email . "'
+        WHERE CustomerID = '" . $CustomerID . "'";
 
     // Execute the query
     $result = $db->queryNoStmt($sql);
@@ -117,7 +114,7 @@ function sortCustomer($db, $column_name, $order)
     } else {
         $order = 'desc';
     }
-    $query = "SELECT * FROM customers ORDER BY " . $column_name . " " . $order;
+    $query = "SELECT * FROM CUSTOMER ORDER BY " . $column_name . " " . $order;
     $result = $db->queryNoStmt($query);
 
     if ($result) {
@@ -139,17 +136,17 @@ function sortCustomer($db, $column_name, $order)
 
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
-            $html .= '<td>' . $row['customerID'] . '</td>';
-            $html .= '<td>' . $row['customerFirstName'] . '</td>';
-            $html .= '<td>' . $row['customerLastName'] . '</td>';
-            $html .= '<td>' . $row['customerDob'] . '</td>';
-            $html .= '<td>' . $row['customerEmail'] . '</td>';
-            $html .= '<td>' . $row['customerPhoneNumber'] . '</td>';
-            $html .= '<td>' . $row['customerAddress'] . '</td>';
+            $html .= '<td>' . $row['CustomerID'] . '</td>';
+            $html .= '<td>' . $row['CustomerFirstName'] . '</td>';
+            $html .= '<td>' . $row['CustomerLastName'] . '</td>';
+            $html .= '<td>' . $row['CustomerDob'] . '</td>';
+            $html .= '<td>' . $row['CustomerEmail'] . '</td>';
+            $html .= '<td>' . $row['CustomerPhoneNumber'] . '</td>';
+            $html .= '<td>' . $row['CustomerAddress'] . '</td>';
             $html .= '<td><div class="d-flex">';
-            $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['customerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
-            $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['customerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
-            $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['customerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+            $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['CustomerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
+            $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['CustomerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
+            $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['CustomerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
             $html .= '</div></td>';
             $html .= '</tr>';
         }
@@ -166,30 +163,30 @@ function sortCustomer($db, $column_name, $order)
 
 function searchCustomer($db, $searchQuery)
 {
-    $sql = "SELECT * FROM customers 
-            WHERE customerFirstName LIKE '%" . $searchQuery . "%'
-            OR customerLastName LIKE '%" . $searchQuery . "%'
-            OR customerDob LIKE '%" . $searchQuery . "%'
-            OR customerEmail LIKE '%" . $searchQuery . "%'
-            OR customerPhoneNumber LIKE '%" . $searchQuery . "%'
-            OR customerAddress LIKE '%" . $searchQuery . "%'";
+    $sql = "SELECT * FROM CUSTOMER 
+            WHERE CustomerFirstName LIKE '%" . $searchQuery . "%'
+            OR CustomerLastName LIKE '%" . $searchQuery . "%'
+            OR CustomerDob LIKE '%" . $searchQuery . "%'
+            OR CustomerEmail LIKE '%" . $searchQuery . "%'
+            OR CustomerPhoneNumber LIKE '%" . $searchQuery . "%'
+            OR CustomerAddress LIKE '%" . $searchQuery . "%'";
     $result = $db->queryNoStmt($sql);
 
     if ($result) {
         $html = ''; // Variable to store the generated HTML
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
-            $html .= '<td>' . $row['customerID'] . '</td>';
-            $html .= '<td>' . $row['customerFirstName'] . '</td>';
-            $html .= '<td>' . $row['customerLastName'] . '</td>';
-            $html .= '<td>' . $row['customerDob'] . '</td>';
-            $html .= '<td>' . $row['customerEmail'] . '</td>';
-            $html .= '<td>' . $row['customerPhoneNumber'] . '</td>';
-            $html .= '<td>' . $row['customerAddress'] . '</td>';
+            $html .= '<td>' . $row['CustomerID'] . '</td>';
+            $html .= '<td>' . $row['CustomerFirstName'] . '</td>';
+            $html .= '<td>' . $row['CustomerLastName'] . '</td>';
+            $html .= '<td>' . $row['CustomerDob'] . '</td>';
+            $html .= '<td>' . $row['CustomerEmail'] . '</td>';
+            $html .= '<td>' . $row['CustomerPhoneNumber'] . '</td>';
+            $html .= '<td>' . $row['CustomerAddress'] . '</td>';
             $html .= '<td><div class="d-flex">';
-            $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['customerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
-            $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['customerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
-            $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['customerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+            $html .= '<a href="#viewCustomerModal" class="m-1 view" data-toggle="modal" onclick="viewCustomer(' . $row['CustomerID'] . ')"><i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i></a>';
+            $html .= '<a href="#editCustomerModal" class="m-1 edit" data-toggle="modal" onclick=viewCustomer("' . $row['CustomerID'] . '")><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
+            $html .= '<a href="#deleteCustomerModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['CustomerID'] . ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
             $html .= '</div></td>';
             $html .= '</tr>';
         }

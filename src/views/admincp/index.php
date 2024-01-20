@@ -1234,18 +1234,18 @@ require('../../controllers/AdminController.php');
 				// Parse the JSON data received from the server
 				var customerData = JSON.parse(data);
 				// Update modal content with customer data
-				$jq('.edit_employee #firstname_input').val(customerData.customerFirstName);
-				$jq('.edit_employee #lastname_input').val(customerData.customerLastName);
-				$jq('.edit_employee #dob_input').val(customerData.customerDob);
-				$jq('.edit_employee #email_input').val(customerData.customerEmail);
-				$jq('.edit_employee #phone_input').val(customerData.customerPhoneNumber);
-				$jq('.edit_employee #address_input').val(customerData.customerAddress);
-				$jq('.view_employee #firstname_input').val(customerData.customerFirstName);
-				$jq('.view_employee #lastname_input').val(customerData.customerLastName);
-				$jq('.view_employee #dob_input').val(customerData.customerDob);
-				$jq('.view_employee #email_input').val(customerData.customerEmail);
-				$jq('.view_employee #phone_input').val(customerData.customerPhoneNumber);
-				$jq('.view_employee #address_input').val(customerData.customerAddress);
+				$jq('.edit_employee #firstname_input').val(customerData.CustomerFirstName);
+				$jq('.edit_employee #lastname_input').val(customerData.CustomerLastName);
+				$jq('.edit_employee #dob_input').val(customerData.CustomerDob);
+				$jq('.edit_employee #email_input').val(customerData.CustomerEmail);
+				$jq('.edit_employee #phone_input').val(customerData.CustomerPhoneNumber);
+				$jq('.edit_employee #address_input').val(customerData.CustomerAddress);
+				$jq('.view_employee #firstname_input').val(customerData.CustomerFirstName);
+				$jq('.view_employee #lastname_input').val(customerData.CustomerLastName);
+				$jq('.view_employee #dob_input').val(customerData.CustomerDob);
+				$jq('.view_employee #email_input').val(customerData.CustomerEmail);
+				$jq('.view_employee #phone_input').val(customerData.CustomerPhoneNumber);
+				$jq('.view_employee #address_input').val(customerData.CustomerAddress);
 
 			});
 		}
@@ -1261,14 +1261,14 @@ require('../../controllers/AdminController.php');
 				var roomData = JSON.parse(data);
 
 				// Update modal content with room data
-				$jq('.edit_employee #roomname_input').val(roomData.roomName);
-				$jq('.edit_employee #roomtype_input').val(roomData.roomType);
-				$jq('.edit_employee #rate_input').val(roomData.roomRate);
-				$jq('.edit_employee #roomstatus_input').val(roomData.roomStatus);
-				$jq('.view_employee #roomname_input').val(roomData.roomName);
-				$jq('.view_employee #roomtype_input').val(roomData.roomType);
-				$jq('.view_employee #rate_input').val(roomData.roomRate);
-				$jq('.view_employee #roomstatus_input').val(roomData.roomStatus);
+				$jq('.edit_employee #roomname_input').val(roomData.RoomName);
+				$jq('.edit_employee #roomtype_input').val(roomData.RoomType);
+				$jq('.edit_employee #rate_input').val(roomData.RoomRate);
+				$jq('.edit_employee #roomstatus_input').val(roomData.RoomStatus);
+				$jq('.view_employee #roomname_input').val(roomData.RoomName);
+				$jq('.view_employee #roomtype_input').val(roomData.RoomType);
+				$jq('.view_employee #rate_input').val(roomData.RoomRate);
+				$jq('.view_employee #roomstatus_input').val(roomData.RoomStatus);
 			});
 		}
 		function viewMessage(id) {
@@ -1281,11 +1281,11 @@ require('../../controllers/AdminController.php');
 				var messageData = JSON.parse(data);
 
 				// Update modal content with message data
-				$jq('.send_message #sender_input').val(messageData.sender);
-				$jq('.view_message #timestamp_input').val(messageData.timestamp);
-				$jq('.view_message #sender_input').val(messageData.sender);
-				$jq('.view_message #subject_input').val(messageData.subject);
-				$jq('.view_message #content_input').val(messageData.content);
+				$jq('.send_message #sender_input').val(messageData.Sender);
+				$jq('.view_message #timestamp_input').val(messageData.Timestamp);
+				$jq('.view_message #sender_input').val(messageData.Sender);
+				$jq('.view_message #subject_input').val(messageData.Subject);
+				$jq('.view_message #content_input').val(messageData.Content);
 			});
 		}
 
@@ -1300,25 +1300,25 @@ require('../../controllers/AdminController.php');
 				var bookingData = JSON.parse(data);
 
 				// Update modal content with booking data
-				$jq('.edit_employee #firstname_input').val(bookingData.customerFirstName);
-				$jq('.edit_employee #lastname_input').val(bookingData.customerLastName);
-				$jq('.edit_employee #roomid_input').val(bookingData.roomID);
-				$jq('.edit_employee #checkout_input').val(bookingData.checkOutDate);
-				$jq('.edit_employee #roomsta_input').val(bookingData.roomStatus);
-				$jq('.edit_employee #checkin_input').val(bookingData.checkinDate);
-				$jq('.edit_employee #paymentstatus_input').val(bookingData.paymentStatus);
-				$jq('.edit_employee #guests_input').val(bookingData.numberOfCustomer);
-				$jq('.edit_employee #message_input').val(bookingData.message);
-				$jq('.edit_employee #total_input').val(bookingData.totalAmount);
-				$jq('.view_employee #firstname_input').val(bookingData.customerFirstName);
-				$jq('.view_employee #lastname_input').val(bookingData.customerLastName);
-				$jq('.view_employee #roomid_input').val(bookingData.roomID);
-				$jq('.view_employee #checkout_input').val(bookingData.checkOutDate);
-				$jq('.view_employee #checkin_input').val(bookingData.checkinDate);
-				$jq('.view_employee #paymentstatus_input').val(bookingData.paymentStatus);
-				$jq('.view_employee #guests_input').val(bookingData.numberOfCustomer);
-				$jq('.view_employee #message_input').val(bookingData.message);
-				$jq('.view_employee #total_input').val(bookingData.totalAmount);
+				$jq('.edit_employee #firstname_input').val(bookingData.CustomerFirstName);
+				$jq('.edit_employee #lastname_input').val(bookingData.CustomerLastName);
+				$jq('.edit_employee #roomid_input').val(bookingData.RoomID);
+				$jq('.edit_employee #checkout_input').val(bookingData.CheckOutDate);
+				$jq('.edit_employee #roomsta_input').val(bookingData.RoomStatus);
+				$jq('.edit_employee #checkin_input').val(bookingData.CheckInDate);
+				$jq('.edit_employee #paymentstatus_input').val(bookingData.PaymentStatus);
+				$jq('.edit_employee #guests_input').val(bookingData.NumberOfCustomer);
+				$jq('.edit_employee #message_input').val(bookingData.Message);
+				$jq('.edit_employee #total_input').val(bookingData.TotalAmount);
+				$jq('.view_employee #firstname_input').val(bookingData.CustomerFirstName);
+				$jq('.view_employee #lastname_input').val(bookingData.CustomerLastName);
+				$jq('.view_employee #roomid_input').val(bookingData.RoomID);
+				$jq('.view_employee #checkout_input').val(bookingData.CheckOutDate);
+				$jq('.view_employee #checkin_input').val(bookingData.CheckInDate);
+				$jq('.view_employee #paymentstatus_input').val(bookingData.PaymentStatus);
+				$jq('.view_employee #guests_input').val(bookingData.NumberOfCustomer);
+				$jq('.view_employee #message_input').val(bookingData.Message);
+				$jq('.view_employee #total_input').val(bookingData.TotalAmount);
 			});
 		}
 		function viewInvoice(invoicelD) {

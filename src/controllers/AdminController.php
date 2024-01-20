@@ -35,7 +35,7 @@ $db = new Database();
 $db->connect();
 
 // Prepare the SQL statement
-$sql = "INSERT INTO messages VALUES (NULL, ?, ?, ?, ?)";
+$sql = "INSERT INTO MESSAGE VALUES (NULL, ?, ?, ?, ?)";
 $stmt = $db->prepare($sql);
 
 // Bind parameters

@@ -1,6 +1,4 @@
 <?php
-include "../controllers/inc/db_config.php";
-
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 require '../../vendor/PHPMailer/src/Exception.php';
@@ -8,7 +6,6 @@ require '../../vendor/PHPMailer/src/SMTP.php';
 require '../../vendor/PHPMailer/src/PHPMailer.php';
 require '../inc/Database.php';
 require '../models/Customer.php';
-
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -19,35 +16,35 @@ $db->connect();
 
 switch ($action) {
     case 'listcustomer':
-        echo listCustomers($db);
+        echo listcustomer($db);
         break;
     case 'listbooking':
-        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
-        FROM bookings
-        JOIN rooms ON bookings.roomID = rooms.roomID
-        JOIN customers ON bookings.customerID = customers.customerID";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName, ROOM.RoomID, ROOM.RoomName, BOOKING.CheckInDate, BOOKING.CheckOutDate, BOOKING.PaymentStatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID";
+        $result = $db->queryNoStmt($sql);
 
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['bookingID'] . '</td>';
-                echo '<td>' . $row['customerFirstName'] . '</td>';
-                echo '<td>' . $row['customerLastName'] . '</td>';
-                echo '<td>' . $row['roomID'] . '</td>';
-                echo '<td>' . $row['roomName'] . '</td>';
-                echo '<td>' . $row['checkinDate'] . '</td>';
+                echo '<td>' . $row['BookingID'] . '</td>';
+                echo '<td>' . $row['CustomerFirstName'] . '</td>';
+                echo '<td>' . $row['CustomerLastName'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
+                echo '<td>' . $row['RoomName'] . '</td>';
+                echo '<td>' . $row['CheckInDate'] . '</td>';
                 // echo '<td>' . $row['checkOutDate'] . '</td>';
-                echo '<td>' . $row['paymentStatus'] . '</td>';
+                echo '<td>' . $row['PaymentStatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -55,29 +52,29 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'listroom':
-        $sql = "SELECT * FROM rooms";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT * FROM ROOM";
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['roomID'] . '</td>';
-                echo '<td>' . $row['roomName'] . '</td>';
-                echo '<td>' . $row['roomType'] . '</td>';
-                echo '<td>' . $row['roomRate'] . '</td>';
-                echo '<td>' . $row['roomStatus'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
+                echo '<td>' . $row['RoomName'] . '</td>';
+                echo '<td>' . $row['RoomType'] . '</td>';
+                echo '<td>' . $row['RoomRate'] . '</td>';
+                echo '<td>' . $row['RoomStatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['roomID'] . ')">
+                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['RoomID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -85,29 +82,29 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'listmessage':
-        $sql = "SELECT * FROM messages";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT * FROM MESSAGE";
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['idMessage'] . '</td>';
-                echo '<td>' . $row['sender'] . '</td>';
-                echo '<td>' . $row['subject'] . '</td>';
-                echo '<td>' . $row['content'] . '</td>';
-                echo '<td>' . $row['timestamp'] . '</td>';
+                echo '<td>' . $row['MessageID'] . '</td>';
+                echo '<td>' . $row['Sender'] . '</td>';
+                echo '<td>' . $row['Subject'] . '</td>';
+                echo '<td>' . $row['Content'] . '</td>';
+                echo '<td>' . $row['Timestamp'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewMessage(' . $row['idMessage'] . ')">
+                echo '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewMessage(' . $row['MessageID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['idMessage'] . ')">
+                echo '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['MessageID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Send">forward_to_inbox</i>
                     </a>';
-                echo '<a href="#deleteMessageModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['idMessage'] . ')">
+                echo '<a href="#deleteMessageModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['MessageID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -115,22 +112,22 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'listinvoice':
-        $sql = "SELECT * FROM invoices";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT * FROM INVOICE";
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['invoicelD'] . '</td>';
-                echo '<td>' . $row['bookingID'] . '</td>';
-                echo '<td>' . $row['paymentDate'] . '</td>';
-                echo '<td>' . $row['amount'] . '</td>';
+                echo '<td>' . $row['InvoicelD'] . '</td>';
+                echo '<td>' . $row['BookingID'] . '</td>';
+                echo '<td>' . $row['PaymentDate'] . '</td>';
+                echo '<td>' . $row['Amount'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
+                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['InvoicelD'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
                     </a>';
                 echo '</div>';
@@ -138,7 +135,7 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'listbill':
@@ -148,57 +145,57 @@ switch ($action) {
         $nextDay = date('Y-m-d', strtotime($currentDate . ' + 1 day'));
 
         $sql = "SELECT
-                    rooms.roomID,
-                    bookings.bookingID,
-                    rooms.roomName,
-                    rooms.roomRate,
-                    TIMESTAMPDIFF(DAY, bookings.checkinDate, '$nextDay') AS duration,
-                    invoices.amount
+                    ROOM.RoomID,
+                    BOOKING.BookingID,
+                    ROOM.RoomName,
+                    ROOM.RoomRate,
+                    TIMESTAMPDIFF(DAY, BOOKING.CheckInDate, '$nextDay') AS duration,
+                    INVOICE.Amount
                 FROM
-                    rooms
-                JOIN bookings ON rooms.roomID = bookings.roomID
-                JOIN invoices ON bookings.bookingID = invoices.bookingID
-                WHERE invoices.invoicelD = '$id';";
+                    ROOM
+                JOIN BOOKING ON ROOM.RoomID = BOOKING.RoomID
+                JOIN INVOICE ON BOOKING.BookingID = INVOICE.BookingID
+                WHERE INVOICE.InvoicelD = '$id';";
 
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
 
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
-                // Update records in the invoices table
-                $updateInvoiceSql = "UPDATE invoices 
-                                    SET paymentDate = '$currentDate',
-                                        amount = " . $row['amount'] . "
-                                    WHERE invoicelD = '$id';";
+                // Update records in the INVOICE table
+                $updateINVOICEql = "UPDATE INVOICE 
+                                    SET PaymentDate = '$currentDate',
+                                        Amount = " . $row['Amount'] . "
+                                    WHERE InvoicelD = '$id';";
 
-                mysqli_query($con, $updateInvoiceSql);
+                $db->queryNoStmt($updateINVOICEql);
 
-                // Update records in the bookings table
-                $bookingID = $row['bookingID'];
-                $updateBookingSql = "UPDATE bookings 
+                // Update records in the BOOKING table
+                $BookingID = $row['BookingID'];
+                $updateBOOKINGql = "UPDATE BOOKING 
                                     SET checkOutDate = '$nextDay',
                                         paymentStatus = 'Paid'
-                                    WHERE bookingID = '$bookingID';";
+                                    WHERE BookingID = '$BookingID';";
 
-                mysqli_query($con, $updateBookingSql);
+                $db->queryNoStmt($updateBOOKINGql);
 
-                // Update records in the rooms table
-                $roomID = $row['roomID'];
-                $updateRoomSql = "UPDATE rooms 
-                                SET roomStatus = 'Available'
-                                WHERE roomID = '$roomID';";
+                // Update records in the ROOM table
+                $RoomID = $row['RoomID'];
+                $updateROOMql = "UPDATE ROOM 
+                                SET RoomStatus = 'Available'
+                                WHERE RoomID = '$RoomID';";
 
-                mysqli_query($con, $updateRoomSql);
+                $db->queryNoStmt($updateROOMql);
 
                 // Display information in HTML if needed
                 echo '<tr>';
-                echo '<td>' . $row['roomName'] . '</td>';
-                echo '<td class="text-center">' . $row['roomRate'] . ' $</td>';
+                echo '<td>' . $row['RoomName'] . '</td>';
+                echo '<td class="text-center">' . $row['RoomRate'] . ' $</td>';
                 echo '<td class="text-center">' . $row['duration'] . ' days</td>';
-                echo '<td>' . $row['amount'] . ' $</td>';
+                echo '<td>' . $row['Amount'] . ' $</td>';
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'deleteCustomer':
@@ -207,32 +204,32 @@ switch ($action) {
         break;
     case 'deleteBooking':
         $id = $_GET['idbooking'];
-        $sql = "DELETE FROM  bookings WHERE bookingID  = '$id' ";
+        $sql = "DELETE FROM  BOOKING WHERE BookingID  = '$id' ";
 
-        if (mysqli_query($con, $sql)) {
+        if (queryNoStmt($sql)) {
             echo "Record deleted successfully";
         } else {
-            echo "Error deleting record: " . $this->db->getError();
+            echo "Error deleting record: " . $db->getError();
         }
         break;
     case 'deleteRoom':
         $id = $_GET['idroom'];
-        $sql = "DELETE FROM  rooms WHERE roomID  = '$id' ";
+        $sql = "DELETE FROM  ROOM WHERE RoomID  = '$id' ";
 
-        if (mysqli_query($con, $sql)) {
+        if (queryNoStmt($sql)) {
             echo "Record deleted successfully";
         } else {
-            echo "Error deleting record: " . $this->db->getError();
+            echo "Error deleting record: " . $db->getError();
         }
         break;
     case 'deleteMessage':
-        $id = $_GET['idmessage'];
-        $sql = "DELETE FROM  messages WHERE idMessage  = '$id' ";
+        $id = $_GET['MessageID'];
+        $sql = "DELETE FROM  MESSAGE WHERE MessageID  = '$id' ";
 
-        if (mysqli_query($con, $sql)) {
+        if (queryNoStmt($sql)) {
             echo "Record deleted successfully";
         } else {
-            echo "Error deleting record: " . $this->db->getError();
+            echo "Error deleting record: " . $db->getError();
         }
         break;
     case 'viewCustomer':
@@ -241,8 +238,8 @@ switch ($action) {
         break;
     case 'viewRoom':
         $id = $_GET['idroom'];
-        $sql = "SELECT * FROM rooms WHERE roomID = '$id'";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT * FROM ROOM WHERE RoomID = '$id'";
+        $result = $db->queryNoStmt($sql);
 
         if ($result) {
             $roomData = mysqli_fetch_assoc($result);
@@ -251,18 +248,18 @@ switch ($action) {
             echo json_encode($roomData);
         } else {
             // Handle the error if needed
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
 
         break;
     case 'viewBooking':
         $id = $_GET['idbooking'];
-        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus,  bookings.totalAmount, bookings.numberOfCustomer, bookings.message, rooms.roomStatus
-        FROM bookings
-        JOIN rooms ON bookings.roomID = rooms.roomID
-        JOIN customers ON bookings.customerID = customers.customerID
-        WHERE bookingID = '$id'";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus,  BOOKING.totalAmount, BOOKING.numberOfCustomer, BOOKING.message, ROOM.ROOMtatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
+        WHERE BookingID = '$id'";
+        $result = $db->queryNoStmt($sql);
 
         if ($result) {
             $BookingData = mysqli_fetch_assoc($result);
@@ -271,14 +268,14 @@ switch ($action) {
             echo json_encode($BookingData);
         } else {
             // Handle the error if needed
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
 
         break;
     case 'viewMessage':
-        $id = $_GET['idmessage'];
-        $sql = "SELECT * FROM messages WHERE idMessage = '$id'";
-        $result = $this->db->queryNoStmt($sql);
+        $id = $_GET['MessageID'];
+        $sql = "SELECT * FROM MESSAGE WHERE MessageID = '$id'";
+        $result = $db->queryNoStmt($sql);
 
         if ($result) {
             $messageData = mysqli_fetch_assoc($result);
@@ -287,18 +284,18 @@ switch ($action) {
             echo json_encode($messageData);
         } else {
             // Handle the error if needed
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
 
         break;
     case 'viewInvoice':
         $id = $_GET['idinvoice'];
-        $sql = "SELECT invoices.invoicelD, customers.customerAddress, customers.customerFirstName, customers.customerLastName
-                FROM invoices
-                JOIN bookings ON invoices.bookingID = bookings.bookingID
-                JOIN customers ON bookings.customerID = customers.customerID
-                WHERE invoicelD = '$id'";
-        $result = $this->db->queryNoStmt($sql);
+        $sql = "SELECT INVOICE.InvoicelD, CUSTOMER.CustomerAddress, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName
+                FROM INVOICE
+                JOIN BOOKING ON INVOICE.BookingID = BOOKING.BookingID
+                JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID
+                WHERE InvoicelD = '$id'";
+        $result = $db->queryNoStmt($sql);
 
         if ($result) {
             $invoiceData = mysqli_fetch_assoc($result);
@@ -307,60 +304,60 @@ switch ($action) {
             echo json_encode($invoiceData);
         } else {
             // Handle the error if needed
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
 
         break;
     case 'dashboard':
         // Query to get Total Revenue
-        $sqlTotalRevenue = "SELECT FORMAT(SUM(amount), 0) AS TotalRevenue FROM invoices";
-        $resultTotalRevenue = $this->db->queryNoStmt($sqlTotalRevenue);
+        $sqlTotalRevenue = "SELECT FORMAT(SUM(Amount), 0) AS TotalRevenue FROM INVOICE";
+        $resultTotalRevenue = $db->queryNoStmt($sqlTotalRevenue);
 
         $dashboardData['TotalRevenue'] = mysqli_fetch_assoc($resultTotalRevenue)['TotalRevenue'];
 
         // Query to get Total Booking
-        $sqlTotalBooking = "SELECT FORMAT(COUNT(*), 0) AS TotalBooking FROM bookings";
-        $resultTotalBooking = $this->db->queryNoStmt($sqlTotalBooking);
+        $sqlTotalBooking = "SELECT FORMAT(COUNT(*), 0) AS TotalBooking FROM BOOKING";
+        $resultTotalBooking = $db->queryNoStmt($sqlTotalBooking);
 
         $dashboardData['TotalBooking'] = mysqli_fetch_assoc($resultTotalBooking)['TotalBooking'];
 
         // Query to get Total Customer
-        $sqlTotalCustomer = "SELECT FORMAT(COUNT(*), 0) AS TotalCustomer FROM customers";
-        $resultTotalCustomer = $this->db->queryNoStmt($sqlTotalCustomer);
+        $sqlTotalCustomer = "SELECT FORMAT(COUNT(*), 0) AS TotalCustomer FROM CUSTOMER";
+        $resultTotalCustomer = $db->queryNoStmt($sqlTotalCustomer);
         $dashboardData['TotalCustomer'] = mysqli_fetch_assoc($resultTotalCustomer)['TotalCustomer'];
 
         // Query to get Avg Room
-        $sqlAvgRoom = "SELECT FORMAT(AVG(invoices.amount), 0) AS AvgRoom
-                        FROM invoices
-                        JOIN bookings ON invoices.bookingID = bookings.bookingID
-                        JOIN rooms ON bookings.roomID = rooms.roomID
-                        WHERE rooms.roomType = 'Suite Room'";
-        $resultAvgRoom = $this->db->queryNoStmt($sqlAvgRoom);
+        $sqlAvgRoom = "SELECT FORMAT(AVG(INVOICE.Amount), 0) AS AvgRoom
+                        FROM INVOICE
+                        JOIN BOOKING ON INVOICE.BookingID = BOOKING.BookingID
+                        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+                        WHERE ROOM.RoomType = 'Suite Room'";
+        $resultAvgRoom = $db->queryNoStmt($sqlAvgRoom);
         $dashboardData['AvgRoom'] = mysqli_fetch_assoc($resultAvgRoom)['AvgRoom'];
 
         // Query to get Avg Meeting Event
-        $sqlAvgMeetingEvent = "SELECT FORMAT(AVG(invoices.amount), 0) AS AvgMeetingEvent
-                                FROM invoices
-                                JOIN bookings ON invoices.bookingID = bookings.bookingID
-                                JOIN rooms ON bookings.roomID = rooms.roomID
-                                WHERE rooms.roomType = 'Event Meeting'";
-        $resultAvgMeetingEvent = $this->db->queryNoStmt($sqlAvgMeetingEvent);
+        $sqlAvgMeetingEvent = "SELECT FORMAT(AVG(INVOICE.Amount), 0) AS AvgMeetingEvent
+                                FROM INVOICE
+                                JOIN BOOKING ON INVOICE.BookingID = BOOKING.BookingID
+                                JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+                                WHERE ROOM.RoomType = 'Event Meeting'";
+        $resultAvgMeetingEvent = $db->queryNoStmt($sqlAvgMeetingEvent);
         $dashboardData['AvgMeetingEvent'] = mysqli_fetch_assoc($resultAvgMeetingEvent)['AvgMeetingEvent'];
 
         // Query to get Avg ResBar
-        $sqlAvgResBar = "SELECT FORMAT(AVG(invoices.amount), 0) AS AvgResBar
-                            FROM invoices
-                            JOIN bookings ON invoices.bookingID = bookings.bookingID
-                            JOIN rooms ON bookings.roomID = rooms.roomID
-                            WHERE rooms.roomType = 'Restaurant and Bar'";
-        $resultAvgResBar = $this->db->queryNoStmt($sqlAvgResBar);
-        $resultAvgMeetingEvent = $this->db->queryNoStmt($sqlAvgMeetingEvent);
+        $sqlAvgResBar = "SELECT FORMAT(AVG(INVOICE.Amount), 0) AS AvgResBar
+                            FROM INVOICE
+                            JOIN BOOKING ON INVOICE.BookingID = BOOKING.BookingID
+                            JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+                            WHERE ROOM.RoomType = 'Restaurant and Bar'";
+        $resultAvgResBar = $db->queryNoStmt($sqlAvgResBar);
+        $resultAvgMeetingEvent = $db->queryNoStmt($sqlAvgMeetingEvent);
 
         $dashboardData['AvgResBar'] = mysqli_fetch_assoc($resultAvgResBar)['AvgResBar'];
 
         // Query to get Avg Customer
-        $sqlAvgCustomer = "SELECT FORMAT(AVG(amount), 0) AS AvgCustomer FROM invoices";
-        $resultAvgCustomer = $this->db->queryNoStmt($sqlAvgCustomer);
+        $sqlAvgCustomer = "SELECT FORMAT(AVG(Amount), 0) AS AvgCustomer FROM INVOICE";
+        $resultAvgCustomer = $db->queryNoStmt($sqlAvgCustomer);
         $dashboardData['AvgCustomer'] = mysqli_fetch_assoc($resultAvgCustomer)['AvgCustomer'];
 
         // Return dashboard data as JSON
@@ -379,17 +376,17 @@ switch ($action) {
         $roomname = $_GET['roomname'];
         $roomtype = $_GET['roomtype'];
         $roomrate = $_GET['roomrate'];
-        $roomstatus = $_GET['roomstatus'];
-        $sql = "INSERT INTO rooms (roomType, roomRate, roomStatus, roomName) 
-        VALUES ('" . $roomtype . "', '" . $roomrate . "', '" . $roomstatus . "', '" . $roomname . "')";
+        $ROOMtatus = $_GET['ROOMtatus'];
+        $sql = "INSERT INTO ROOM (roomType, roomRate, ROOMtatus, roomName) 
+        VALUES ('" . $roomtype . "', '" . $roomrate . "', '" . $ROOMtatus . "', '" . $roomname . "')";
         // echo $sql;
         // die();
         // Execute the query
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             echo "Room added successfully!";
         } else {
-            echo "Error adding customer: " . $this->db->getError();
+            echo "Error adding customer: " . $db->getError();
         }
 
         // Close the database connection
@@ -397,40 +394,40 @@ switch ($action) {
         break;
     case 'addBooking':
         $customerID = $_GET['customerID'];
-        $roomid = $_GET['roomid'];
+        $RoomID = $_GET['RoomID'];
         $checkoutdate = $_GET['checkoutdate'];
         $checkindate = $_GET['checkindate'];
         $paymentstatus = $_GET['paymentstatus'];
         $guests = $_GET['guests'];
 
-        $sqlUpdateRoomStatus = "UPDATE rooms SET roomStatus = 'Reserved' WHERE roomID = '" . $roomid . "'";
-        $resultUpdateRoomStatus = $this->db->queryNoStmt($sqlUpdateRoomStatus);
+        $sqlUpdateROOMtatus = "UPDATE ROOM SET Roomstatus = 'Reserved' WHERE RoomID = '" . $RoomID . "'";
+        $resultUpdateROOMtatus = $db->queryNoStmt($sqlUpdateROOMtatus);
 
-        if (!$resultUpdateRoomStatus) {
-            throw new Exception("Error updating room status: " . $this->db->getError());
+        if (!$resultUpdateROOMtatus) {
+            throw new Exception("Error updating room status: " . $db->getError());
         }
 
         // Get room rate
-        $sqlGetRoomRate = "SELECT roomRate FROM rooms WHERE roomID = '" . $roomid . "'";
-        $resultGetRoomRate = $this->db->queryNoStmt($sqlGetRoomRate);
+        $sqlGetRoomRate = "SELECT RoomRate FROM ROOM WHERE RoomID = '" . $RoomID . "'";
+        $resultGetRoomRate = $db->queryNoStmt($sqlGetRoomRate);
 
 
         if (!$resultGetRoomRate) {
-            throw new Exception("Error getting room rate: " . $this->db->getError());
+            throw new Exception("Error getting room rate: " . $db->getError());
         }
 
         $row = mysqli_fetch_assoc($resultGetRoomRate);
         $room_rate = $row['roomRate'];
 
         // Insert booking
-        $sqlInsertBooking = "INSERT INTO bookings (customerID, roomID, checkinDate, checkOutDate, totalAmount, paymentStatus, numberOfCustomer) 
-                            VALUES ('" . $customerID . "','" . $roomid . "','" . $checkindate . "','" . $checkoutdate . "','" . $room_rate . "','" . $paymentstatus . "','" . $guests . "')";
-        $resultInsertBooking = $this->db->queryNoStmt($sqlInsertBooking);
+        $sqlInsertBooking = "INSERT INTO BOOKING (customerID, RoomID, checkinDate, checkOutDate, totalAmount, paymentStatus, numberOfCustomer) 
+                            VALUES ('" . $customerID . "','" . $RoomID . "','" . $checkindate . "','" . $checkoutdate . "','" . $room_rate . "','" . $paymentstatus . "','" . $guests . "')";
+        $resultInsertBooking = $db->queryNoStmt($sqlInsertBooking);
 
         if ($resultInsertBooking) {
             echo "Booking added successfully!";
         } else {
-            echo "Error adding customer: " . $this->db->getError();
+            echo "Error adding customer: " . $db->getError();
         }
 
         // Close the database connection
@@ -438,28 +435,28 @@ switch ($action) {
         break;
     case 'editBooking':
         // Get values from the GET parameters
-        $bookingid = $_GET['bookingid'];
-        $roomid = $_GET['roomid'];
+        $BookingID = $_GET['BookingID'];
+        $RoomID = $_GET['RoomID'];
         $checkoutdate = $_GET['checkoutdate'];
         $checkindate = $_GET['checkindate'];
         $paymentstatus = $_GET['paymentstatus'];
         $guests = $_GET['guests'];
         $message = $_GET['message'];
-        $roomstatus = $_GET['roomstatus'];
-        $sql = "UPDATE bookings 
-                JOIN rooms ON bookings.roomID = rooms.roomID
+        $ROOMtatus = $_GET['ROOMtatus'];
+        $sql = "UPDATE BOOKING 
+                JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
                 SET 
-                bookings.roomID= '" . $roomid . "', 
+                BOOKING.RoomID= '" . $RoomID . "', 
                 checkinDate = '" . $checkindate . "', 
                 checkOutDate = '" . $checkoutdate . "', 
                 paymentStatus = '" . $paymentstatus . "', 
                 numberOfCustomer = '" . $guests . "', 
-                rooms.roomStatus = '" . $roomstatus . "', 
+                ROOM.ROOMtatus = '" . $ROOMtatus . "', 
                 message = '" . $message . "' 
-                WHERE bookings.bookingID = '" . $bookingid . "'";
+                WHERE BOOKING.BookingID = '" . $BookingID . "'";
 
         // Execute the query
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
 
         // Check for errors
         if ($result) {
@@ -467,29 +464,29 @@ switch ($action) {
             echo "Update successful!";
         } else {
             // Query failed
-            echo "Error updating record: " . $this->db->getError();
+            echo "Error updating record: " . $db->getError();
         }
-        // Check if roomStatus is 'Occupied'
-        if ($roomstatus == 'Occupied') {
-            // Get room rate (amount) from the rooms table based on roomid
-            $getRoomRateQuery = "SELECT roomRate FROM rooms WHERE roomID = '$roomid'";
-            $result = mysqli_query($con, $getRoomRateQuery);
+        // Check if ROOMtatus is 'Occupied'
+        if ($ROOMtatus == 'Occupied') {
+            // Get room rate (amount) from the ROOM table based on RoomID
+            $getRoomRateQuery = "SELECT roomRate FROM ROOM WHERE RoomID = '$RoomID'";
+            $result = queryNoStmt($getRoomRateQuery);
 
             if ($result) {
                 $row = mysqli_fetch_assoc($result);
                 $amount = $row['roomRate'];
 
-                // Insert data into the invoices table with bookingID and amount
-                $insertInvoiceQuery = "INSERT INTO `invoices`(`bookingID`, `amount`) VALUES ('" . $bookingid . "', '" . $amount . "')";
-                $insertResult = $this->db->queryNoStmt($insertInvoiceQuery);
+                // Insert data into the INVOICE table with BookingID and amount
+                $insertInvoiceQuery = "INSERT INTO `INVOICE`(`BookingID`, `amount`) VALUES ('" . $BookingID . "', '" . $amount . "')";
+                $insertResult = $db->queryNoStmt($insertInvoiceQuery);
 
                 if (!$insertResult) {
                     // Handle error if needed
-                    echo 'Error inserting into invoices table: ' . $this->db->getError();
+                    echo 'Error inserting into INVOICE table: ' . $db->getError();
                 }
             } else {
                 // Handle error if needed
-                echo 'Error fetching roomRate: ' . $this->db->getError();
+                echo 'Error fetching roomRate: ' . $db->getError();
             }
         }
         break;
@@ -515,21 +512,21 @@ switch ($action) {
         break;
     case 'editRoom':
         // Get values from the GET parameters
-        $roomid = $_GET['roomid'];
+        $RoomID = $_GET['RoomID'];
         $roomname = $_GET['roomname'];
         $roomtype = $_GET['roomtype'];
         $roomrate = $_GET['roomrate'];
-        $roomstatus = $_GET['roomstatus'];
+        $ROOMtatus = $_GET['ROOMtatus'];
 
-        $sql = "UPDATE rooms 
+        $sql = "UPDATE ROOM 
                 SET 
                     roomType = '" . $roomtype . "' ,
                     roomRate = '" . $roomrate . "' ,
-                    roomStatus = '" . $roomstatus . "' ,
+                    ROOMtatus = '" . $ROOMtatus . "' ,
                     roomName = '" . $roomname . "' 
-                WHERE roomID = '" . $roomid . "'";
+                WHERE RoomID = '" . $RoomID . "'";
         // Execute the query
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
 
         // Check for errors
         if ($result) {
@@ -537,7 +534,7 @@ switch ($action) {
             echo "Update successful!";
         } else {
             // Query failed
-            echo "Error updating record: " . $this->db->getError();
+            echo "Error updating record: " . $db->getError();
         }
         break;
     case 'sortcustomer':
@@ -555,8 +552,8 @@ switch ($action) {
             $order = 'desc';
         }
 
-        $query = "SELECT * FROM rooms ORDER BY " . $_GET["column_name"] . " " . $_GET["order"];
-        $result = $this->db->queryNoStmt($query);
+        $query = "SELECT * FROM ROOM ORDER BY " . $_GET["column_name"] . " " . $_GET["order"];
+        $result = $db->queryNoStmt($query);
 
         if ($result) {
 
@@ -567,27 +564,27 @@ switch ($action) {
             echo '<th><a class="column_sortroom" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortroom" id="roomType" data-order="' . $order . '" href="#">Room Type<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortroom" id="roomRate" data-order="' . $order . '" href="#">Room Rate<i class="bx bx-sort-alt-2"></i></a></th>';
-            echo '<th><a class="column_sortroom" id="roomStatus" data-order="' . $order . '" href="#">Room Status<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th><a class="column_sortroom" id="ROOMtatus" data-order="' . $order . '" href="#">Room Status<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th>Action</th>';
             echo '</tr>';
             echo '</thead>';
             echo '<tbody id="room_data">';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
                 echo '<td>' . $row['roomName'] . '</td>';
                 echo '<td>' . $row['roomType'] . '</td>';
                 echo '<td>' . $row['roomRate'] . '</td>';
-                echo '<td>' . $row['roomStatus'] . '</td>';
+                echo '<td>' . $row['ROOMtatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['roomID'] . ')">
+                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['RoomID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -597,7 +594,7 @@ switch ($action) {
             echo '</tbody>';
             echo '</table>';
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'sortbooking':
@@ -610,12 +607,12 @@ switch ($action) {
             $order = 'desc';
         }
 
-        $query = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
-        FROM bookings
-        JOIN rooms ON bookings.roomID = rooms.roomID
-        JOIN customers ON bookings.customerID = customers.customerID
+        $query = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
         ORDER BY " . $_GET["column_name"] . " " . $_GET["order"];
-        $result = $this->db->queryNoStmt($query);
+        $result = $db->queryNoStmt($query);
 
         if ($result) {
 
@@ -625,7 +622,7 @@ switch ($action) {
             echo '<th>ID</th>';
             echo '<th>First Name</th>';
             echo '<th>Last Name</th>';
-            echo '<th><a class="column_sortbooking" id="roomID" data-order="' . $order . '" href="#">Room ID<i class="bx bx-sort-alt-2"></i></a></th>';
+            echo '<th><a class="column_sortbooking" id="RoomID" data-order="' . $order . '" href="#">Room ID<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortbooking" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
             echo '<th><a class="column_sortbooking" id="checkinDate" data-order="' . $order . '" href="#">Check In Date<i class="bx bx-sort-alt-2"></i></a></th>';
             // echo '<th><a class="column_sortbooking" id="checkOutDate" data-order="' . $order . '" href="#">Check Out Date<i class="bx bx-sort-alt-2"></i></a></th>';
@@ -636,23 +633,23 @@ switch ($action) {
             echo '<tbody id="booking_data">';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['BookingID'] . '</td>';
                 echo '<td>' . $row['customerFirstName'] . '</td>';
                 echo '<td>' . $row['customerLastName'] . '</td>';
-                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
                 echo '<td>' . $row['roomName'] . '</td>';
                 echo '<td>' . $row['checkinDate'] . '</td>';
                 // echo '<td>' . $row['checkOutDate'] . '</td>';
                 echo '<td>' . $row['paymentStatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -662,7 +659,7 @@ switch ($action) {
             echo '</tbody>';
             echo '</table>';
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'customer':
@@ -674,31 +671,31 @@ switch ($action) {
         // Get values from the GET parameters
         $searchQuery = $_GET['searchQuery'];
 
-        $sql = "SELECT * FROM rooms 
-                WHERE roomID LIKE '%" . $searchQuery . "%'
+        $sql = "SELECT * FROM ROOM 
+                WHERE RoomID LIKE '%" . $searchQuery . "%'
                 OR  roomName LIKE '%" . $searchQuery . "%'
                 OR  roomType LIKE '%" . $searchQuery . "%'
                 OR  roomRate LIKE '%" . $searchQuery . "%'
-                OR  roomStatus LIKE '%" . $searchQuery . "%'";
+                OR  ROOMtatus LIKE '%" . $searchQuery . "%'";
 
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
                 echo '<td>' . $row['roomName'] . '</td>';
                 echo '<td>' . $row['roomType'] . '</td>';
                 echo '<td>' . $row['roomRate'] . '</td>';
-                echo '<td>' . $row['roomStatus'] . '</td>';
+                echo '<td>' . $row['ROOMtatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                echo '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['roomID'] . ')">
+                echo '<a href="#editRoomModal" class="m-1 edit" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['roomID'] . ')">
+                echo '<a href="#deleteRoomModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['RoomID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -706,43 +703,43 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'booking':
         // Get values from the GET parameters
         $searchQuery = $_GET['searchQuery'];
 
-        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
-        FROM bookings
-        JOIN rooms ON bookings.roomID = rooms.roomID
-        JOIN customers ON bookings.customerID = customers.customerID
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
         WHERE customerFirstName LIKE '%" . $searchQuery . "%'
             OR customerLastName LIKE '%" . $searchQuery . "%'
-            OR rooms.roomID LIKE '%" . $searchQuery . "%'
-            OR rooms.roomName LIKE '%" . $searchQuery . "%'";
+            OR ROOM.RoomID LIKE '%" . $searchQuery . "%'
+            OR ROOM.roomName LIKE '%" . $searchQuery . "%'";
 
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['bookingID'] . '</td>';
+                echo '<td>' . $row['BookingID'] . '</td>';
                 echo '<td>' . $row['customerFirstName'] . '</td>';
                 echo '<td>' . $row['customerLastName'] . '</td>';
-                echo '<td>' . $row['roomID'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
                 echo '<td>' . $row['roomName'] . '</td>';
                 echo '<td>' . $row['checkinDate'] . '</td>';
                 // echo '<td>' . $row['checkOutDate'] . '</td>';
                 echo '<td>' . $row['paymentStatus'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
                 echo '</div>';
@@ -750,7 +747,7 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'invoice':
@@ -758,23 +755,23 @@ switch ($action) {
         $searchQuery = $_GET['searchQuery'];
 
         $sql = "SELECT *
-        FROM invoices
-          WHERE invoicelD LIKE '%" . $searchQuery . "%'
-            OR bookingID LIKE '%" . $searchQuery . "%'
-            OR paymentDate LIKE '%" . $searchQuery . "%'
+        FROM INVOICE
+          WHERE InvoicelD LIKE '%" . $searchQuery . "%'
+            OR BookingID LIKE '%" . $searchQuery . "%'
+            OR PaymentDate LIKE '%" . $searchQuery . "%'
             OR amount LIKE '%" . $searchQuery . "%'";
 
-        $result = $this->db->queryNoStmt($sql);
+        $result = $db->queryNoStmt($sql);
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['invoicelD'] . '</td>';
-                echo '<td>' . $row['bookingID'] . '</td>';
-                echo '<td>' . $row['paymentDate'] . '</td>';
+                echo '<td>' . $row['InvoicelD'] . '</td>';
+                echo '<td>' . $row['BookingID'] . '</td>';
+                echo '<td>' . $row['PaymentDate'] . '</td>';
                 echo '<td>' . $row['amount'] . '</td>';
                 echo '<td>';
                 echo '<div class="d-flex">';
-                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
+                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['InvoicelD'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
                     </a>';
                 echo '</div>';
@@ -782,7 +779,7 @@ switch ($action) {
                 echo '</tr>';
             }
         } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
         break;
     case 'sendMessage':
