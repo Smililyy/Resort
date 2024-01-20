@@ -54,7 +54,6 @@ class Database
     }
     public function close()
     {
-        // Close the database connection
         $this->con->close();
     }
 }

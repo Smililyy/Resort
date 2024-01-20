@@ -194,6 +194,44 @@ class Booking
         $this->sendEmailConfirmation($email, $fname, $lname, $existingCustomer, $eventdate, $roomname, $numberofguest);
     }
 
+    public function listBooking($db)
+    {
+        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
+        FROM bookings
+        JOIN rooms ON bookings.roomID = rooms.roomID
+        JOIN customers ON bookings.customerID = customers.customerID";
+        $result = $db->queryNoStmt($sql);
+        if ($result) {
+            $html = '';
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= '<tr>';
+                $html .= '<td>' . $row['bookingID'] . '</td>';
+                $html .= '<td>' . $row['customerFirstName'] . '</td>';
+                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['roomID'] . '</td>';
+                $html .= '<td>' . $row['roomName'] . '</td>';
+                $html .= '<td>' . $row['checkinDate'] . '</td>';
+                // $html .= '<td>' . $row['checkOutDate'] . '</td>';
+                $html .= '<td>' . $row['paymentStatus'] . '</td>';
+                $html .= '<td>';
+                $html .= '<div class="d-flex">';
+                $html .= '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';
+                $html .= '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                $html .= '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                $html .= '</div>';
+                $html .= '</td>';
+                $html .= '</tr>';
+            }
+        } else {
+            return 'Error executing SQL query: ' . $db->getError();
+        }
+    }
 
     public function closeConnection()
     {

@@ -8,6 +8,7 @@ require '../../vendor/PHPMailer/src/SMTP.php';
 require '../../vendor/PHPMailer/src/PHPMailer.php';
 require '../inc/Database.php';
 require '../models/Customer.php';
+require '../models/Invoice.php';
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -22,41 +23,8 @@ switch ($action) {
         echo listCustomers($db);
         break;
     case 'listbooking':
-        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
-        FROM bookings
-        JOIN rooms ON bookings.roomID = rooms.roomID
-        JOIN customers ON bookings.customerID = customers.customerID";
-        $result = $this->db->queryNoStmt($sql);
-
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                echo '<td>' . $row['bookingID'] . '</td>';
-                echo '<td>' . $row['customerFirstName'] . '</td>';
-                echo '<td>' . $row['customerLastName'] . '</td>';
-                echo '<td>' . $row['roomID'] . '</td>';
-                echo '<td>' . $row['roomName'] . '</td>';
-                echo '<td>' . $row['checkinDate'] . '</td>';
-                // echo '<td>' . $row['checkOutDate'] . '</td>';
-                echo '<td>' . $row['paymentStatus'] . '</td>';
-                echo '<td>';
-                echo '<div class="d-flex">';
-                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
-                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
-                    </a>';
-                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
-                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                    </a>';
-                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </a>';
-                echo '</div>';
-                echo '</td>';
-                echo '</tr>';
-            }
-        } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
-        }
+        $booking = new Booking();
+        echo $booking->listBooking($db);
         break;
     case 'listroom':
         $sql = "SELECT * FROM rooms";
@@ -119,27 +87,7 @@ switch ($action) {
         }
         break;
     case 'listinvoice':
-        $sql = "SELECT * FROM invoices";
-        $result = $this->db->queryNoStmt($sql);
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                echo '<td>' . $row['invoicelD'] . '</td>';
-                echo '<td>' . $row['bookingID'] . '</td>';
-                echo '<td>' . $row['paymentDate'] . '</td>';
-                echo '<td>' . $row['amount'] . '</td>';
-                echo '<td>';
-                echo '<div class="d-flex">';
-                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
-                        <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
-                    </a>';
-                echo '</div>';
-                echo '</td>';
-                echo '</tr>';
-            }
-        } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
-        }
+        echo listInvoice($db);
         break;
     case 'listbill':
         // Execute the SELECT query
@@ -293,23 +241,7 @@ switch ($action) {
         break;
     case 'viewInvoice':
         $id = $_GET['idinvoice'];
-        $sql = "SELECT invoices.invoicelD, customers.customerAddress, customers.customerFirstName, customers.customerLastName
-                FROM invoices
-                JOIN bookings ON invoices.bookingID = bookings.bookingID
-                JOIN customers ON bookings.customerID = customers.customerID
-                WHERE invoicelD = '$id'";
-        $result = $this->db->queryNoStmt($sql);
-
-        if ($result) {
-            $invoiceData = mysqli_fetch_assoc($result);
-
-            // Return customer data as JSON
-            echo json_encode($invoiceData);
-        } else {
-            // Handle the error if needed
-            echo 'Error executing SQL query: ' . $this->db->getError();
-        }
-
+        echo viewInvoice($db, $id);
         break;
     case 'dashboard':
         // Query to get Total Revenue
@@ -756,34 +688,7 @@ switch ($action) {
     case 'invoice':
         // Get values from the GET parameters
         $searchQuery = $_GET['searchQuery'];
-
-        $sql = "SELECT *
-        FROM invoices
-          WHERE invoicelD LIKE '%" . $searchQuery . "%'
-            OR bookingID LIKE '%" . $searchQuery . "%'
-            OR paymentDate LIKE '%" . $searchQuery . "%'
-            OR amount LIKE '%" . $searchQuery . "%'";
-
-        $result = $this->db->queryNoStmt($sql);
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                echo '<td>' . $row['invoicelD'] . '</td>';
-                echo '<td>' . $row['bookingID'] . '</td>';
-                echo '<td>' . $row['paymentDate'] . '</td>';
-                echo '<td>' . $row['amount'] . '</td>';
-                echo '<td>';
-                echo '<div class="d-flex">';
-                echo '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
-                        <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
-                    </a>';
-                echo '</div>';
-                echo '</td>';
-                echo '</tr>';
-            }
-        } else {
-            echo 'Error executing SQL query: ' . $this->db->getError();
-        }
+        echo searchInvoie($db, $searchQuery);
         break;
     case 'sendMessage':
         $sender = $_GET['sender'];

@@ -9,6 +9,7 @@ function adminLogin()
     </script>;
     ";
     }
+    exit;
 }
 
 function alert($type, $msg)
@@ -46,7 +47,6 @@ function filteration($data)
 
 function select($db, $sql, $values, $datatypes)
 {
-    // $db = new Database(); // Tạo đối tượng Database
     $stmt = $db->prepare($sql);
     mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
     if (mysqli_stmt_execute($stmt)) {
@@ -56,5 +56,24 @@ function select($db, $sql, $values, $datatypes)
     } else {
         $stmt->close();
         die("Query cannot be executed - Select");
+    }
+}
+
+function update($db, $sql, $values, $datatypes)
+{
+    $stmt = $db->prepare($sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+        if (mysqli_stmt_execute($stmt)) {
+            $res = $stmt->get_result();
+            $stmt->close();
+            return $res;
+        } else {
+            $stmt->close();
+            mysqli_stmt_close($stmt);
+            die("Query cannot be executed - Update");
+        }
+    } else {
+        die("Query cannot be prepared - Update");
     }
 }
