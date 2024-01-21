@@ -334,7 +334,7 @@ require('../../controllers/AdminController.php');
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-							    <th>ID</th>
+								<th>ID</th>
 								<th><a class="column_sortbooking" id="bookingID" data-order="desc" href="#">Booking ID<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="paymentDate" data-order="desc" href="#">Payment Date<i class='bx bx-sort-alt-2'></i></a></th>
 								<th><a class="column_sortbooking" id="ammount" data-order="desc" href="#">Ammount<i class='bx bx-sort-alt-2'></i></a></th>
@@ -1087,7 +1087,7 @@ require('../../controllers/AdminController.php');
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Delete 	Message</h4>
+					<h4 class="modal-title">Delete Message</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -1142,7 +1142,8 @@ require('../../controllers/AdminController.php');
 								<div class="col-xs-6 text-right">
 									<address>
 										<strong>Order Date:</strong><br>
-										<span id="time_export"><?php $t=time(); echo(date("Y-m-d",$t));?></span><br><br>
+										<span id="time_export"><?php $t = time();
+																echo (date("Y-m-d", $t)); ?></span><br><br>
 									</address>
 								</div>
 							</div>
@@ -1167,7 +1168,7 @@ require('../../controllers/AdminController.php');
 												</tr>
 											</thead>
 											<tbody id="bill_data">
-												
+
 											</tbody>
 										</table>
 									</div>
@@ -1218,7 +1219,6 @@ require('../../controllers/AdminController.php');
 			$j('#db_resandbar').text(dashboardData.AvgResBar + " $");
 			$j('#db_avgcustomer').text(dashboardData.AvgCustomer + " $");
 		})
-		
 	</script>
 	<!-- END HANDLE LISTDATA -->
 	<script>
@@ -1271,6 +1271,7 @@ require('../../controllers/AdminController.php');
 				$jq('.view_employee #roomstatus_input').val(roomData.RoomStatus);
 			});
 		}
+
 		function viewMessage(id) {
 
 			$jq.get('http://localhost/hotel/src/models/Admin.php', {
@@ -1288,7 +1289,6 @@ require('../../controllers/AdminController.php');
 				$jq('.view_message #content_input').val(messageData.Content);
 			});
 		}
-
 
 		function viewBooking(id) {
 			$jq('.edit_employee #booking_id').val(id);
@@ -1321,13 +1321,14 @@ require('../../controllers/AdminController.php');
 				$jq('.view_employee #total_input').val(bookingData.TotalAmount);
 			});
 		}
+
 		function viewInvoice(invoicelD) {
 			$jq.get('http://localhost/hotel/src/models/Admin.php', {
 				action: 'viewInvoice',
 				idinvoice: invoicelD
 			}, function(data, status) {
 				var invoiceData = JSON.parse(data);
-				$jq('#cus_name').text(invoiceData.customerFirstName +' ' + invoiceData.customerLastName);
+				$jq('#cus_name').text(invoiceData.customerFirstName + ' ' + invoiceData.customerLastName);
 				$jq('#cus_address').text(invoiceData.customerAddress);
 				$jq('#id_order').text('Order #' + invoiceData.invoicelD);
 			});
@@ -1336,18 +1337,17 @@ require('../../controllers/AdminController.php');
 				idinvoice: invoicelD
 			}, function(data, status) {
 				$jq('#bill_data').html(data);
-				
+
 			});
 		}
-
 
 		// send
 		function sendMessage() {
 			var sender = $jq('#sender_input').val();
 			var subject = $jq('#subject_input').val();
 			var content = $jq('#content_input').val();
-			var parameters = "sender=" + sender + "&subject="+subject+"&content="+content;
-			$jq.get('http://localhost/hotel/src/models/Admin.php?'+parameters, {
+			var parameters = "sender=" + sender + "&subject=" + subject + "&content=" + content;
+			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
 				action: 'sendMessage',
 			}, function(data, status) {
 				// Handle the response if needed
@@ -1397,6 +1397,7 @@ require('../../controllers/AdminController.php');
 				$jq('#deleteRoomModal').modal('hide');
 			});
 		}
+
 		function deleteMessage() {
 			var messageID = $jq('#delete_id').val();
 
@@ -1469,10 +1470,10 @@ require('../../controllers/AdminController.php');
 		function editBooking() {
 			var bookingid = $jq('.edit_employee #booking_id').val();
 			var roomid = $jq('.edit_employee #roomid_input').val();
-			var formattedCheckoutDate  = $jq('.edit_employee #checkout_input').val();
+			var formattedCheckoutDate = $jq('.edit_employee #checkout_input').val();
 			var formattedCheckinDate = $jq('.edit_employee #checkin_input').val();
-			var checkoutdate= moment(checkoutdate).format("YY-MM-DD");
-			var checkindate= moment(checkindate).format("YY-MM-DD");
+			var checkoutdate = moment(checkoutdate).format("YY-MM-DD");
+			var checkindate = moment(checkindate).format("YY-MM-DD");
 			var paymentstatus = $jq('.edit_employee #paymentstatus_input').val();
 			var guests = $jq('.edit_employee #guests_input').val();
 			var roomstatus = $jq('.edit_employee #roomsta_input').val();
@@ -1484,7 +1485,7 @@ require('../../controllers/AdminController.php');
 				"&checkindate=" + checkindate +
 				"&paymentstatus=" + paymentstatus +
 				"&guests=" + guests +
-				"&roomstatus=" +roomstatus +
+				"&roomstatus=" + roomstatus +
 				"&message=" + message;
 
 			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
@@ -1659,18 +1660,18 @@ require('../../controllers/AdminController.php');
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
 		});
-		$jq(document).on('click', '#searchBtn', function () {
-            // Get the search query and current content type
-            var searchQuery = $jq('#searchInput').val();
-            var contentType = $jq('.content-item.active').attr('id');
-            // Make an AJAX request to your PHP endpoint
+		$jq(document).on('click', '#searchBtn', function() {
+			// Get the search query and current content type
+			var searchQuery = $jq('#searchInput').val();
+			var contentType = $jq('.content-item.active').attr('id');
+			// Make an AJAX request to your PHP endpoint
 			$jq.get('http://localhost/hotel/src/models/Admin.php?searchQuery=' + searchQuery, {
 				action: contentType
-			}, function (data, status) {
+			}, function(data, status) {
 				$jq('#' + contentType + '_data').html(data);
 				// $jq('.column_sortcustomer i').html(arrow);
 			});
-        });
+		});
 		// print 
 		function Print() {
 			// Create a new window
@@ -1690,7 +1691,7 @@ require('../../controllers/AdminController.php');
 			var printButton = printWindow.document.querySelector('.btn-danger');
 			if (closeButton) closeButton.remove();
 			if (cancelButton) cancelButton.remove();
-			if (printButton) printButton.remove();  // Fix the typo here, replace cancelButton with printButton
+			if (printButton) printButton.remove(); // Fix the typo here, replace cancelButton with printButton
 
 			printWindow.document.write('</body></html>');
 			printWindow.document.close();
@@ -1698,7 +1699,6 @@ require('../../controllers/AdminController.php');
 			// Print the new window
 			printWindow.print();
 		}
-
 	</script>
 
 	<!-- HANDLE SETTINGS -->
@@ -1733,11 +1733,12 @@ require('../../controllers/AdminController.php');
 			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
+				console.log(this.responseText);
 				general_data = JSON.parse(this.responseText);
-				side_title.innerText = general_data.side_title;
-				side_about.innerText = general_data.side_about;
-				side_title_inp.value = general_data.side_title;
-				side_about_inp.value = general_data.side_about;
+				side_title.innerText = general_data.SideTitle;
+				side_about.innerText = general_data.SideAbout;
+				side_title_inp.value = general_data.SideTitle;
+				side_about_inp.value = general_data.SideAbout;
 				if (general_data.shutdown == 0) {
 					shudown_toggle.checked = false;
 					shudown_toggle.value = 0;

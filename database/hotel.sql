@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `INVOICE` (
   `Amount` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`InvoicelD`),
   KEY `FK_Invoices_Booking` (`BookingID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2393 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2393 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `invoice`
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `MESSAGE` (
   `Content` varchar(1000) NOT NULL,
   `Timestamp` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`MessageID`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `message`

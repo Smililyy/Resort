@@ -1,5 +1,5 @@
 <?php
-function listcustomer($db)
+function listCustomer($db)
 {
     $sql = "SELECT * FROM CUSTOMER";
     $result = $db->queryNoStmt($sql);

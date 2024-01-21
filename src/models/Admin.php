@@ -18,7 +18,7 @@ $db->connect();
 
 switch ($action) {
     case 'listcustomer':
-        echo listcustomer($db);
+        echo listCustomer($db);
         break;
     case 'listbooking':
         $booking = new Booking();
@@ -155,7 +155,7 @@ switch ($action) {
         $id = $_GET['idbooking'];
         $sql = "DELETE FROM  BOOKING WHERE BookingID  = '$id' ";
 
-        if (queryNoStmt($sql)) {
+        if ($db->queryNoStmt($sql)) {
             echo "Record deleted successfully";
         } else {
             echo "Error deleting record: " . $db->getError();
@@ -165,7 +165,7 @@ switch ($action) {
         $id = $_GET['idroom'];
         $sql = "DELETE FROM  ROOM WHERE RoomID  = '$id' ";
 
-        if (queryNoStmt($sql)) {
+        if ($db->queryNoStmt($sql)) {
             echo "Record deleted successfully";
         } else {
             echo "Error deleting record: " . $db->getError();
@@ -175,7 +175,7 @@ switch ($action) {
         $id = $_GET['MessageID'];
         $sql = "DELETE FROM  MESSAGE WHERE MessageID  = '$id' ";
 
-        if (queryNoStmt($sql)) {
+        if ($db->queryNoStmt($sql)) {
             echo "Record deleted successfully";
         } else {
             echo "Error deleting record: " . $db->getError();
@@ -403,7 +403,7 @@ switch ($action) {
         if ($ROOMtatus == 'Occupied') {
             // Get room rate (amount) from the ROOM table based on RoomID
             $getRoomRateQuery = "SELECT roomRate FROM ROOM WHERE RoomID = '$RoomID'";
-            $result = queryNoStmt($getRoomRateQuery);
+            $result = $db->queryNoStmt($getRoomRateQuery);
 
             if ($result) {
                 $row = mysqli_fetch_assoc($result);
