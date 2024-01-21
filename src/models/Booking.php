@@ -196,40 +196,40 @@ class Booking
 
     public function listBooking($db)
     {
-        $sql = "SELECT bookings.bookingID, customers.customerFirstName, customers.customerLastName, rooms.roomID, rooms.roomName, bookings.checkinDate, bookings.checkOutDate, bookings.paymentStatus
-        FROM bookings
-        JOIN rooms ON bookings.roomID = rooms.roomID
-        JOIN customers ON bookings.customerID = customers.customerID";
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName, ROOM.RoomID, ROOM.RoomName, BOOKING.CheckInDate, BOOKING.CheckOutDate, BOOKING.PaymentStatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID";
         $result = $db->queryNoStmt($sql);
+
         if ($result) {
-            $html = '';
             while ($row = mysqli_fetch_assoc($result)) {
-                $html .= '<tr>';
-                $html .= '<td>' . $row['bookingID'] . '</td>';
-                $html .= '<td>' . $row['customerFirstName'] . '</td>';
-                $html .= '<td>' . $row['customerLastName'] . '</td>';
-                $html .= '<td>' . $row['roomID'] . '</td>';
-                $html .= '<td>' . $row['roomName'] . '</td>';
-                $html .= '<td>' . $row['checkinDate'] . '</td>';
-                // $html .= '<td>' . $row['checkOutDate'] . '</td>';
-                $html .= '<td>' . $row['paymentStatus'] . '</td>';
-                $html .= '<td>';
-                $html .= '<div class="d-flex">';
-                $html .= '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<tr>';
+                echo '<td>' . $row['BookingID'] . '</td>';
+                echo '<td>' . $row['CustomerFirstName'] . '</td>';
+                echo '<td>' . $row['CustomerLastName'] . '</td>';
+                echo '<td>' . $row['RoomID'] . '</td>';
+                echo '<td>' . $row['RoomName'] . '</td>';
+                echo '<td>' . $row['CheckInDate'] . '</td>';
+                // echo '<td>' . $row['checkOutDate'] . '</td>';
+                echo '<td>' . $row['PaymentStatus'] . '</td>';
+                echo '<td>';
+                echo '<div class="d-flex">';
+                echo '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-                $html .= '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['bookingID'] . ')">
+                echo '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>';
-                $html .= '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['bookingID'] . ')">
+                echo '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['BookingID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </a>';
-                $html .= '</div>';
-                $html .= '</td>';
-                $html .= '</tr>';
+                echo '</div>';
+                echo '</td>';
+                echo '</tr>';
             }
         } else {
-            return 'Error executing SQL query: ' . $db->getError();
+            echo 'Error executing SQL query: ' . $db->getError();
         }
     }
 
