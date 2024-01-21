@@ -2,19 +2,19 @@
 
 function listInvoice($db)
 {
-    $sql = "SELECT * FROM invoices";
+    $sql = "SELECT * FROM INVOICE";
     $result = $db->queryNoStmt($sql);
     if ($result) {
         $html = '';
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
-            $html .= '<td>' . $row['invoicelD'] . '</td>';
-            $html .= '<td>' . $row['bookingID'] . '</td>';
-            $html .= '<td>' . $row['paymentDate'] . '</td>';
-            $html .= '<td>' . $row['amount'] . '</td>';
+            $html .= '<td>' . $row['InvoicelD'] . '</td>';
+            $html .= '<td>' . $row['BookingID'] . '</td>';
+            $html .= '<td>' . $row['PaymentDate'] . '</td>';
+            $html .= '<td>' . $row['Amount'] . '</td>';
             $html .= '<td>';
             $html .= '<div class="d-flex">';
-            $html .= '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
+            $html .= '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['InvoicelD'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
                     </a>';
             $html .= '</div>';
@@ -30,11 +30,11 @@ function listInvoice($db)
 
 function viewInvoice($db, $id)
 {
-    $sql = "SELECT invoices.invoicelD, customers.customerAddress, customers.customerFirstName, customers.customerLastName
-    FROM invoices
-    JOIN bookings ON invoices.bookingID = bookings.bookingID
-    JOIN customers ON bookings.customerID = customers.customerID
-    WHERE invoicelD = '$id'";
+    $sql = "SELECT INVOICE.InvoicelD, CUSTOMER.CustomerAddress, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName
+    FROM INVOICE
+    JOIN BOOKING ON INVOICE.BookingID = BOOKING.BookingID
+    JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID
+    WHERE InvoicelD = '$id'";
     $result = $db->queryNoStmt($sql);
     if ($result) {
         $invoiceData = mysqli_fetch_assoc($result);
@@ -50,24 +50,24 @@ function searchInvoie($db, $searchQuery)
 {
 
     $sql = "SELECT *
-    FROM invoices
-      WHERE invoicelD LIKE '%" . $searchQuery . "%'
-        OR bookingID LIKE '%" . $searchQuery . "%'
-        OR paymentDate LIKE '%" . $searchQuery . "%'
-        OR amount LIKE '%" . $searchQuery . "%'";
+    FROM INVOICE
+      WHERE InvoicelD LIKE '%" . $searchQuery . "%'
+        OR BookingID LIKE '%" . $searchQuery . "%'
+        OR PaymentDate LIKE '%" . $searchQuery . "%'
+        OR Amount LIKE '%" . $searchQuery . "%'";
 
     $result = $db->queryNoStmt($sql);
     if ($result) {
         $html = '';
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
-            $html .= '<td>' . $row['invoicelD'] . '</td>';
-            $html .= '<td>' . $row['bookingID'] . '</td>';
-            $html .= '<td>' . $row['paymentDate'] . '</td>';
-            $html .= '<td>' . $row['amount'] . '</td>';
+            $html .= '<td>' . $row['InvoicelD'] . '</td>';
+            $html .= '<td>' . $row['BookingID'] . '</td>';
+            $html .= '<td>' . $row['PaymentDate'] . '</td>';
+            $html .= '<td>' . $row['Amount'] . '</td>';
             $html .= '<td>';
             $html .= '<div class="d-flex">';
-            $html .= '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['invoicelD'] . ')">
+            $html .= '<a href="#viewInvoiceModal" class="m-1 view" data-toggle="modal" onclick="viewInvoice(' . $row['InvoicelD'] . ')">
                     <i class="material-icons" data-toggle="tooltip" title="Print">print</i>
                 </a>';
             $html .= '</div>';
