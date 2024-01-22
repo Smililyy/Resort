@@ -1,5 +1,6 @@
     <!-- ===== CSS ===== -->
     <link rel="stylesheet" href="../../../assets/css/auth.css">
+    <link rel="stylesheet" href="../../../assets/css/ad-customer.css">
     <!-- <link rel="stylesheet" href="../css/styles.css"> -->
 
     <!-- ===== BOX ICONS ===== -->

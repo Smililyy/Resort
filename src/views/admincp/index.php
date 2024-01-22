@@ -31,6 +31,7 @@ require('../../controllers/AdminController.php');
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!--My custom css -->
 	<link rel="stylesheet" href="../../../assets/css/ad-customer.css">
+
 	<title>Admin control panel</title>
 	<style>
 		.custom-alert {
@@ -106,10 +107,7 @@ require('../../controllers/AdminController.php');
 					<span class="text">Message</span>
 				</a>
 			</li>
-		</ul>
-
-		<ul class="side-menu">
-			<li class="menu-item" data-content="setting">
+			<li class="menu-item" style="margin-top: 48px;" data-content="setting">
 				<a href="#">
 					<i class='bx bxs-cog'></i>
 					<span class="text">Settings</span>
@@ -122,6 +120,7 @@ require('../../controllers/AdminController.php');
 				</a>
 			</li>
 		</ul>
+
 	</section>
 	<!-- SIDEBAR -->
 
@@ -1733,13 +1732,12 @@ require('../../controllers/AdminController.php');
 			xhr.open("POST", "../../controllers/ajax/settings_crud.php", true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
-				console.log(this.responseText);
 				general_data = JSON.parse(this.responseText);
 				side_title.innerText = general_data.SideTitle;
 				side_about.innerText = general_data.SideAbout;
 				side_title_inp.value = general_data.SideTitle;
 				side_about_inp.value = general_data.SideAbout;
-				if (general_data.shutdown == 0) {
+				if (general_data.Shutdown == 0) {
 					shudown_toggle.checked = false;
 					shudown_toggle.value = 0;
 				} else {
@@ -1780,13 +1778,12 @@ require('../../controllers/AdminController.php');
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function() {
 				console.log(this.responseText);
-				if (this.responseText == 1 && general_data.shutdown == 0) {
+				if (this.responseText == 1 && general_data.Shutdown == 0) {
 					alert('success', "Site has been shutdown!");
 				} else {
 					alert('success', "Shutdown made off!");
 				}
 				get_general();
-
 			}
 			xhr.send('&upd_shutdown=' + val);
 		}

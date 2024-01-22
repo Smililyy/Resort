@@ -1,9 +1,9 @@
 <?php
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
-// require '../../vendor/PHPMailer/src/Exception.php';
-// require '../../vendor/PHPMailer/src/SMTP.php';
-// require '../../vendor/PHPMailer/src/PHPMailer.php';
+require '../../vendor/PHPMailer/src/Exception.php';
+require '../../vendor/PHPMailer/src/SMTP.php';
+require '../../vendor/PHPMailer/src/PHPMailer.php';
 // require '../inc/Database.php';
 require '../models/Customer.php';
 require '../models/Invoice.php';
@@ -11,9 +11,9 @@ require '../models/Booking.php';
 
 
 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\SMTP;
-// use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 $db = new Database();
 $db->connect();

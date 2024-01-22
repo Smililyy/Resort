@@ -70,7 +70,6 @@ function update($db, $sql, $values, $datatypes)
             return $res;
         } else {
             $stmt->close();
-            mysqli_stmt_close($stmt);
             die("Query cannot be executed - Update");
         }
     } else {

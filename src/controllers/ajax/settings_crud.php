@@ -16,7 +16,7 @@ if (isset($_POST['upd_general'])) {
 
 if (isset($_POST['upd_shutdown'])) {
     $frm_data = ($_POST['upd_shutdown'] == 0) ? 1 : 0;
-    $q = "UPDATE `settings` SET `Shutdown` = ? WHERE `SettingID` = ?";
+    $q = "UPDATE `setting` SET `Shutdown` = ? WHERE `SettingID` = ?";
     $values = [$frm_data, 1];
     $res = update($db, $q, $values, 'ii');
     echo $res;
@@ -25,7 +25,6 @@ if (isset($_POST['upd_shutdown'])) {
 if (isset($_POST['get_contacts'])) {
     echo getContacts($db);
 }
-
 
 if (isset($_POST['upd_contacts'])) {
     echo updContacts($db, $_POST);
