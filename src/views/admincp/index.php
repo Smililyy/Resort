@@ -403,10 +403,6 @@ require('../../controllers/AdminController.php');
 							</li>
 						</ul>
 					</div>
-					<a href="#" class="btn-download">
-						<i class='bx bxs-cloud-download'></i>
-						<span class="text">Download PDF</span>
-					</a>
 				</div>
 
 				<!-- General settings section -->
@@ -580,8 +576,6 @@ require('../../controllers/AdminController.php');
 											</div>
 										</div>
 									</div>
-
-
 								</div>
 								<div class="modal-footer">
 									<button type="button" onclick="contacts_inp(contacts_data)" class="btn text-secondary shadow-none" data-bs-dismiss="modal">CANCEL</button>
@@ -597,7 +591,7 @@ require('../../controllers/AdminController.php');
 	</section>
 	<!-- CONTENT -->
 	<!-- ADD Modal HTML -->
-	<div id="addCustomerModal" class="modal fade">
+	<div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -1025,7 +1019,7 @@ require('../../controllers/AdminController.php');
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteCustomerModal" class="modal fade">
+	<div id="deleteCustomerModal" class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -1223,6 +1217,23 @@ require('../../controllers/AdminController.php');
 	<script>
 		var $jq = jQuery.noConflict();
 
+		function alertCustome(type, msg) {
+			let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
+			let element = document.createElement('div');
+			element.innerHTML = `
+                <div class="alert ${bs_class}  alert-dismissible fade show custom-alert" style="width:27%" role="alert">
+                    <strong> ${msg}</strong> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `;
+			document.body.append(element);
+			setTimeout(() => {
+				document.body.removeChild(element);
+			}, 2000);
+		}
+
 		function viewCustomer(id) {
 			$jq('.edit_employee #customer_id').val(id);
 
@@ -1359,12 +1370,13 @@ require('../../controllers/AdminController.php');
 
 		function deleteCustomer() {
 			var customerID = $jq('#delete_id').val();
-
 			$jq.get('../../models/Admin.php', {
 				action: 'deleteCustomer',
 				idcustomer: customerID
 			}, function(data, status) {
-				$jq('#deleteCustomerModal').modal('hide');
+				$jq('#deleteCustomerModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The customer has been deleted successfully");
 				fetchData('listcustomer', '#customer_data');
 			});
 		}
@@ -1533,8 +1545,9 @@ require('../../controllers/AdminController.php');
 				action: 'addCustomer'
 			}, function(data, status) {
 				// Handle the response from the server if needed
-				$jq('#addCustomerModal').modal('hide');
-				// Update and perform additional actions
+				$jq('#addCustomerModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The customer has been added successfully");
 				fetchData('listcustomer', '#customer_data');
 			})
 		}
@@ -1714,6 +1727,9 @@ require('../../controllers/AdminController.php');
                 </div>
             `;
 			document.body.append(element);
+			setTimeout(() => {
+				document.body.removeChild(element);
+			}, 2000);
 		}
 
 		let general_data, contacts_data;
