@@ -46,6 +46,14 @@ function viewInvoice($db, $id)
     }
 }
 
+function getTotalRevenue($db)
+{
+    $sqlTotalRevenue = "SELECT FORMAT(SUM(Amount), 0) AS TotalRevenue FROM INVOICE";
+    $resultTotalRevenue = $db->queryNoStmt($sqlTotalRevenue);
+    return $resultTotalRevenue;
+    $db->close();
+}
+
 function searchInvoie($db, $searchQuery)
 {
 
@@ -78,4 +86,16 @@ function searchInvoie($db, $searchQuery)
     } else {
         return 'Error executing SQL query: ' . $db->getError();
     }
+}
+
+function addInvoice($db, $BookingID, $amount)
+{
+    $insertInvoiceQuery = "INSERT INTO `INVOICE`(`BookingID`, `amount`) VALUES ('" . $BookingID . "', '" . $amount . "')";
+    $insertResult = $db->queryNoStmt($insertInvoiceQuery);
+    if (!$insertResult) {
+        return "Invoice added successfully!";
+    } else {
+        return 'Error inserting into INVOICE table: ' . $db->getError();
+    }
+    $db->close();
 }

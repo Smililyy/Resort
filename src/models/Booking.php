@@ -233,6 +233,207 @@ class Booking
         }
     }
 
+    public function deleteBooking($db, $id)
+    {
+        $sql = "DELETE FROM  BOOKING WHERE BookingID  = '$id' ";
+        if ($db->queryNoStmt($sql)) {
+            return "Record deleted successfully";
+        } else {
+            return "Error deleting record: " . $db->getError();
+        }
+        $db->close();
+    }
+
+    public function viewBooking($db, $id)
+    {
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus,  BOOKING.totalAmount, BOOKING.numberOfCustomer, BOOKING.message, ROOM.ROOMtatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
+        WHERE BookingID = '$id'";
+        $result = $db->queryNoStmt($sql);
+        if ($result) {
+            $BookingData = mysqli_fetch_assoc($result);
+            $jsonData = json_encode($BookingData);
+            return $jsonData;
+        } else {
+            return 'Error executing SQL query: ' . $db->getError();
+        }
+        $db->close();
+    }
+
+    public function getTotalBooking($db)
+    {
+        $sqlTotalBooking = "SELECT FORMAT(COUNT(*), 0) AS TotalBooking FROM BOOKING";
+        $resultTotalBooking = $db->queryNoStmt($sqlTotalBooking);
+        return  $resultTotalBooking;
+        $db->close();
+    }
+
+    public function addBooking(
+        $db,
+        $customerID,
+        $RoomID,
+        $checkoutdate,
+        $checkindate,
+        $paymentstatus,
+        $guests,
+        $room_rate
+    ) {
+        $sqlInsertBooking = "INSERT INTO BOOKING (customerID, RoomID, checkinDate, checkOutDate, totalAmount, paymentStatus, numberOfCustomer) 
+        VALUES ('" . $customerID . "','" . $RoomID . "','" . $checkindate . "','" . $checkoutdate . "','" . $room_rate . "','" . $paymentstatus . "','" . $guests . "')";
+        $resultInsertBooking = $db->queryNoStmt($sqlInsertBooking);
+        if ($resultInsertBooking) {
+            return "Booking added successfully!";
+        } else {
+            return "Error adding customer: " . $db->getError();
+        }
+        $db->close();
+    }
+
+    public function editBooking(
+        $db,
+        $BookingID,
+        $RoomID,
+        $checkoutdate,
+        $checkindate,
+        $paymentstatus,
+        $guests,
+        $message,
+        $ROOMtatus
+    ) {
+        $sql = "UPDATE BOOKING 
+                JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+                SET 
+                BOOKING.RoomID= '" . $RoomID . "', 
+                checkinDate = '" . $checkindate . "', 
+                checkOutDate = '" . $checkoutdate . "', 
+                paymentStatus = '" . $paymentstatus . "', 
+                numberOfCustomer = '" . $guests . "', 
+                ROOM.ROOMtatus = '" . $ROOMtatus . "', 
+                message = '" . $message . "' 
+                WHERE BOOKING.BookingID = '" . $BookingID . "'";
+        $result = $db->queryNoStmt($sql);
+        if ($result) {
+            return "Update successful!";
+        } else {
+            return "Error updating record: " . $db->getError();
+        }
+        $db->close();
+    }
+
+    public function sortBooking($db, $column_name, $order)
+    {
+
+        if ($order == 'desc') {
+            $order = 'asc';
+        } else {
+            $order = 'desc';
+        }
+
+        $query = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
+        ORDER BY " . $column_name . " " . $order;
+        $result = $db->queryNoStmt($query);
+
+        if ($result) {
+            $html = '';
+            $html .= '<table class="table table-striped table-hover">';
+            $html .= '<thead>';
+            $html .= '<tr>';
+            $html .= '<th>ID</th>';
+            $html .= '<th>First Name</th>';
+            $html .= '<th>Last Name</th>';
+            $html .= '<th><a class="column_sortbooking" id="RoomID" data-order="' . $order . '" href="#">Room ID<i class="bx bx-sort-alt-2"></i></a></th>';
+            $html .= '<th><a class="column_sortbooking" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
+            $html .= '<th><a class="column_sortbooking" id="checkinDate" data-order="' . $order . '" href="#">Check In Date<i class="bx bx-sort-alt-2"></i></a></th>';
+            // $html .= '<th><a class="column_sortbooking" id="checkOutDate" data-order="' . $order . '" href="#">Check Out Date<i class="bx bx-sort-alt-2"></i></a></th>';
+            $html .= '<th><a class="column_sortbooking" id="paymentStatus" data-order="' . $order . '" href="#">Payment Status<i class="bx bx-sort-alt-2"></i></a></th>';
+            $html .= '<th>Action</th>';
+            $html .= '</tr>';
+            $html .= '</thead>';
+            $html .= '<tbody id="booking_data">';
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= '<tr>';
+                $html .= '<td>' . $row['BookingID'] . '</td>';
+                $html .= '<td>' . $row['customerFirstName'] . '</td>';
+                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['RoomID'] . '</td>';
+                $html .= '<td>' . $row['roomName'] . '</td>';
+                $html .= '<td>' . $row['checkinDate'] . '</td>';
+                // $html .= '<td>' . $row['checkOutDate'] . '</td>';
+                $html .= '<td>' . $row['paymentStatus'] . '</td>';
+                $html .= '<td>';
+                $html .= '<div class="d-flex">';
+                $html .= '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';
+                $html .= '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                $html .= '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['BookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                $html .= '</div>';
+                $html .= '</td>';
+                $html .= '</tr>';
+            }
+            $html .= '</tbody>';
+            $html .= '</table>';
+            return $html;
+        } else {
+            return 'Error executing SQL query: ' . $db->getError();
+        }
+    }
+
+    public function searchBooking($db, $searchQuery)
+    {
+
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus
+        FROM BOOKING
+        JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
+        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
+        WHERE customerFirstName LIKE '%" . $searchQuery . "%'
+            OR customerLastName LIKE '%" . $searchQuery . "%'
+            OR ROOM.RoomID LIKE '%" . $searchQuery . "%'
+            OR ROOM.roomName LIKE '%" . $searchQuery . "%'";
+
+        $result = $db->queryNoStmt($sql);
+        if ($result) {
+            $html = '';
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= '<tr>';
+                $html .= '<td>' . $row['BookingID'] . '</td>';
+                $html .= '<td>' . $row['customerFirstName'] . '</td>';
+                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['RoomID'] . '</td>';
+                $html .= '<td>' . $row['roomName'] . '</td>';
+                $html .= '<td>' . $row['checkinDate'] . '</td>';
+                // $html .= '<td>' . $row['checkOutDate'] . '</td>';
+                $html .= '<td>' . $row['paymentStatus'] . '</td>';
+                $html .= '<td>';
+                $html .= '<div class="d-flex">';
+                $html .= '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
+                        <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
+                    </a>';
+                $html .= '<a href="#editBookingModal" class="m-1 edit" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>';
+                $html .= '<a href="#deleteBookingModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['BookingID'] . ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>';
+                $html .= '</div>';
+                $html .= '</td>';
+                $html .= '</tr>';
+            }
+            return $html;
+        } else {
+            return 'Error executing SQL query: ' . $db->getError();
+        }
+    }
+
     public function closeConnection()
     {
         // Close the database connection

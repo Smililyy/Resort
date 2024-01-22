@@ -54,6 +54,23 @@ function viewCustomer($db, $id)
     $db->close();
 }
 
+function getAvgCustomer($db)
+{
+    $sqlAvgCustomer = "SELECT FORMAT(AVG(Amount), 0) AS AvgCustomer FROM INVOICE";
+    $resultAvgCustomer = $db->queryNoStmt($sqlAvgCustomer);
+    return $resultAvgCustomer;
+    $db->close();
+}
+
+
+function getTotalCustomer($db)
+{
+    $sqlTotalCustomer = "SELECT FORMAT(COUNT(*), 0) AS TotalCustomer FROM CUSTOMER";
+    $resultTotalCustomer = $db->queryNoStmt($sqlTotalCustomer);
+    return $resultTotalCustomer;
+    $db->close();
+}
+
 function addCustomer(
     $db,
     $firstName,
