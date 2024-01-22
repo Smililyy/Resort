@@ -1190,7 +1190,7 @@ require('../../controllers/AdminController.php');
 		var $j = jQuery.noConflict();
 
 		function fetchData(action, targetId) {
-			$j.get('http://localhost/hotel/src/models/Admin.php?action=' + action, function(data, status) {
+			$j.get('../../models/Admin.php?action=' + action, function(data, status) {
 				$j(targetId).html(data);
 				$j('.loading').hide();
 			});
@@ -1204,7 +1204,7 @@ require('../../controllers/AdminController.php');
 		fetchData('listmessage', '#message_data');
 		fetchData('listinvoice', '#invoice_data');
 
-		$j.get('http://localhost/hotel/src/models/Admin.php', {
+		$j.get('../../models/Admin.php', {
 			action: 'dashboard'
 		}, function(data, status) {
 			var dashboardData = JSON.parse(data);
@@ -1226,7 +1226,7 @@ require('../../controllers/AdminController.php');
 		function viewCustomer(id) {
 			$jq('.edit_employee #customer_id').val(id);
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'viewCustomer',
 				idcustomer: id
 			}, function(data, status) {
@@ -1252,7 +1252,7 @@ require('../../controllers/AdminController.php');
 		function viewRoom(id) {
 			$jq('.edit_employee #room_id').val(id);
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'viewRoom',
 				idroom: id
 			}, function(data, status) {
@@ -1273,7 +1273,7 @@ require('../../controllers/AdminController.php');
 
 		function viewMessage(id) {
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'viewMessage',
 				idmessage: id
 			}, function(data, status) {
@@ -1291,7 +1291,7 @@ require('../../controllers/AdminController.php');
 
 		function viewBooking(id) {
 			$jq('.edit_employee #booking_id').val(id);
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'viewBooking',
 				idbooking: id
 			}, function(data, status) {
@@ -1322,7 +1322,7 @@ require('../../controllers/AdminController.php');
 		}
 
 		function viewInvoice(invoicelD) {
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'viewInvoice',
 				idinvoice: invoicelD
 			}, function(data, status) {
@@ -1331,7 +1331,7 @@ require('../../controllers/AdminController.php');
 				$jq('#cus_address').text(invoiceData.customerAddress);
 				$jq('#id_order').text('Order #' + invoiceData.invoicelD);
 			});
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'listbill',
 				idinvoice: invoicelD
 			}, function(data, status) {
@@ -1346,7 +1346,7 @@ require('../../controllers/AdminController.php');
 			var subject = $jq('#subject_input').val();
 			var content = $jq('#content_input').val();
 			var parameters = "sender=" + sender + "&subject=" + subject + "&content=" + content;
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'sendMessage',
 			}, function(data, status) {
 				// Handle the response if needed
@@ -1360,7 +1360,7 @@ require('../../controllers/AdminController.php');
 		function deleteCustomer() {
 			var customerID = $jq('#delete_id').val();
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'deleteCustomer',
 				idcustomer: customerID
 			}, function(data, status) {
@@ -1373,7 +1373,7 @@ require('../../controllers/AdminController.php');
 			var bookingID = $jq('#delete_id').val();
 
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'deleteBooking',
 				idbooking: bookingID
 			}, function(data, status) {
@@ -1387,7 +1387,7 @@ require('../../controllers/AdminController.php');
 		function deleteRoom() {
 			var roomID = $jq('#delete_id').val();
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'deleteRoom',
 				idroom: roomID
 			}, function(data, status) {
@@ -1400,7 +1400,7 @@ require('../../controllers/AdminController.php');
 		function deleteMessage() {
 			var messageID = $jq('#delete_id').val();
 
-			$jq.get('http://localhost/hotel/src/models/Admin.php', {
+			$jq.get('../../models/Admin.php', {
 				action: 'deleteMessage',
 				idmessage: messageID
 			}, function(data, status) {
@@ -1427,10 +1427,10 @@ require('../../controllers/AdminController.php');
 				"&phone=" + phone +
 				"&address=" + address;
 
-			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
+			// ../../models/Admin.php?action=editBooking&bookingid=14&roomid=8&
 			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
 			// Use parameters in a GET request
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'editCustomer'
 			}, function(data, status) {
 				// Handle the response if needed
@@ -1453,10 +1453,10 @@ require('../../controllers/AdminController.php');
 				"&roomrate=" + roomrate +
 				"&roomstatus=" + roomstatus;
 
-			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
+			// ../../models/Admin.php?action=editBooking&bookingid=14&roomid=8&
 			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
 			// Use parameters in a GET request
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'editRoom'
 			}, function(data, status) {
 				// Handle the response if needed
@@ -1487,10 +1487,10 @@ require('../../controllers/AdminController.php');
 				"&roomstatus=" + roomstatus +
 				"&message=" + message;
 
-			// http://localhost/hotel/src/models/Admin.php?action=editBooking&bookingid=14&roomid=8&
+			// ../../models/Admin.php?action=editBooking&bookingid=14&roomid=8&
 			// checkoutdate=2023/1/1&checkindate=2023/2/2&paymentstatus=paid&guests&message=hello
 			// Use parameters in a GET request
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'editBooking'
 			}, function(data, status) {
 				// Handle the response if needed
@@ -1524,12 +1524,12 @@ require('../../controllers/AdminController.php');
 				"&email=" + email +
 				"&phoneNumber=" + phoneNumber +
 				"&address=" + address;
-			// alert('http://localhost/hotel/src/models/Admin.php?action=addCustomer?'+ parameters);
+			// alert('../../models/Admin.php?action=addCustomer?'+ parameters);
 			// debugger;
 			// Perform any additional client-side logic if needed
 
 			// Add logic to send the data to the server via AJAX
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'addCustomer'
 			}, function(data, status) {
 				// Handle the response from the server if needed
@@ -1555,7 +1555,7 @@ require('../../controllers/AdminController.php');
 			// Perform any additional client-side logic if needed
 
 			// Add logic to send the data to the server via AJAX
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'addRoom'
 			}, function(data, status) {
 				// Handle the response from the server if needed
@@ -1586,7 +1586,7 @@ require('../../controllers/AdminController.php');
 			// debugger;
 
 			// Add logic to send the data to the server via AJAX
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'addBooking'
 			}, function(data, status) {
 				// Handle the response from the server if needed
@@ -1609,8 +1609,8 @@ require('../../controllers/AdminController.php');
 			// }
 
 
-			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			// ../../models/Admin.php?column_name=customerFirstName&order=desc&action=sort
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'sortcustomer'
 			}, function(data, status) {
 				$jq('#sort_customer_data').html(data);
@@ -1630,8 +1630,8 @@ require('../../controllers/AdminController.php');
 			// }
 
 
-			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			// ../../models/Admin.php?column_name=customerFirstName&order=desc&action=sort
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'sortroom'
 			}, function(data, status) {
 				$jq('#sort_room_data').html(data);
@@ -1651,8 +1651,8 @@ require('../../controllers/AdminController.php');
 			// }
 
 
-			// http://localhost/hotel/src/models/Admin.php?column_name=customerFirstName&order=desc&action=sort
-			$jq.get('http://localhost/hotel/src/models/Admin.php?' + parameters, {
+			// ../../models/Admin.php?column_name=customerFirstName&order=desc&action=sort
+			$jq.get('../../models/Admin.php?' + parameters, {
 				action: 'sortbooking'
 			}, function(data, status) {
 				$jq('#sort_booking_data').html(data);
@@ -1664,7 +1664,7 @@ require('../../controllers/AdminController.php');
 			var searchQuery = $jq('#searchInput').val();
 			var contentType = $jq('.content-item.active').attr('id');
 			// Make an AJAX request to your PHP endpoint
-			$jq.get('http://localhost/hotel/src/models/Admin.php?searchQuery=' + searchQuery, {
+			$jq.get('../../models/Admin.php?searchQuery=' + searchQuery, {
 				action: contentType
 			}, function(data, status) {
 				$jq('#' + contentType + '_data').html(data);
