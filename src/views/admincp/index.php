@@ -946,7 +946,7 @@ require('../../controllers/AdminController.php');
 				<div class="modal-body view_message">
 					<div class="form-group">
 						<label>Timestamp</label>
-						<input type="date" id="timestamp_input" class="form-control" readonly>
+						<input type="text" id="timestamp_input" class="form-control" readonly>
 					</div>
 					<div class="form-group">
 						<label>Sender</label>
@@ -1292,11 +1292,12 @@ require('../../controllers/AdminController.php');
 				var messageData = JSON.parse(data);
 
 				// Update modal content with message data
-				$jq('.send_message #sender_input').val(messageData.Sender);
 				$jq('.view_message #timestamp_input').val(messageData.Timestamp);
 				$jq('.view_message #sender_input').val(messageData.Sender);
 				$jq('.view_message #subject_input').val(messageData.Subject);
 				$jq('.view_message #content_input').val(messageData.Content);
+				$jq('.send_message #sender_input').val(messageData.Sender);
+
 			});
 		}
 
@@ -1338,9 +1339,9 @@ require('../../controllers/AdminController.php');
 				idinvoice: invoicelD
 			}, function(data, status) {
 				var invoiceData = JSON.parse(data);
-				$jq('#cus_name').text(invoiceData.customerFirstName + ' ' + invoiceData.customerLastName);
-				$jq('#cus_address').text(invoiceData.customerAddress);
-				$jq('#id_order').text('Order #' + invoiceData.invoicelD);
+				$jq('#cus_name').text(invoiceData.CustomerFirstName + ' ' + invoiceData.CustomerLastName);
+				$jq('#cus_address').text(invoiceData.CustomerAddress);
+				$jq('#id_order').text('Order #' + invoiceData.InvoicelD);
 			});
 			$jq.get('../../models/Admin.php', {
 				action: 'listbill',
@@ -1361,6 +1362,8 @@ require('../../controllers/AdminController.php');
 				action: 'sendMessage',
 			}, function(data, status) {
 				// Handle the response if needed
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The email has been sent successfully");
 			});
 		}
 		// delete
@@ -1390,8 +1393,10 @@ require('../../controllers/AdminController.php');
 				idbooking: bookingID
 			}, function(data, status) {
 				// Handle the response if needed
+				$jq('#deleteBookingModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The booking has been deleted successfully");
 				fetchData('listbooking', '#booking_data');
-				$jq('#deleteBookingModal').modal('hide');
 
 			});
 		}
@@ -1404,8 +1409,11 @@ require('../../controllers/AdminController.php');
 				idroom: roomID
 			}, function(data, status) {
 				// Handle the response if needed
+				$jq('#deleteRoomModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The room has been deleted successfully");
 				fetchData('listroom', '#room_data');
-				$jq('#deleteRoomModal').modal('hide');
+
 			});
 		}
 
@@ -1417,8 +1425,11 @@ require('../../controllers/AdminController.php');
 				idmessage: messageID
 			}, function(data, status) {
 				// Handle the response if needed
+				$jq('#deleteMessageModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The message has been deleted successfully");
 				fetchData('listmessage', '#message_data');
-				$jq('#deleteMessageModal').modal('hide');
+
 			});
 		}
 
@@ -1446,8 +1457,11 @@ require('../../controllers/AdminController.php');
 				action: 'editCustomer'
 			}, function(data, status) {
 				// Handle the response if needed
+				$jq('#editCustomerModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The customer has been edited successfully");
 				fetchData('listcustomer', '#customer_data');
-				$jq('#editCustomerModal').modal('hide');
+
 			});
 
 		}
@@ -1472,8 +1486,11 @@ require('../../controllers/AdminController.php');
 				action: 'editRoom'
 			}, function(data, status) {
 				// Handle the response if needed
+				$jq('#editRoomModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The room has been edited successfully");
 				fetchData('listroom', '#room_data');
-				$jq('#editRoomModal').modal('hide');
+
 			});
 
 		}
@@ -1506,10 +1523,13 @@ require('../../controllers/AdminController.php');
 				action: 'editBooking'
 			}, function(data, status) {
 				// Handle the response if needed
+			
+				$jq('#editBookingModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The booking has been edited successfully");
 				fetchData('listbooking', '#booking_data');
 				fetchData('listroom', '#room_data');
 				fetchData('listinvoice', '#invoice_data');
-				$jq('#editBookingModal').modal('hide');
 			});
 
 		}
@@ -1572,7 +1592,9 @@ require('../../controllers/AdminController.php');
 				action: 'addRoom'
 			}, function(data, status) {
 				// Handle the response from the server if needed
-				$jq('#addRoomModal').modal('hide');
+				$jq('#addRoomModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The room has been added successfully");
 				// Update and perform additional actions
 				fetchData('listroom', '#room_data');
 			})
@@ -1603,7 +1625,9 @@ require('../../controllers/AdminController.php');
 				action: 'addBooking'
 			}, function(data, status) {
 				// Handle the response from the server if needed
-				$jq('#addBookingModal').modal('hide');
+				$jq('#addBookingModal').hide();
+				$jq('.modal-backdrop').hide();
+				alertCustome("success", "The booking has been added successfully");
 				// Update and perform additional actions
 				fetchData('listbooking', '#booking_data');
 			})

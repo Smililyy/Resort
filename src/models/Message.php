@@ -17,7 +17,7 @@ function listMessage($db)
             $html .= '<a href="#viewMessageModal" class="m-1 view" data-toggle="modal" onclick="viewMessage(' . $row['MessageID'] . ')">
                         <i class="fa" data-toggle="tooltip" title="view">&#xf06e;</i>
                     </a>';
-            $html .= '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['MessageID'] . ')">
+            $html .= '<a href="#sendModal" class="m-1 delete" data-toggle="modal" onclick="viewMessage(' . $row['MessageID'] . ')">
                         <i class="material-icons" data-toggle="tooltip" title="Send">forward_to_inbox</i>
                     </a>';
             $html .= '<a href="#deleteMessageModal" class="m-1 delete" data-toggle="modal" onclick="prepareAction(' . $row['MessageID'] . ')">

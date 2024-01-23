@@ -57,7 +57,7 @@ switch ($action) {
         echo deleteRoom($db, $id);
         break;
     case 'deleteMessage':
-        $id = $_GET['MessageID'];
+        $id = $_GET['idmessage'];
         echo deleteMessage($db, $id);
         break;
     case 'viewCustomer':
@@ -74,7 +74,7 @@ switch ($action) {
         echo $booking->viewBooking($db, $id);
         break;
     case 'viewMessage':
-        $id = $_GET['MessageID'];
+        $id = $_GET['idmessage'];
         echo viewMessage($db, $id);
         break;
     case 'viewInvoice':

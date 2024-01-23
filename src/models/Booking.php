@@ -246,10 +246,10 @@ class Booking
 
     public function viewBooking($db, $id)
     {
-        $sql = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus,  BOOKING.totalAmount, BOOKING.numberOfCustomer, BOOKING.message, ROOM.ROOMtatus
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName, ROOM.RoomID, ROOM.RoomName, BOOKING.CheckInDate, BOOKING.CheckOutDate, BOOKING.PaymentStatus,  BOOKING.TotalAmount, BOOKING.NumberOfCustomer, BOOKING.Message, ROOM.RoomStatus
         FROM BOOKING
         JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
-        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
+        JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID
         WHERE BookingID = '$id'";
         $result = $db->queryNoStmt($sql);
         if ($result) {
@@ -280,7 +280,7 @@ class Booking
         $guests,
         $room_rate
     ) {
-        $sqlInsertBooking = "INSERT INTO BOOKING (customerID, RoomID, checkinDate, checkOutDate, totalAmount, paymentStatus, numberOfCustomer) 
+        $sqlInsertBooking = "INSERT INTO BOOKING (CustomerID, RoomID, CheckInDate, CheckOutDate, TotalAmount, PaymentStatus,NumberOfCustomer) 
         VALUES ('" . $customerID . "','" . $RoomID . "','" . $checkindate . "','" . $checkoutdate . "','" . $room_rate . "','" . $paymentstatus . "','" . $guests . "')";
         $resultInsertBooking = $db->queryNoStmt($sqlInsertBooking);
         if ($resultInsertBooking) {
@@ -306,12 +306,12 @@ class Booking
                 JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
                 SET 
                 BOOKING.RoomID= '" . $RoomID . "', 
-                checkinDate = '" . $checkindate . "', 
-                checkOutDate = '" . $checkoutdate . "', 
-                paymentStatus = '" . $paymentstatus . "', 
-                numberOfCustomer = '" . $guests . "', 
-                ROOM.ROOMtatus = '" . $ROOMtatus . "', 
-                message = '" . $message . "' 
+                CheckInDate = '" . $checkindate . "', 
+                CheckOutDate = '" . $checkoutdate . "', 
+                PaymentStatus = '" . $paymentstatus . "', 
+                NumberOfCustomer = '" . $guests . "', 
+                ROOM.RoomStatus = '" . $ROOMtatus . "', 
+                Message = '" . $message . "' 
                 WHERE BOOKING.BookingID = '" . $BookingID . "'";
         $result = $db->queryNoStmt($sql);
         if ($result) {
@@ -331,10 +331,10 @@ class Booking
             $order = 'desc';
         }
 
-        $query = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus
+        $query = "SELECT BOOKING.BookingID, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName, ROOM.RoomID, ROOM.RoomName, BOOKING.CheckInDate, BOOKING.CheckOutDate, BOOKING.PaymentStatus
         FROM BOOKING
         JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
-        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
+        JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID
         ORDER BY " . $column_name . " " . $order;
         $result = $db->queryNoStmt($query);
 
@@ -358,13 +358,13 @@ class Booking
             while ($row = mysqli_fetch_assoc($result)) {
                 $html .= '<tr>';
                 $html .= '<td>' . $row['BookingID'] . '</td>';
-                $html .= '<td>' . $row['customerFirstName'] . '</td>';
-                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['CustomerFirstName'] . '</td>';
+                $html .= '<td>' . $row['CustomerLastName'] . '</td>';
                 $html .= '<td>' . $row['RoomID'] . '</td>';
-                $html .= '<td>' . $row['roomName'] . '</td>';
-                $html .= '<td>' . $row['checkinDate'] . '</td>';
+                $html .= '<td>' . $row['RoomName'] . '</td>';
+                $html .= '<td>' . $row['CheckInDate'] . '</td>';
                 // $html .= '<td>' . $row['checkOutDate'] . '</td>';
-                $html .= '<td>' . $row['paymentStatus'] . '</td>';
+                $html .= '<td>' . $row['PaymentStatus'] . '</td>';
                 $html .= '<td>';
                 $html .= '<div class="d-flex">';
                 $html .= '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">
@@ -391,14 +391,14 @@ class Booking
     public function searchBooking($db, $searchQuery)
     {
 
-        $sql = "SELECT BOOKING.BookingID, CUSTOMER.customerFirstName, CUSTOMER.customerLastName, ROOM.RoomID, ROOM.roomName, BOOKING.checkinDate, BOOKING.checkOutDate, BOOKING.paymentStatus
+        $sql = "SELECT BOOKING.BookingID, CUSTOMER.CustomerFirstName, CUSTOMER.CustomerLastName, ROOM.RoomID, ROOM.RoomName, BOOKING.CheckInDate, BOOKING.CheckOutDate, BOOKING.PaymentStatus
         FROM BOOKING
         JOIN ROOM ON BOOKING.RoomID = ROOM.RoomID
-        JOIN CUSTOMER ON BOOKING.customerID = CUSTOMER.customerID
-        WHERE customerFirstName LIKE '%" . $searchQuery . "%'
-            OR customerLastName LIKE '%" . $searchQuery . "%'
+        JOIN CUSTOMER ON BOOKING.CustomerID = CUSTOMER.CustomerID
+        WHERE CustomerFirstName LIKE '%" . $searchQuery . "%'
+            OR CustomerLastName LIKE '%" . $searchQuery . "%'
             OR ROOM.RoomID LIKE '%" . $searchQuery . "%'
-            OR ROOM.roomName LIKE '%" . $searchQuery . "%'";
+            OR ROOM.RoomName LIKE '%" . $searchQuery . "%'";
 
         $result = $db->queryNoStmt($sql);
         if ($result) {
@@ -406,13 +406,13 @@ class Booking
             while ($row = mysqli_fetch_assoc($result)) {
                 $html .= '<tr>';
                 $html .= '<td>' . $row['BookingID'] . '</td>';
-                $html .= '<td>' . $row['customerFirstName'] . '</td>';
-                $html .= '<td>' . $row['customerLastName'] . '</td>';
+                $html .= '<td>' . $row['CustomerFirstName'] . '</td>';
+                $html .= '<td>' . $row['CustomerLastName'] . '</td>';
                 $html .= '<td>' . $row['RoomID'] . '</td>';
-                $html .= '<td>' . $row['roomName'] . '</td>';
-                $html .= '<td>' . $row['checkinDate'] . '</td>';
+                $html .= '<td>' . $row['RoomName'] . '</td>';
+                $html .= '<td>' . $row['CheckInDate'] . '</td>';
                 // $html .= '<td>' . $row['checkOutDate'] . '</td>';
-                $html .= '<td>' . $row['paymentStatus'] . '</td>';
+                $html .= '<td>' . $row['PaymentStatus'] . '</td>';
                 $html .= '<td>';
                 $html .= '<div class="d-flex">';
                 $html .= '<a href="#viewBookingModal" class="m-1 view" data-toggle="modal" onclick="viewBooking(' . $row['BookingID'] . ')">

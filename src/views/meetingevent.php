@@ -258,13 +258,13 @@
                 <div class="col-3"></div>
             </div>
             <?php
-                include "../controllers/inc/db_config.php";
-                include "../controllers/inc/essentials.php";
+                include "../inc/Database.php";
 
                 $options = array();
-
+                    $database = new Database();
+                    $database->connect();
                     $sql = "SELECT DISTINCT RoomName FROM ROOM WHERE RoomType = 'Event Meeting '";
-                    $result = $con->query($sql);
+                    $result = $database->queryNoStmt($sql);
 
                 // Lặp qua kết quả và thêm giá trị vào mảng options
                 if ($result !== false && $result->num_rows > 0) {
@@ -337,10 +337,6 @@
                             });
                         });
                     </script>
-                    <?php
-                    // Đóng kết nối CSDL
-                    $con->close();
-                    ?>
                     <script>
                         function validateForm() {
                             var isValid = true;

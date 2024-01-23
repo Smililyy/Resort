@@ -3,8 +3,8 @@ include "../models/Booking.php";
 require __DIR__ . "/../models/Booking.php";
 require __DIR__ . "/./inc/essentials.php";
 require __DIR__ . "/../inc/Database.php";
-$db = new Database();
-$db->connect();
+// $db = new Database();
+// $db->connect();
 class BookingController
 {
 
@@ -41,4 +41,4 @@ class BookingController
 // Usage: Instantiate the controller and call the processMeetingEvent method
 $meetingeventController = new BookingController();
 $meetingeventController->processBooking($_POST);
-$db->close();
+// $db->close();

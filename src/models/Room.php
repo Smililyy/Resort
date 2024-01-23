@@ -159,10 +159,9 @@ function addRoom(
     $roomname,
     $roomtype,
     $roomrate,
-    $ROOMtatus,
-) {
-    $sql = "INSERT INTO ROOM (roomType, roomRate, ROOMtatus, roomName) 
-        VALUES ('" . $roomtype . "', '" . $roomrate . "', '" . $ROOMtatus . "', '" . $roomname . "')";
+    $RoomStatus){
+    $sql = "INSERT INTO ROOM (roomType, roomRate, RoomStatus, roomName) 
+        VALUES ('" . $roomtype . "', '" . $roomrate . "', '" . $RoomStatus . "', '" . $roomname . "')";
     $result = $db->queryNoStmt($sql);
     if ($result) {
         return "Room added successfully!";
@@ -173,9 +172,9 @@ function addRoom(
 }
 function updateRoomStatus($db, $RoomID)
 {
-    $sqlUpdateROOMtatus = "UPDATE ROOM SET Roomstatus = 'Reserved' WHERE RoomID = '" . $RoomID . "'";
-    $resultUpdateROOMtatus = $db->queryNoStmt($sqlUpdateROOMtatus);
-    if ($resultUpdateROOMtatus) {
+    $sqlUpdateRoomStatus = "UPDATE ROOM SET Roomstatus = 'Reserved' WHERE RoomID = '" . $RoomID . "'";
+    $resultUpdateRoomStatus = $db->queryNoStmt($sqlUpdateRoomStatus);
+    if ($resultUpdateRoomStatus) {
         throw new Exception("Error updating room status: " . $db->getError());
     }
     $db->close();
@@ -199,14 +198,14 @@ function editRoom(
     $roomname,
     $roomtype,
     $roomrate,
-    $ROOMtatus,
+    $RoomStatus
 ) {
 
     $sql = "UPDATE ROOM 
     SET 
         roomType = '" . $roomtype . "' ,
         roomRate = '" . $roomrate . "' ,
-        ROOMtatus = '" . $ROOMtatus . "' ,
+        RoomStatus = '" . $RoomStatus . "' ,
         roomName = '" . $roomname . "' 
     WHERE RoomID = '" . $RoomID . "'";
 
@@ -242,7 +241,7 @@ function sortRoom($db, $column_name, $order)
         $html .= '<th><a class="column_sortroom" id="roomName" data-order="' . $order . '" href="#">Room Name<i class="bx bx-sort-alt-2"></i></a></th>';
         $html .= '<th><a class="column_sortroom" id="roomType" data-order="' . $order . '" href="#">Room Type<i class="bx bx-sort-alt-2"></i></a></th>';
         $html .= '<th><a class="column_sortroom" id="roomRate" data-order="' . $order . '" href="#">Room Rate<i class="bx bx-sort-alt-2"></i></a></th>';
-        $html .= '<th><a class="column_sortroom" id="ROOMtatus" data-order="' . $order . '" href="#">Room Status<i class="bx bx-sort-alt-2"></i></a></th>';
+        $html .= '<th><a class="column_sortroom" id="RoomStatus" data-order="' . $order . '" href="#">Room Status<i class="bx bx-sort-alt-2"></i></a></th>';
         $html .= '<th>Action</th>';
         $html .= '</tr>';
         $html .= '</thead>';
@@ -250,10 +249,10 @@ function sortRoom($db, $column_name, $order)
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
             $html .= '<td>' . $row['RoomID'] . '</td>';
-            $html .= '<td>' . $row['roomName'] . '</td>';
-            $html .= '<td>' . $row['roomType'] . '</td>';
-            $html .= '<td>' . $row['roomRate'] . '</td>';
-            $html .= '<td>' . $row['ROOMtatus'] . '</td>';
+            $html .= '<td>' . $row['RoomName'] . '</td>';
+            $html .= '<td>' . $row['RoomType'] . '</td>';
+            $html .= '<td>' . $row['RoomRate'] . '</td>';
+            $html .= '<td>' . $row['RoomStatus'] . '</td>';
             $html .= '<td>';
             $html .= '<div class="d-flex">';
             $html .= '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
@@ -282,10 +281,10 @@ function searchRoom($db, $searchQuery)
 {
     $sql = "SELECT * FROM ROOM 
     WHERE RoomID LIKE '%" . $searchQuery . "%'
-    OR  roomName LIKE '%" . $searchQuery . "%'
-    OR  roomType LIKE '%" . $searchQuery . "%'
-    OR  roomRate LIKE '%" . $searchQuery . "%'
-    OR  ROOMtatus LIKE '%" . $searchQuery . "%'";
+    OR  RoomName LIKE '%" . $searchQuery . "%'
+    OR  RoomType LIKE '%" . $searchQuery . "%'
+    OR  RoomRate LIKE '%" . $searchQuery . "%'
+    OR  RoomStatus LIKE '%" . $searchQuery . "%'";
 
     $result = $db->queryNoStmt($sql);
     if ($result) {
@@ -293,10 +292,10 @@ function searchRoom($db, $searchQuery)
         while ($row = mysqli_fetch_assoc($result)) {
             $html .= '<tr>';
             $html .= '<td>' . $row['RoomID'] . '</td>';
-            $html .= '<td>' . $row['roomName'] . '</td>';
-            $html .= '<td>' . $row['roomType'] . '</td>';
-            $html .= '<td>' . $row['roomRate'] . '</td>';
-            $html .= '<td>' . $row['ROOMtatus'] . '</td>';
+            $html .= '<td>' . $row['RoomName'] . '</td>';
+            $html .= '<td>' . $row['RoomType'] . '</td>';
+            $html .= '<td>' . $row['RoomRate'] . '</td>';
+            $html .= '<td>' . $row['RoomStatus'] . '</td>';
             $html .= '<td>';
             $html .= '<div class="d-flex">';
             $html .= '<a href="#viewRoomModal" class="m-1 view" data-toggle="modal" onclick="viewRoom(' . $row['RoomID'] . ')">
