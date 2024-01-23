@@ -2,7 +2,6 @@
 require '../../vendor/PHPMailer/src/Exception.php';
 require '../../vendor/PHPMailer/src/SMTP.php';
 require '../../vendor/PHPMailer/src/PHPMailer.php';
-require '../inc/Database.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
